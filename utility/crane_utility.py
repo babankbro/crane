@@ -28,6 +28,7 @@ def save_data_lookup(fname, data_lookup):
         "FTS_DATA":data_lookup["FTS_DATA"],
         "CRANE_RATE": rate_lookup,
         "ORDER_DATA":  data_lookup["ORDER_DATA"],
+        "CARGO": data_lookup["CARGO"],
     }
     json.dump(datas, save_file, indent = 4,  cls=NpEncoder) 
     save_file.close()  
@@ -49,6 +50,7 @@ def load_data_lookup(fname):
         "ORDER_DATA":  order_datalookup,
         "DISTANCE_MATRIX": DM,
         "CRANE_RATE": RATE_LOOKUP(df_rate),
+        "CARGO":data["CARGO"]
     }
 
 
@@ -80,15 +82,14 @@ def print_order():
 
 if __name__ == "__main__":
     
-    #data_lookup = create_data_lookup()
-    #DM_lookup = data_lookup["DISTANCE_MATRIX"]
+    data_lookup = create_data_lookup()
     
-    #save_data_lookup('/root/crane/dataset/data1.json', data_lookup)
+    save_data_lookup('/root/crane/dataset/data2.json', data_lookup)
     #print(data_lookup["CRANE_RATE"].crane_rate_df)
     
-    data_lookup = load_data_lookup('./dataset/data1.json')
-    DM_lookup = data_lookup["DISTANCE_MATRIX"]
+    #data_lookup = load_data_lookup('./dataset/data1.json')
     
+    DM_lookup = data_lookup["DISTANCE_MATRIX"]
     print(DM_lookup.DM.shape)
     print(DM_lookup.get_carrier_distance(10, 12))
     print("Test utility")
