@@ -12,8 +12,8 @@ class Decoder:
         self.NSHIP = len(data_lookup['ORDER_DATA']["LAT"])
         self.NFTS = len(data_lookup['FTS_DATA']["LAT"])
         
-        self.arrival_hours = data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR']
-        self.due_hours = data_lookup['ORDER_DATA']['DUE_TIME_HOUR']
+        self.arrival_hours = np.array(data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR'])
+        self.due_hours = np.array(data_lookup['ORDER_DATA']['DUE_TIME_HOUR'])
         due_hours = self.due_hours
         arrival_hours = self.arrival_hours
         
@@ -290,7 +290,8 @@ class Decoder:
 
 if __name__ == "__main__":
     
-    data_lookup = create_data_lookup()
+    #data_lookup = create_data_lookup()
+    data_lookup = load_data_lookup('./dataset/data1.json')
     decoder = Decoder(data_lookup)
     DM_lookup = data_lookup["DISTANCE_MATRIX"]
     

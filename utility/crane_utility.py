@@ -43,7 +43,7 @@ def load_data_lookup(fname):
     DM = Distance_Lookup(fts_datalookup, order_datalookup)
     json_obj = json.loads(data["CRANE_RATE"])
     df_rate = pd.DataFrame(json_obj)
-    print(df_rate)
+    #print(df_rate)
     return { 
         "FTS_DATA": fts_datalookup,
         "ORDER_DATA":  order_datalookup,
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     #save_data_lookup('/root/crane/dataset/data1.json', data_lookup)
     #print(data_lookup["CRANE_RATE"].crane_rate_df)
     
-    data_lookup = load_data_lookup('/root/crane/dataset/data1.json')
+    data_lookup = load_data_lookup('./dataset/data1.json')
     DM_lookup = data_lookup["DISTANCE_MATRIX"]
     
     print(DM_lookup.DM.shape)

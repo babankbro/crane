@@ -21,15 +21,17 @@ class DateTimeEncoder(JSONEncoder):
                 return formatted_string
             if isinstance(obj, (datetime.date, datetime.datetime)):
                 return obj.isoformat()
+try:
+    mydb = mysql.connector.connect(
+    host="127.0.0.1",
+    user="sugarotpzlab_crane",
+    password="P@ssw0rd;Crane"
+    )
 
-mydb = mysql.connector.connect(
-  host="127.0.0.1",
-  user="sugarotpzlab_crane",
-  password="P@ssw0rd;Crane"
-)
-
-mycursor = mydb.cursor(dictionary=True)
-mycursor.execute('USE sugarotpzlab_crane')
+    mycursor = mydb.cursor(dictionary=True)
+    mycursor.execute('USE sugarotpzlab_crane')
+except:
+    print("No connect database")
 
 
 def get_all_FTS():
