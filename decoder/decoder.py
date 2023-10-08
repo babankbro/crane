@@ -223,10 +223,12 @@ class Decoder:
     def init_ship_infos(self):
         NSHIP = self.NSHIP 
         ship_infos = []
+        ORDER_DATA = self.data_lookup['ORDER_DATA']
         for ship_id in range(NSHIP):
             ship_info = {"ship_id": ship_id, 
-                         "open_time":arrival_hours[ship_id], 
-                         "due_time":deadline_hours[ship_id], 
+                         "ship_name": ORDER_DATA['CARRIER'],
+                         "open_time": ORDER_DATA['ARRIVAL_TIME_HOUR'][ship_id], 
+                         "due_time": ORDER_DATA['DUE_TIME_HOUR'][ship_id], 
                          "cargo_type":cargo_type, 
                         "demand":DEMANDs[ship_id][cargo_type], 
                         "crane_ids":[], 
@@ -238,12 +240,19 @@ class Decoder:
     
     
     def decode(self, xs):
-        ship_ids = np.argsort(xs[:self.NSHIP]*self.WSHIP + (1-self.WSHIP)*self.SHIP_WEIGHTs)
-        scodes = self.get_ship_codes(xs[self.NSHIP:])
+        #ARRIVAL_TIME_HOUR
+        
+        
+        #ship_ids = np.argsort(xs[:self.NSHIP]*self.WSHIP + (1-self.WSHIP)*self.SHIP_WEIGHTs)
+        ship_ids = np.argsort(self.data_lookup['ORDER_DATA']['DUE_TIME_HOUR'])
+        #scodes = self.get_ship_codes(xs[self.NSHIP:])
         crane_infos = self.init_fts_infos()
+        print(ship_ids)
+        print(crane_infos)
+        
+        
+        #ship_infos = self.init_ship_infos()
         """
-        ship_infos = init_ship_infos()
-
         for i in range(NSHIP):
             ship_id = ship_ids[i]
             ship_info = ship_infos[ship_id]
@@ -305,4 +314,7 @@ if __name__ == "__main__":
     
     print(DM_lookup.DM.shape)
     print(DM_lookup.get_carrier_distance(10, 12))
+    
+    #print(pd.DataFrame(data_lookup['ORDER_DATA']))
+    
     print("Test utility")

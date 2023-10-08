@@ -57,12 +57,14 @@ def create_data_lookup():
     crane_rate_datalookup = create_crane_rate_data()
     order_data = create_order_data()
     DM = Distance_Lookup(fts_datalookup, order_data)
+    cargo_data = get_all_cargo()
     
     return {
         "FTS_DATA":fts_datalookup,
         "CRANE_RATE": crane_rate_datalookup,
         "ORDER_DATA": order_data,
         "DISTANCE_MATRIX": DM,
+        "CARGO": cargo_data,
     }
     
     
