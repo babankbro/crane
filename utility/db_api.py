@@ -102,4 +102,5 @@ if __name__ == "__main__":
     [print(row) for row in rows]
     
     order_data = get_all_orders()
-    print(order_data[""])
+    for d in order_data:
+        print(d)

@@ -3,11 +3,13 @@ import pandas as pd
 import numpy as np
 from rate_lookup import *
 from datetime import datetime
+from distance_lookup import *
 
 new_year_date = datetime(2023, 1, 1)
 ns = 1e-9
-def convert_to_hour_from_new_year(npdate_time):
-    dt = datetime.utcfromtimestamp(npdate_time.astype(int)*ns)
+def convert_to_hour_from_new_year(dt):
+    #dt = datetime.utcfromtimestamp(npdate_time.astype(int)*ns)
+    #dt = int(dt_obj.replace(tzinfo=timezone.utc).timestamp())
     delta = (dt - new_year_date).total_seconds() / 60/60
     return delta
 
@@ -15,6 +17,7 @@ def convert_to_hours(array_times):
     time_hours = []
     for i in range(len(array_times)):
         npdate_time = array_times[i]
+        npdate_time = datetime.strptime(npdate_time, '%Y-%m-%d %H:%M:%S')
         t = convert_to_hour_from_new_year(npdate_time)
         time_hours.append(t)
     return np.array(time_hours)
@@ -36,6 +39,7 @@ def create_order_data():
     order_df = pd.DataFrame(order_json)
     arrival_times = order_df['arrival_time'].to_numpy()
     dutedate_times = order_df['deadline_time'].to_numpy()
+    #print("arrival_times", arrival_times)
     arrival_hour_times = convert_to_hours(arrival_times)
     dutedate_hour_times = convert_to_hours(dutedate_times)
     mhour = np.min(arrival_hour_times)
@@ -94,4 +98,10 @@ if __name__ == "__main__":
         #print(rate)
     #rate_lookup = create_crane_rate_data()
     fts_datalookup = create_fts_data()
-    print(fts_datalookup.keys())
+    print(pd.DataFrame(fts_datalookup))
+    print(pd.DataFrame(order_data))
+    
+    distance_datalookup = Distance_Lookup(fts_datalookup, order_data)
+    print(distance_datalookup.DM)
+    
+    

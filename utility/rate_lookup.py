@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
+from json import JSONEncoder
 
-class RATE_LOOKUP:
+class RATE_LOOKUP(dict):
     def __init__(self, crane_rate_df):
         self.crane_id_lookup = {}
         self.crane_name_lookup = {}
@@ -85,3 +86,5 @@ class RATE_LOOKUP:
         cargo_id = self.category_id_lookup[cargo_name]
         return self.get_operation_rate_by_id(crane_id, category_id, cargo_id)
 
+    def default(self, o):
+        return o.__dict__  
