@@ -12,7 +12,7 @@
             ],
             "end_times": [
                 164.0,
-                172.14,
+                174.11,
                 790.55
             ],
             "start_times": [
@@ -22,12 +22,12 @@
             ],
             "demands": [
                 60587,
-                3042,
+                4023,
                 36671
             ],
             "process_times": [
                 161.9976,
-                6.0841,
+                8.046,
                 98.0512
             ],
             "fts_setup_time": 2.0,
@@ -46,6 +46,11 @@
                 0.31,
                 0.21,
                 0.31
+            ],
+            "operation_rates": [
+                374,
+                500,
+                374
             ]
         },
         {
@@ -58,40 +63,35 @@
                 6,
                 3,
                 7,
-                4,
-                11
+                4
             ],
             "end_times": [
                 164.0,
                 434.63,
                 673.35,
                 698.21,
-                790.55,
-                811.46
+                790.55
             ],
             "start_times": [
                 2.0,
                 414.5,
                 644.5,
                 675.39,
-                700.33,
-                792.75
+                700.33
             ],
             "demands": [
                 72413,
                 9000,
                 18000,
                 10200,
-                40329,
-                8364
+                40329
             ],
             "process_times": [
                 161.9976,
                 20.1342,
                 28.8462,
                 22.8188,
-                90.2212,
-                18.7106
+                90.2212
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
@@ -100,24 +100,28 @@
                 0.83,
                 2.43,
                 0.86,
-                2.4,
-                3.91
+                2.4
             ],
             "travel_times": [
                 0,
                 0.04,
                 0.12,
                 0.04,
-                0.12,
-                0.2
+                0.12
             ],
             "consumption_rates": [
                 0.19,
                 0.19,
                 0.18,
                 0.2,
-                0.19,
-                0.2
+                0.19
+            ],
+            "operation_rates": [
+                447,
+                447,
+                624,
+                447,
+                447
             ]
         },
         {
@@ -126,46 +130,42 @@
             "fts_name": "\u0e1a\u0e38\u0e2b\u0e07\u0e32",
             "speed": 20.0,
             "ids": [
-                5,
-                2,
-                13
+                9,
+                8
             ],
             "end_times": [
-                89.74,
-                413.64,
-                534.5
+                641.36,
+                660.25
             ],
             "start_times": [
-                32.5,
-                356.5,
-                434.5
+                608.5,
+                643.41
             ],
             "demands": [
-                34000,
-                40000,
-                70000
+                23000,
+                10000
             ],
             "process_times": [
-                57.2391,
-                57.1429,
-                100.0
+                32.8571,
+                16.835
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
                 0,
-                2.09,
-                4.29
+                1.07
             ],
             "travel_times": [
                 0,
-                0.1,
-                0.21
+                0.05
             ],
             "consumption_rates": [
-                0.2,
                 0.19,
-                0.19
+                0.2
+            ],
+            "operation_rates": [
+                700,
+                594
             ]
         },
         {
@@ -175,37 +175,59 @@
             "speed": 20.0,
             "ids": [
                 10,
-                9
+                2,
+                11,
+                13
             ],
             "end_times": [
                 106.54,
-                641.35
+                417.11,
+                755.71,
+                863.81
             ],
             "start_times": [
                 80.5,
-                606.5
+                356.5,
+                692.5,
+                757.75
             ],
             "demands": [
                 20000,
-                23000
+                40000,
+                27623,
+                70000
             ],
             "process_times": [
                 26.0417,
-                34.8485
+                60.6061,
+                63.2111,
+                106.0606
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
                 0,
-                0.9
+                1.34,
+                3.67,
+                0.85
             ],
             "travel_times": [
                 0,
+                0.07,
+                0.18,
                 0.04
             ],
             "consumption_rates": [
                 0.18,
+                0.19,
+                0.38,
                 0.19
+            ],
+            "operation_rates": [
+                768,
+                660,
+                437,
+                660
             ]
         },
         {
@@ -214,46 +236,51 @@
             "fts_name": "\u0e25\u0e14\u0e32\u0e27\u0e31\u0e25\u0e22\u0e4c",
             "speed": 20.0,
             "ids": [
-                1,
-                8,
+                5,
+                11,
                 12
             ],
             "end_times": [
-                172.14,
-                647.77,
-                762.11
+                91.22,
+                755.71,
+                870.01
             ],
             "start_times": [
-                56.5,
-                630.5,
-                649.85
+                32.5,
+                692.5,
+                757.74
             ],
             "demands": [
-                66958,
-                10000,
+                34000,
+                22377,
                 65000
             ],
             "process_times": [
-                115.6441,
-                17.2712,
+                58.7219,
+                63.2111,
                 112.2625
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
                 0,
-                1.84,
-                1.53
+                4.86,
+                0.66
             ],
             "travel_times": [
                 0,
-                0.09,
-                0.08
+                0.24,
+                0.03
             ],
             "consumption_rates": [
                 0.18,
-                0.18,
+                0.34,
                 0.18
+            ],
+            "operation_rates": [
+                579,
+                354,
+                579
             ]
         },
         {
@@ -262,19 +289,19 @@
             "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
             "speed": 20.0,
             "ids": [
-                11
+                1
             ],
             "end_times": [
-                811.46
+                174.11
             ],
             "start_times": [
-                694.5
+                56.5
             ],
             "demands": [
-                41636
+                65977
             ],
             "process_times": [
-                116.9561
+                117.606
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
@@ -285,7 +312,10 @@
                 0
             ],
             "consumption_rates": [
-                0.35
+                0.21
+            ],
+            "operation_rates": [
+                561
             ]
         }
     ],
@@ -300,12 +330,12 @@
             "demand": 133000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                1,
-                0
+                0,
+                1
             ],
             "fts_crane_demands": [
-                72413,
-                60587
+                60587,
+                72413
             ],
             "fts_crane_enter_times": [
                 2.0,
@@ -330,24 +360,24 @@
             "demand": 70000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                4,
+                5,
                 0
             ],
             "fts_crane_demands": [
-                66958,
-                3042
+                65977,
+                4023
             ],
             "fts_crane_enter_times": [
                 56.5,
                 166.06
             ],
             "fts_crane_exit_times": [
-                172.14,
-                172.14
+                174.11,
+                174.11
             ],
             "fts_crane_operation_times": [
-                115.6441,
-                6.0841
+                117.606,
+                8.046
             ]
         },
         {
@@ -360,7 +390,7 @@
             "demand": 40000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                2
+                3
             ],
             "fts_crane_demands": [
                 40000
@@ -369,10 +399,10 @@
                 356.5
             ],
             "fts_crane_exit_times": [
-                413.64
+                417.11
             ],
             "fts_crane_operation_times": [
-                57.1429
+                60.6061
             ]
         },
         {
@@ -410,24 +440,24 @@
             "demand": 77000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                0,
-                1
+                1,
+                0
             ],
             "fts_crane_demands": [
-                36671,
-                40329
+                40329,
+                36671
             ],
             "fts_crane_enter_times": [
-                692.5,
-                700.33
+                700.33,
+                692.5
             ],
             "fts_crane_exit_times": [
                 790.55,
                 790.55
             ],
             "fts_crane_operation_times": [
-                98.0512,
-                90.2212
+                90.2212,
+                98.0512
             ]
         },
         {
@@ -440,7 +470,7 @@
             "demand": 34000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                2
+                4
             ],
             "fts_crane_demands": [
                 34000
@@ -449,10 +479,10 @@
                 32.5
             ],
             "fts_crane_exit_times": [
-                89.74
+                91.22
             ],
             "fts_crane_operation_times": [
-                57.2391
+                58.7219
             ]
         },
         {
@@ -515,19 +545,19 @@
             "demand": 10000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                4
+                2
             ],
             "fts_crane_demands": [
                 10000
             ],
             "fts_crane_enter_times": [
-                630.5
+                643.41
             ],
             "fts_crane_exit_times": [
-                647.77
+                660.25
             ],
             "fts_crane_operation_times": [
-                17.2712
+                16.835
             ]
         },
         {
@@ -540,19 +570,19 @@
             "demand": 23000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                3
+                2
             ],
             "fts_crane_demands": [
                 23000
             ],
             "fts_crane_enter_times": [
-                606.5
+                608.5
             ],
             "fts_crane_exit_times": [
-                641.35
+                641.36
             ],
             "fts_crane_operation_times": [
-                34.8485
+                32.8571
             ]
         },
         {
@@ -590,24 +620,24 @@
             "demand": 50000.0,
             "categroy_name": "import",
             "fts_crane_ids": [
-                5,
-                1
+                4,
+                3
             ],
             "fts_crane_demands": [
-                41636,
-                8364
+                22377,
+                27623
             ],
             "fts_crane_enter_times": [
-                694.5,
-                792.75
+                692.5,
+                692.5
             ],
             "fts_crane_exit_times": [
-                811.46,
-                811.46
+                755.71,
+                755.71
             ],
             "fts_crane_operation_times": [
-                116.9561,
-                18.7106
+                63.2111,
+                63.2111
             ]
         },
         {
@@ -626,10 +656,10 @@
                 65000
             ],
             "fts_crane_enter_times": [
-                649.85
+                757.74
             ],
             "fts_crane_exit_times": [
-                762.11
+                870.01
             ],
             "fts_crane_operation_times": [
                 112.2625
@@ -645,19 +675,19 @@
             "demand": 70000.0,
             "categroy_name": "export",
             "fts_crane_ids": [
-                2
+                3
             ],
             "fts_crane_demands": [
                 70000
             ],
             "fts_crane_enter_times": [
-                434.5
+                757.75
             ],
             "fts_crane_exit_times": [
-                534.5
+                863.81
             ],
             "fts_crane_operation_times": [
-                100.0
+                106.0606
             ]
         }
     ]

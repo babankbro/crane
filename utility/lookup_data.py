@@ -5,12 +5,12 @@ from rate_lookup import *
 from datetime import datetime
 from distance_lookup import *
 
-new_year_date = datetime(2023, 1, 1)
+BASE_DATE_TIME = datetime(2023, 1, 1)
 ns = 1e-9
 def convert_to_hour_from_new_year(dt):
     #dt = datetime.utcfromtimestamp(npdate_time.astype(int)*ns)
     #dt = int(dt_obj.replace(tzinfo=timezone.utc).timestamp())
-    delta = (dt - new_year_date).total_seconds() / 60/60
+    delta = (dt - BASE_DATE_TIME).total_seconds() / 60/60
     return delta
 
 def convert_to_hours(array_times):

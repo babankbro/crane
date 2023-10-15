@@ -23,9 +23,9 @@ class DateTimeEncoder(JSONEncoder):
                 return obj.isoformat()
 try:
     mydb = mysql.connector.connect(
-    host="127.0.0.1",
-    user="sugarotpzlab_crane",
-    password="P@ssw0rd;Crane"
+        host="127.0.0.1",
+        user="sugarotpzlab_crane",
+        password="P@ssw0rd;Crane"
     )
 
     mycursor = mydb.cursor(dictionary=True)
@@ -64,8 +64,6 @@ def get_all_orders():
     rows = mycursor.fetchall()
     return rows
 
-
-
 def get_all_cargo():
     
     mycursor.execute("select * from cargo;")
@@ -75,8 +73,6 @@ def get_all_cargo():
 
     #print(data_dict)
     return rows
-
-
 
 def get_all_floatingCrane():
     mycursor.execute("select * from floating_crane")

@@ -17,6 +17,7 @@ sys.path.insert(0, "./utility")
 
 from crane_utility import *
 from decoder import *
+from insert_db_api import *
 
 
 
@@ -104,7 +105,7 @@ if __name__ == "__main__":
 
     resGA = minimize(problem,
                 algorithm,
-                ("n_gen", 300),
+                ("n_gen", 30),
                     seed=1,
                     #display=MyDisplay(),
                     verbose=True)
@@ -112,9 +113,9 @@ if __name__ == "__main__":
     print("Best solution found: \nX = %s\nF = %s" % (resGA.X, resGA.F))
     print("Solution", resGA.opt.get("pheno")[0])
     print()
-    crane_infos, ship_infos =  decoder.decode(resGA.X)
+    fts_crane_infos, ship_infos =  decoder.decode(resGA.X)
 
-    for ci in crane_infos:
+    for ci in fts_crane_infos:
         print(ci)
 
     print()
@@ -122,7 +123,7 @@ if __name__ == "__main__":
         print(si)
 
     loads = []
-    for ci in crane_infos:
+    for ci in fts_crane_infos:
         tload = np.sum(ci["demands"])
         loads.append(tload)
     loads = np.array(loads)
@@ -131,7 +132,7 @@ if __name__ == "__main__":
     
     save_file = open("./dataset/solution1.json", "w")  
     
-    json.dump( {'fts_infos':crane_infos,
+    json.dump( {'fts_infos':fts_crane_infos,
                 'ship_infos':ship_infos} , save_file, indent = 4,  cls=NpEncoder) 
     
     

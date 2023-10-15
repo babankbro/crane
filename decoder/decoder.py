@@ -258,7 +258,8 @@ class Decoder:
                           "crane_setup_times": [],
                          "distances":[], 
                          "travel_times":[], 
-                         "consumption_rates":[]}
+                         "consumption_rates":[],
+                         "operation_rates":[]}
             #print(crane_info)
             fts_infos.append(fts_info)
         return fts_infos
@@ -335,6 +336,7 @@ class Decoder:
                 crane_info['distances'].append(crane_delta_info['distance'])
                 crane_info['travel_times'].append(crane_delta_info['travel_time'])
                 crane_info['consumption_rates'].append(crane_delta_info['consumption_rate'])
+                crane_info['operation_rates'].append(crane_delta_info['process_rate'])
                 #print(crane_info)
 
                 ship_info["fts_crane_ids"].append(cid)
