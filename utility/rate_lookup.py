@@ -8,6 +8,12 @@ class RATE_LOOKUP(dict):
         self.crane_name_lookup = {}
         self.crane_index_id_lookup = {}
         self.crane_index_lookup = {}
+        
+        self.fts_id_lookup = {}
+        self.fts_name_lookup = {}
+        self.fts_index_id_lookup = {}
+        self.fts_index_lookup = {}
+        
         self.cargo_id_lookup = {}
         self.cargo_name_lookup = {}
         self.cargo_index_id_lookup = {}
@@ -19,11 +25,22 @@ class RATE_LOOKUP(dict):
         crane_names = np.unique(crane_rate_df["crane_name"])
         cargo_ids = np.unique(crane_rate_df["cargo_id"])
         cargo_names = np.unique(crane_rate_df["cargo_name"])
+        
+        fts_ids = np.unique(crane_rate_df["FTS_id"])
+        fts_names = np.unique(crane_rate_df["FTS_name"])
+        
         for i in range(len(crane_ids)):
             self.crane_id_lookup[crane_names[i]] =  crane_ids[i]
             self.crane_name_lookup[crane_ids[i]] =  crane_names[i]
             self.crane_index_id_lookup[i] = crane_ids[i]
             self.crane_index_lookup[crane_ids[i]] = i
+            
+        for i in range(len(fts_ids)):
+            self.fts_id_lookup[fts_names[i]] =  fts_ids[i]
+            self.fts_name_lookup[fts_ids[i]] =  fts_names[i]
+            self.fts_index_id_lookup[i] = fts_ids[i]
+            self.fts_index_lookup[fts_ids[i]] = i
+            
         for i in range(len(cargo_ids)):
             self.cargo_id_lookup[cargo_names[i]] =  cargo_ids[i]
             self.cargo_name_lookup[cargo_ids[i]] =  cargo_names[i]
@@ -62,6 +79,44 @@ class RATE_LOOKUP(dict):
         self.raw_data_operation_rates = np.array(self.raw_data_operation_rates)
         print(self.raw_data_consumption_rates.shape, self.raw_data_operation_rates.shape)  
         
+        
+        self.raw_data_fts_consumption_rates = []
+        self.raw_data_fts_operation_rates = []
+        for i in range(len(fts_ids)):
+            fts_id = self.fts_index_id_lookup[i]
+            crane_ids = np.unique(self.crane_rate_df[self.crane_rate_df["FTS_id"] == fts_id]['crane_id'])
+            fts_consumption_rates = []
+            fts_operation_rates = []
+            
+            for j in range(2):
+                category_name = self.category_name_lookup[j] 
+                category_consumption_rates = []
+                category_operation_rates = []
+                for k in range(len(cargo_ids)):
+                    cargo_id = self.cargo_index_id_lookup[k]
+                    totalc = 0
+                    totalo = 0
+                    for crane_id in crane_ids:
+                        crate = self.get_consumption_rate_by_id(crane_id, j, cargo_id)
+                        orate = self.get_operation_rate_by_id(crane_id, j, cargo_id)
+                        totalc += crate
+                        totalo += orate
+                    totalc /= len(crane_ids)
+                    totalo /= len(crane_ids)
+                    category_consumption_rates.append(totalc)
+                    category_operation_rates.append(totalo)
+                fts_consumption_rates.append(category_consumption_rates)
+                fts_operation_rates.append(category_operation_rates)
+            
+            self.raw_data_fts_consumption_rates.append(fts_consumption_rates)
+            self.raw_data_fts_operation_rates.append(fts_operation_rates)
+        
+        self.raw_data_fts_consumption_rates = np.array(self.raw_data_fts_consumption_rates)
+        self.raw_data_fts_operation_rates = np.array(self.raw_data_fts_operation_rates)
+        print(self.raw_data_consumption_rates.shape, self.raw_data_operation_rates.shape)  
+                        
+        
+        
         #print(self.crane_rate_df['category'])
     
     def get_consumption_rate_by_id(self, crane_id, category_id, cargo_id):
@@ -71,7 +126,7 @@ class RATE_LOOKUP(dict):
     
     def get_consumption_rate_by_name(self, crane_name, category, cargo_name):
         crane_id = self.crane_id_lookup[crane_name]
-        category_id = self.category_id_lookup[crane_name]
+        category_id = self.category_id_lookup[category]
         cargo_id = self.cargo_id_lookup[cargo_name]
         return self.get_consumption_rate_by_id(crane_id, category_id, cargo_id)
     
@@ -80,11 +135,32 @@ class RATE_LOOKUP(dict):
         cargo_index  = self.cargo_index_lookup[cargo_id]
         return self.raw_data_operation_rates[crane_index, category_id, cargo_index]
     
-    def get_operation_rate_by_name(self, crane_id, category, cargo_id):
+    def get_operation_rate_by_name(self, crane_name, category, cargo_name):
         crane_id = self.crane_id_lookup[crane_name]
-        category_id = self.category_id_lookup[crane_name]
-        cargo_id = self.category_id_lookup[cargo_name]
+        category_id = self.category_id_lookup[category]
+        cargo_id = self.cargo_id_lookup[cargo_name]
         return self.get_operation_rate_by_id(crane_id, category_id, cargo_id)
-
-    def default(self, o):
-        return o.__dict__  
+    
+    def get_operation_rate_by_fts_id(self, fts_id, category_id, cargo_id):
+        fts_index  = self.fts_index_lookup[fts_id]
+        cargo_index  = self.cargo_index_lookup[cargo_id]
+        return self.raw_data_operation_rates[fts_index, category_id, cargo_index]
+    
+    def get_operation_rate_by_fts_name(self, fts_name, category, cargo_name):
+        fts_id = self.fts_id_lookup[fts_name]
+        category_id = self.category_id_lookup[category]
+        cargo_id = self.cargo_id_lookup[cargo_name]
+        return self.get_operation_rate_by_fts_id(fts_id, category_id, cargo_id)
+    
+    def get_consumption_rate_by_fts_id(self, fts_id, category_id, cargo_id):
+        fts_index  = self.fts_index_lookup[fts_id]
+        cargo_index  = self.cargo_index_lookup[cargo_id]
+        return self.raw_data_fts_consumption_rates[fts_index, category_id, cargo_index]
+    
+    def get_consumption_rate_by_fts_name(self, fts_name, category, cargo_name):
+        fts_id = self.fts_id_lookup[fts_name]
+        category_id = self.category_id_lookup[category]
+        cargo_id = self.cargo_id_lookup[cargo_name]
+        return self.get_consumption_rate_by_fts_id(fts_id, category_id, cargo_id)
+        
+        

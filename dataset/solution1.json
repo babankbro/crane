@@ -1,0 +1,664 @@
+{
+    "fts_infos": [
+        {
+            "fts_id": 0,
+            "fts_db_id": 45,
+            "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
+            "speed": 20.0,
+            "ids": [
+                0,
+                1,
+                4
+            ],
+            "end_times": [
+                164.0,
+                172.14,
+                790.55
+            ],
+            "start_times": [
+                2.0,
+                166.06,
+                692.5
+            ],
+            "demands": [
+                60587,
+                3042,
+                36671
+            ],
+            "process_times": [
+                161.9976,
+                6.0841,
+                98.0512
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0,
+                1.2,
+                1.08
+            ],
+            "travel_times": [
+                0,
+                0.06,
+                0.05
+            ],
+            "consumption_rates": [
+                0.31,
+                0.21,
+                0.31
+            ]
+        },
+        {
+            "fts_id": 1,
+            "fts_db_id": 46,
+            "fts_name": "\u0e41\u0e01\u0e48\u0e19\u0e15\u0e30\u0e27\u0e31\u0e19",
+            "speed": 20.0,
+            "ids": [
+                0,
+                6,
+                3,
+                7,
+                4,
+                11
+            ],
+            "end_times": [
+                164.0,
+                434.63,
+                673.35,
+                698.21,
+                790.55,
+                811.46
+            ],
+            "start_times": [
+                2.0,
+                414.5,
+                644.5,
+                675.39,
+                700.33,
+                792.75
+            ],
+            "demands": [
+                72413,
+                9000,
+                18000,
+                10200,
+                40329,
+                8364
+            ],
+            "process_times": [
+                161.9976,
+                20.1342,
+                28.8462,
+                22.8188,
+                90.2212,
+                18.7106
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0,
+                0.83,
+                2.43,
+                0.86,
+                2.4,
+                3.91
+            ],
+            "travel_times": [
+                0,
+                0.04,
+                0.12,
+                0.04,
+                0.12,
+                0.2
+            ],
+            "consumption_rates": [
+                0.19,
+                0.19,
+                0.18,
+                0.2,
+                0.19,
+                0.2
+            ]
+        },
+        {
+            "fts_id": 2,
+            "fts_db_id": 47,
+            "fts_name": "\u0e1a\u0e38\u0e2b\u0e07\u0e32",
+            "speed": 20.0,
+            "ids": [
+                5,
+                2,
+                13
+            ],
+            "end_times": [
+                89.74,
+                413.64,
+                534.5
+            ],
+            "start_times": [
+                32.5,
+                356.5,
+                434.5
+            ],
+            "demands": [
+                34000,
+                40000,
+                70000
+            ],
+            "process_times": [
+                57.2391,
+                57.1429,
+                100.0
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0,
+                2.09,
+                4.29
+            ],
+            "travel_times": [
+                0,
+                0.1,
+                0.21
+            ],
+            "consumption_rates": [
+                0.2,
+                0.19,
+                0.19
+            ]
+        },
+        {
+            "fts_id": 3,
+            "fts_db_id": 48,
+            "fts_name": "\u0e01\u0e23\u0e23\u0e13\u0e34\u0e01\u0e32\u0e23\u0e4c",
+            "speed": 20.0,
+            "ids": [
+                10,
+                9
+            ],
+            "end_times": [
+                106.54,
+                641.35
+            ],
+            "start_times": [
+                80.5,
+                606.5
+            ],
+            "demands": [
+                20000,
+                23000
+            ],
+            "process_times": [
+                26.0417,
+                34.8485
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0,
+                0.9
+            ],
+            "travel_times": [
+                0,
+                0.04
+            ],
+            "consumption_rates": [
+                0.18,
+                0.19
+            ]
+        },
+        {
+            "fts_id": 4,
+            "fts_db_id": 49,
+            "fts_name": "\u0e25\u0e14\u0e32\u0e27\u0e31\u0e25\u0e22\u0e4c",
+            "speed": 20.0,
+            "ids": [
+                1,
+                8,
+                12
+            ],
+            "end_times": [
+                172.14,
+                647.77,
+                762.11
+            ],
+            "start_times": [
+                56.5,
+                630.5,
+                649.85
+            ],
+            "demands": [
+                66958,
+                10000,
+                65000
+            ],
+            "process_times": [
+                115.6441,
+                17.2712,
+                112.2625
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0,
+                1.84,
+                1.53
+            ],
+            "travel_times": [
+                0,
+                0.09,
+                0.08
+            ],
+            "consumption_rates": [
+                0.18,
+                0.18,
+                0.18
+            ]
+        },
+        {
+            "fts_id": 5,
+            "fts_db_id": 50,
+            "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
+            "speed": 20.0,
+            "ids": [
+                11
+            ],
+            "end_times": [
+                811.46
+            ],
+            "start_times": [
+                694.5
+            ],
+            "demands": [
+                41636
+            ],
+            "process_times": [
+                116.9561
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0
+            ],
+            "travel_times": [
+                0
+            ],
+            "consumption_rates": [
+                0.35
+            ]
+        }
+    ],
+    "ship_infos": [
+        {
+            "ship_id": 0,
+            "ship_db_id": 1,
+            "ship_name": "M.V.MARVELLOUS",
+            "open_time": 0.0,
+            "due_time": 78.5,
+            "cargo_type": "\u0e16\u0e48\u0e32\u0e19\u0e2b\u0e34\u0e19",
+            "demand": 133000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                1,
+                0
+            ],
+            "fts_crane_demands": [
+                72413,
+                60587
+            ],
+            "fts_crane_enter_times": [
+                2.0,
+                2.0
+            ],
+            "fts_crane_exit_times": [
+                164.0,
+                164.0
+            ],
+            "fts_crane_operation_times": [
+                161.9976,
+                161.9976
+            ]
+        },
+        {
+            "ship_id": 1,
+            "ship_db_id": 2,
+            "ship_name": "M.V.IKAN BELIAK",
+            "open_time": 54.5,
+            "due_time": 150.5,
+            "cargo_type": "\u0e21\u0e31\u0e19\u0e40\u0e2a\u0e49\u0e19",
+            "demand": 70000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                4,
+                0
+            ],
+            "fts_crane_demands": [
+                66958,
+                3042
+            ],
+            "fts_crane_enter_times": [
+                56.5,
+                166.06
+            ],
+            "fts_crane_exit_times": [
+                172.14,
+                172.14
+            ],
+            "fts_crane_operation_times": [
+                115.6441,
+                6.0841
+            ]
+        },
+        {
+            "ship_id": 2,
+            "ship_db_id": 4,
+            "ship_name": "M.V.GLORY ONE",
+            "open_time": 356.5,
+            "due_time": 462.5,
+            "cargo_type": "\u0e16\u0e31\u0e48\u0e27\u0e40\u0e21\u0e47\u0e14",
+            "demand": 40000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                2
+            ],
+            "fts_crane_demands": [
+                40000
+            ],
+            "fts_crane_enter_times": [
+                356.5
+            ],
+            "fts_crane_exit_times": [
+                413.64
+            ],
+            "fts_crane_operation_times": [
+                57.1429
+            ]
+        },
+        {
+            "ship_id": 3,
+            "ship_db_id": 5,
+            "ship_name": "M.V.ROYAL AWARD",
+            "open_time": 644.5,
+            "due_time": 702.5,
+            "cargo_type": "\u0e01\u0e32\u0e01\u0e16\u0e31\u0e48\u0e27",
+            "demand": 18000.0,
+            "categroy_name": "import",
+            "fts_crane_ids": [
+                1
+            ],
+            "fts_crane_demands": [
+                18000
+            ],
+            "fts_crane_enter_times": [
+                644.5
+            ],
+            "fts_crane_exit_times": [
+                673.35
+            ],
+            "fts_crane_operation_times": [
+                28.8462
+            ]
+        },
+        {
+            "ship_id": 4,
+            "ship_db_id": 6,
+            "ship_name": "M.V.CL PEKING",
+            "open_time": 692.5,
+            "due_time": 750.5,
+            "cargo_type": "\u0e16\u0e48\u0e32\u0e19\u0e2b\u0e34\u0e19",
+            "demand": 77000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                0,
+                1
+            ],
+            "fts_crane_demands": [
+                36671,
+                40329
+            ],
+            "fts_crane_enter_times": [
+                692.5,
+                700.33
+            ],
+            "fts_crane_exit_times": [
+                790.55,
+                790.55
+            ],
+            "fts_crane_operation_times": [
+                98.0512,
+                90.2212
+            ]
+        },
+        {
+            "ship_id": 5,
+            "ship_db_id": 7,
+            "ship_name": "M.V.MCQUEEN",
+            "open_time": 30.5,
+            "due_time": 126.5,
+            "cargo_type": "\u0e21\u0e31\u0e19\u0e40\u0e2a\u0e49\u0e19",
+            "demand": 34000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                2
+            ],
+            "fts_crane_demands": [
+                34000
+            ],
+            "fts_crane_enter_times": [
+                32.5
+            ],
+            "fts_crane_exit_times": [
+                89.74
+            ],
+            "fts_crane_operation_times": [
+                57.2391
+            ]
+        },
+        {
+            "ship_id": 6,
+            "ship_db_id": 3,
+            "ship_name": "M.V.GERM SOPHIA",
+            "open_time": 414.5,
+            "due_time": 462.5,
+            "cargo_type": "\u0e16\u0e48\u0e32\u0e19\u0e2b\u0e34\u0e19",
+            "demand": 9000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                1
+            ],
+            "fts_crane_demands": [
+                9000
+            ],
+            "fts_crane_enter_times": [
+                414.5
+            ],
+            "fts_crane_exit_times": [
+                434.63
+            ],
+            "fts_crane_operation_times": [
+                20.1342
+            ]
+        },
+        {
+            "ship_id": 7,
+            "ship_db_id": 8,
+            "ship_name": "M.V.CHARM LOONG",
+            "open_time": 630.5,
+            "due_time": 702.5,
+            "cargo_type": "\u0e16\u0e48\u0e32\u0e19\u0e2b\u0e34\u0e19",
+            "demand": 10200.0,
+            "categroy_name": "import",
+            "fts_crane_ids": [
+                1
+            ],
+            "fts_crane_demands": [
+                10200
+            ],
+            "fts_crane_enter_times": [
+                675.39
+            ],
+            "fts_crane_exit_times": [
+                698.21
+            ],
+            "fts_crane_operation_times": [
+                22.8188
+            ]
+        },
+        {
+            "ship_id": 8,
+            "ship_db_id": 9,
+            "ship_name": "M.V.VOSCO UNITY",
+            "open_time": 630.5,
+            "due_time": 702.5,
+            "cargo_type": "\u0e21\u0e31\u0e19\u0e40\u0e2a\u0e49\u0e19",
+            "demand": 10000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                4
+            ],
+            "fts_crane_demands": [
+                10000
+            ],
+            "fts_crane_enter_times": [
+                630.5
+            ],
+            "fts_crane_exit_times": [
+                647.77
+            ],
+            "fts_crane_operation_times": [
+                17.2712
+            ]
+        },
+        {
+            "ship_id": 9,
+            "ship_db_id": 14,
+            "ship_name": "M.V.ASIA SPRING",
+            "open_time": 606.5,
+            "due_time": 678.5,
+            "cargo_type": "\u0e16\u0e31\u0e48\u0e27\u0e40\u0e21\u0e47\u0e14",
+            "demand": 23000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                3
+            ],
+            "fts_crane_demands": [
+                23000
+            ],
+            "fts_crane_enter_times": [
+                606.5
+            ],
+            "fts_crane_exit_times": [
+                641.35
+            ],
+            "fts_crane_operation_times": [
+                34.8485
+            ]
+        },
+        {
+            "ship_id": 10,
+            "ship_db_id": 13,
+            "ship_name": "M.V.EPIC HARMONY",
+            "open_time": 78.5,
+            "due_time": 126.5,
+            "cargo_type": "\u0e01\u0e32\u0e01\u0e16\u0e31\u0e48\u0e27",
+            "demand": 20000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                3
+            ],
+            "fts_crane_demands": [
+                20000
+            ],
+            "fts_crane_enter_times": [
+                80.5
+            ],
+            "fts_crane_exit_times": [
+                106.54
+            ],
+            "fts_crane_operation_times": [
+                26.0417
+            ]
+        },
+        {
+            "ship_id": 11,
+            "ship_db_id": 12,
+            "ship_name": "M.V.GOLDEN JAKE",
+            "open_time": 692.5,
+            "due_time": 750.5,
+            "cargo_type": "\u0e16\u0e48\u0e32\u0e19\u0e2b\u0e34\u0e19",
+            "demand": 50000.0,
+            "categroy_name": "import",
+            "fts_crane_ids": [
+                5,
+                1
+            ],
+            "fts_crane_demands": [
+                41636,
+                8364
+            ],
+            "fts_crane_enter_times": [
+                694.5,
+                792.75
+            ],
+            "fts_crane_exit_times": [
+                811.46,
+                811.46
+            ],
+            "fts_crane_operation_times": [
+                116.9561,
+                18.7106
+            ]
+        },
+        {
+            "ship_id": 12,
+            "ship_db_id": 10,
+            "ship_name": "M.V.INDIAN SOLIDARITY",
+            "open_time": 260.5,
+            "due_time": 1110.5,
+            "cargo_type": "\u0e21\u0e31\u0e19\u0e40\u0e2a\u0e49\u0e19",
+            "demand": 65000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                4
+            ],
+            "fts_crane_demands": [
+                65000
+            ],
+            "fts_crane_enter_times": [
+                649.85
+            ],
+            "fts_crane_exit_times": [
+                762.11
+            ],
+            "fts_crane_operation_times": [
+                112.2625
+            ]
+        },
+        {
+            "ship_id": 13,
+            "ship_db_id": 11,
+            "ship_name": "M.V.SAKIZAYA QUEEN",
+            "open_time": 434.5,
+            "due_time": 1278.5,
+            "cargo_type": "\u0e16\u0e31\u0e48\u0e27\u0e40\u0e21\u0e47\u0e14",
+            "demand": 70000.0,
+            "categroy_name": "export",
+            "fts_crane_ids": [
+                2
+            ],
+            "fts_crane_demands": [
+                70000
+            ],
+            "fts_crane_enter_times": [
+                434.5
+            ],
+            "fts_crane_exit_times": [
+                534.5
+            ],
+            "fts_crane_operation_times": [
+                100.0
+            ]
+        }
+    ]
+}

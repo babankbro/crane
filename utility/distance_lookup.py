@@ -15,6 +15,8 @@ class Distance_Lookup:
         self.id_lookup = {}
         self.lats = np.concatenate([self.fts_lat, self.carrier_lats], axis=0)
         self.lngs = np.concatenate([self.fts_lng, self.carrier_lngs], axis=0)
+        self.fts_datalookup = fts_datalookup
+        self.order_data = order_data
         for i in range(len(self.fts_ids)):
             fts_id = self.fts_ids[i]
             self.index_lookup[fts_id] = i
@@ -41,13 +43,17 @@ class Distance_Lookup:
                 DM[i, j] = round(math.sqrt(dx*dx + dy*dy)*100, 2)
         self.DM = DM
                 
-    def get_fts_distance(self, fts_id, carrier_id):
+    def get_fts_distance(self, findex, cindex):
+        fts_id = self.fts_datalookup["FTS_ID"][findex]
+        carrier_id = self.order_data["CARRIER_ID"][cindex]
         indexi = self.index_lookup['FTS_' + str(fts_id)]
         indexj = self.index_lookup['CR_' + str(carrier_id)]
         return self.DM[indexi, indexj]
         
     
-    def get_carrier_distance(self, carrier_id1, carrier_id2):
+    def get_carrier_distance(self, index1, index2):
+        carrier_id1 = self.order_data["CARRIER_ID"][index1]
+        carrier_id2 = self.order_data["CARRIER_ID"][index2]
         indexi = self.index_lookup['CR_' + str(carrier_id1)]
         indexj = self.index_lookup['CR_' + str(carrier_id2)]
         return self.DM[indexi, indexj]

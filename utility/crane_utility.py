@@ -53,7 +53,6 @@ def load_data_lookup(fname):
         "CARGO":data["CARGO"]
     }
 
-
 def create_data_lookup():
     fts_datalookup = create_fts_data()
     crane_rate_datalookup = create_crane_rate_data()
@@ -68,8 +67,7 @@ def create_data_lookup():
         "DISTANCE_MATRIX": DM,
         "CARGO": cargo_data,
     }
-    
-    
+       
 def print_fts():
     fts_lookup = create_fts_data()
     for key in fts_lookup:
@@ -79,15 +77,17 @@ def print_order():
     order_json = get_all_orders()
     for row in order_json:
         print(row)
+        
+
 
 if __name__ == "__main__":
     
-    data_lookup = create_data_lookup()
+    #data_lookup = create_data_lookup()
     
-    save_data_lookup('/root/crane/dataset/data2.json', data_lookup)
+    #save_data_lookup('/root/crane/dataset/data2.json', data_lookup)
     #print(data_lookup["CRANE_RATE"].crane_rate_df)
     
-    #data_lookup = load_data_lookup('./dataset/data1.json')
+    data_lookup = load_data_lookup('./dataset/data2.json')
     
     DM_lookup = data_lookup["DISTANCE_MATRIX"]
     print(DM_lookup.DM.shape)
