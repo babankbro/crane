@@ -29,7 +29,6 @@ class DBInsert:
             arrivaltime,	exittime,	operation_time,	Setup_time,	travel_Distance,
             travel_time, operation_rate,	consumption_rate"""
         for d in json_data:
-            json_string = json.dumps(d)
             print(d)
             d["arrivaltime"] = f"'{d['arrivaltime']}'"
             d["exittime"] = f"'{d['exittime']}'"
@@ -64,8 +63,8 @@ if __name__ == "__main__":
     f= open("./dataset/solution1.json", 'r')
     json_data = json.load(f)['fts_infos']
     result_json = converter.create_solution_schedule(1, json_data) 
-    json_string = json.dumps(result_json, indent=2)
-    df = pd.read_json(json_string)
-    print(df)
+    #json_string = json.dumps(result_json, indent=2)
+    #df = pd.read_json(json_string)
+    #print(df)
     db_insert.insert_jsons(result_json)
     

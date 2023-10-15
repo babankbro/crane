@@ -12,12 +12,14 @@ from pymoo.problems import get_problem
 from pymoo.operators.sampling.lhs import LHS
 from pymoo.optimize import minimize
 import json
+import pandas as pd
 
 sys.path.insert(0, "./utility")
 
 from crane_utility import *
 from decoder import *
 from insert_db_api import *
+from output_converter import *
 
 
 
@@ -80,9 +82,12 @@ class CraneProblem(ElementwiseProblem):
 
 if __name__ == "__main__":
     
-    data_lookup = load_data_lookup('./dataset/data2.json')
+    #data_lookup = load_data_lookup('./dataset/data2.json')
+    data_lookup = create_data_lookup()
     decoder = Decoder(data_lookup)
-    print(decoder.D)
+    converter = OutputConverter(data_lookup)
+    db_insert = DBInsert(mycursor, mydb)
+    db_insert.clear_solution(1)
     algorithm = BRKGA(
         n_elites=20,
         n_offsprings=40,
@@ -105,7 +110,7 @@ if __name__ == "__main__":
 
     resGA = minimize(problem,
                 algorithm,
-                ("n_gen", 30),
+                ("n_gen", 300),
                     seed=1,
                     #display=MyDisplay(),
                     verbose=True)
@@ -134,5 +139,11 @@ if __name__ == "__main__":
     
     json.dump( {'fts_infos':fts_crane_infos,
                 'ship_infos':ship_infos} , save_file, indent = 4,  cls=NpEncoder) 
+    
+    result_json = converter.create_solution_schedule(1, fts_crane_infos) 
+    #json_string = json.dumps(result_json, indent=2)
+    #df = pd.read_json(json_string)
+    #print(df)
+    db_insert.insert_jsons(result_json)
     
     
