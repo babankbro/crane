@@ -33,7 +33,7 @@
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                0,
+                2.64,
                 1.2,
                 1.08
             ],
@@ -101,7 +101,7 @@
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                0,
+                2.71,
                 0.83,
                 2.43,
                 0.86,
@@ -166,7 +166,7 @@
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                0,
+                2.85,
                 2.09,
                 4.29
             ],
@@ -214,7 +214,7 @@
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                0,
+                4.69,
                 0.9
             ],
             "travel_times": [
@@ -263,7 +263,7 @@
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                0,
+                2.51,
                 1.84,
                 1.53
             ],
@@ -306,7 +306,7 @@
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                0
+                4.98
             ],
             "travel_times": [
                 0

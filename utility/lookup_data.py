@@ -87,7 +87,7 @@ if __name__ == "__main__":
     #create_order_data()
     #print_json(create_order_data())
     print_json(create_order_data())
-    #rate_lookup = create_crane_rate_data()
+    rate_lookup = create_crane_rate_data()
     #print(rate_lookup.get_consumption_rate_by_id(1, 0, 21))
     #print(rate_lookup.get_operation_rate_by_id(1, 0, 21))
     order_data = create_order_data()
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     print(pd.DataFrame(fts_datalookup))
     print(pd.DataFrame(order_data))
     
-    distance_datalookup = Distance_Lookup(fts_datalookup, order_data)
-    print(distance_datalookup.DM)
+    #distance_datalookup = Distance_Lookup(fts_datalookup, order_data)
+    #print(distance_datalookup.DM)
     
     

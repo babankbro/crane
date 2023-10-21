@@ -69,7 +69,7 @@ class OutputConverter:
             temp = dict(temp_solution_schedule_json)
             temp['solution_id'] = sid
             temp['FTS_id'] = fts_crane_info['fts_db_id'] 
-            print("cr_id", cr_id)
+            #print("cr_id", cr_id)
             temp['carrier_id'] = int(cr_id)
             temp['lat'] = ORDER_DATA['LAT'][idx_cr]
             temp['lng'] = ORDER_DATA['LNG'][idx_cr]
@@ -79,6 +79,15 @@ class OutputConverter:
             temp['travel_time'] = fts_crane_info["travel_times"][inx]
             temp['operation_rate'] = fts_crane_info["operation_rates"][inx]
             temp['consumption_rate'] = fts_crane_info["consumption_rates"][inx]
+            
+            start_hours_to_add = timedelta(hours=fts_crane_info["start_times"][inx])
+            end_hours_to_add = timedelta(hours=fts_crane_info["end_times"][inx])
+            
+            enter_time = BASE_DATE_TIME + start_hours_to_add
+            exit_time = BASE_DATE_TIME + end_hours_to_add
+            temp['arrivaltime'] =enter_time.strftime('%Y-%m-%d %H:%M:%S')
+            temp['exittime'] = exit_time.strftime('%Y-%m-%d %H:%M:%S')
+            
             result_json.append(temp)
         
         return result_json

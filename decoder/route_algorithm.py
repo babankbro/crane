@@ -118,14 +118,14 @@ if __name__ == "__main__":
     print("Best solution found: \nX = %s\nF = %s" % (resGA.X, resGA.F))
     print("Solution", resGA.opt.get("pheno")[0])
     print()
-    fts_crane_infos, ship_infos =  decoder.decode(resGA.X)
+    fts_crane_infos, ship_infos =  decoder.decode(resGA.X, True)
 
-    for ci in fts_crane_infos:
-        print(ci)
+    #for ci in fts_crane_infos:
+        #print(ci)
 
-    print()
-    for si in ship_infos:
-        print(si)
+    #print()
+    #for si in ship_infos:
+        #print(si)
 
     loads = []
     for ci in fts_crane_infos:
@@ -140,10 +140,18 @@ if __name__ == "__main__":
     json.dump( {'fts_infos':fts_crane_infos,
                 'ship_infos':ship_infos} , save_file, indent = 4,  cls=NpEncoder) 
     
+    for fts_crane_info in fts_crane_infos:
+        if fts_crane_info['fts_name'] == "แก่นตะวัน":
+            print(fts_crane_info)
+    
     result_json = converter.create_solution_schedule(1, fts_crane_infos) 
     #json_string = json.dumps(result_json, indent=2)
     #df = pd.read_json(json_string)
     #print(df)
     db_insert.insert_jsons(result_json)
     
+    DM_lookup = data_lookup["DISTANCE_MATRIX"]
+    #print(DM_lookup.DM)
+    print(DM_lookup.index_lookup)
+    print(DM_lookup.DM[1][6+5])
     

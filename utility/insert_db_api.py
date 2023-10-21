@@ -29,7 +29,7 @@ class DBInsert:
             arrivaltime,	exittime,	operation_time,	Setup_time,	travel_Distance,
             travel_time, operation_rate,	consumption_rate"""
         for d in json_data:
-            print(d)
+            #print(d)
             d["arrivaltime"] = f"'{d['arrivaltime']}'"
             d["exittime"] = f"'{d['exittime']}'"
             values = [str(d[x]) for x in d]
@@ -38,10 +38,10 @@ class DBInsert:
            
             values = ', '.join(values)
             #print(colum_names)
-            print(values)
+            #print(values)
             values = values.replace('None', 'NULL')
             insert_query = f"INSERT INTO solution_schedule({colum_names}) VALUES ({values})"
-            print(insert_query)
+            #print(insert_query)
             self.cursor.execute(insert_query)
             self.db.commit()
         

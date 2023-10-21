@@ -29,7 +29,7 @@ class Decoder:
             self.WEIGHT_CRANE_SHIPs.append(0.5)
     
     
-    def assign_crane(self, ship_info, fts_crane_codes, fts_crane_infos):
+    def assign_crane(self, ship_info, fts_crane_codes, fts_crane_infos, isDebug=False):
         ship_id = ship_info['ship_id']
         best_cranes = []
         min_due_date = 10000000
@@ -64,10 +64,17 @@ class Decoder:
             process_time = demand/process_rate_fts
             travel_time = 0
             distance=0
+            
+            if isDebug and fts_crane_info['fts_id'] == 1:
+                print(fts_crane_id, fts_crane_info)
+                pass
 
             if len(fts_crane_info["ids"]) == 0:
                 arrive_time = open_time
                 start_time = arrive_time + fts_crane_info["fts_setup_time"]
+                distance = DM_lookup.get_fts_distance(fts_crane_id, ship_id)
+                if isDebug :
+                    print("DM", fts_crane_id, ship_id, distance)
                 isNewStart = True
             else:
                 #print("1, MANAGE LAST CRANE1 xxxxxxxxxxxxxxxxxxxxxxxxx")
@@ -127,6 +134,7 @@ class Decoder:
                     arrive_time2 = open_time
                     start_time2 = arrive_time2 + fts_crane_info2["fts_setup_time"]
                     isNewStart = isNewStart and True
+                    distance2 = DM_lookup.get_fts_distance(fts_crane_id2, ship_id)
 
                 else:
                     previous_ship2 = fts_crane_info2['ids'][-1]
@@ -287,7 +295,7 @@ class Decoder:
         return ship_infos
     
     
-    def decode(self, xs):
+    def decode(self, xs, isDebug=False):
         #ARRIVAL_TIME_HOUR
         
         
@@ -302,8 +310,12 @@ class Decoder:
         ship_infos = self.init_ship_infos()
         #for ship in ship_infos:
             #print(ship)
-        #for fts in fts_crane_infos:
-            #print(fts)
+        if isDebug:
+            for fts in fts_crane_infos:
+                print(fts)
+            print("------------------------------")
+            print(ship_order_ids)
+        
         
         for i in range(self.NSHIP):
             ship_id = ship_order_ids[i]
@@ -313,7 +325,7 @@ class Decoder:
 
         
 
-            crane_delta_infos = self.assign_crane(ship_info, fts_code, fts_crane_infos)
+            crane_delta_infos = self.assign_crane(ship_info, fts_code, fts_crane_infos, isDebug)
             #cargo_type = SHIP_TYPEs[ship_id]
             #print("--------------------------")
             #print(i+1, ship_id, crane_codes, len(crane_delta_infos), ship_info)
