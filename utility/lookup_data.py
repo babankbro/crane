@@ -5,24 +5,6 @@ from rate_lookup import *
 from datetime import datetime
 from distance_lookup import *
 
-class Ship:
-    def __init__(self, lookup) -> None:
-        self.lat = lookup['LAT']
-        self.lng = lookup['LNG']
-        self.open_time = lookup['ARRIVAL_TIME_HOUR']
-        self.closed_time =  lookup['DUE_TIME_HOUR']
-        self.total_demand = lookup['DEMAND']
-        self.category = 'import' if lookup['CATEGORY'] else 'export'
-        self.name = lookup['CARRIER']
-        self.number_bulk = lookup['BULK']
-        self.load_bulks = []
-        for i in range(self.number_bulk):
-            self.load_bulks.append( round(self.total_demand/self.number_bulk, 2))
-            
-    def __str__(self):
-        return f""" {self.name}  open-closed: {round(self.open_time, 2)} - {round(self.closed_time, 2)}  {self.load_bulks} """
-
-
 BASE_DATE_TIME = datetime(2023, 1, 1)
 ns = 1e-9
 def convert_to_hour_from_new_year(dt):
