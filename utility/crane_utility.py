@@ -83,13 +83,28 @@ if __name__ == "__main__":
     
     #data_lookup = create_data_lookup()
     
-    #save_data_lookup('/root/crane/dataset/data2.json', data_lookup)
+    #save_data_lookup('./dataset/data_10.json', data_lookup)
     #print(data_lookup["CRANE_RATE"].crane_rate_df)
     
-    data_lookup = load_data_lookup('./dataset/data2.json')
+    data_lookup = load_data_lookup('./dataset/data_10.json')
     
     DM_lookup = data_lookup["DISTANCE_MATRIX"]
     print(DM_lookup.DM.shape)
     print(DM_lookup.get_carrier_distance(10, 12))
     print("Test utility")
-    print(data_lookup['CRANE_RATE'].crane_rate_df)
+    
+    FTS_RATE =  data_lookup['CRANE_RATE'].lookup_fts_ids[51]
+    for key in FTS_RATE.crane_lookup:
+        crane_rate = FTS_RATE.crane_lookup[key]
+        for cargo in crane_rate.cargo_names:
+            print(cargo)
+            print( crane_rate.get_rates(cargo, 'import') )
+            
+        print(crane_rate.consumption_rates)
+        print(crane_rate.operation_rates)
+        break
+        
+    
+    #print(data_lookup['CRANE_RATE'].crane_rate_df)
+    #print(dir(data_lookup['CRANE_RATE']))
+    #data_lookup['CRANE_RATE']

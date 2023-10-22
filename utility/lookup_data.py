@@ -5,6 +5,24 @@ from rate_lookup import *
 from datetime import datetime
 from distance_lookup import *
 
+class Ship:
+    def __init__(self, lookup) -> None:
+        self.lat = lookup['LAT']
+        self.lng = lookup['LNG']
+        self.open_time = lookup['ARRIVAL_TIME_HOUR']
+        self.closed_time =  lookup['DUE_TIME_HOUR']
+        self.total_demand = lookup['DEMAND']
+        self.category = 'import' if lookup['CATEGORY'] else 'export'
+        self.name = lookup['CARRIER']
+        self.number_bulk = lookup['BULK']
+        self.load_bulks = []
+        for i in range(self.number_bulk):
+            self.load_bulks.append( round(self.total_demand/self.number_bulk, 2))
+            
+    def __str__(self):
+        return f""" {self.name}  open-closed: {round(self.open_time, 2)} - {round(self.closed_time, 2)}  {self.load_bulks} """
+
+
 BASE_DATE_TIME = datetime(2023, 1, 1)
 ns = 1e-9
 def convert_to_hour_from_new_year(dt):
@@ -17,6 +35,11 @@ def convert_to_hours(array_times):
     time_hours = []
     for i in range(len(array_times)):
         npdate_time = array_times[i]
+        #print(npdate_time)
+        if 'T' in npdate_time and 'Z' in npdate_time:
+            npdate_time = npdate_time.replace("T", " ")
+            npdate_time = npdate_time.replace(".000Z", "")
+        
         npdate_time = datetime.strptime(npdate_time, '%Y-%m-%d %H:%M:%S')
         t = convert_to_hour_from_new_year(npdate_time)
         time_hours.append(t)
@@ -97,9 +120,9 @@ if __name__ == "__main__":
     #for rate in rates:
         #print(rate)
     #rate_lookup = create_crane_rate_data()
-    fts_datalookup = create_fts_data()
-    print(pd.DataFrame(fts_datalookup))
-    print(pd.DataFrame(order_data))
+    #fts_datalookup = create_fts_data()
+    #print(pd.DataFrame(fts_datalookup))
+    #print(pd.DataFrame(order_data))
     
     #distance_datalookup = Distance_Lookup(fts_datalookup, order_data)
     #print(distance_datalookup.DM)

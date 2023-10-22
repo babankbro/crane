@@ -2,6 +2,99 @@ import pandas as pd
 import numpy as np
 from json import JSONEncoder
 
+class FTS_CRANE_RATE(dict):
+    def __init__(self, fts_id, fts_name, df_fts) -> None:
+        self.name = fts_name
+        self.id = fts_id
+        self.df_fts = df_fts
+        self.crane_lookup = {}
+        self.cranes = []
+        crane_ids = np.unique(self.df_fts['crane_id'])
+        for crane_id in crane_ids:
+            df_crane = self.df_fts.loc[ self.df_fts["crane_id"] == crane_id ]
+            crane_name = np.unique(df_crane['crane_name'])[0] 
+            #print(fts_id, fts_name)      
+            #print(results)         
+            crane_rate = CRANE_CARGO_RATE(self, crane_id, crane_name, df_crane)
+            self.crane_lookup[crane_id] = crane_rate
+            self.cranes.append(crane_rate)
+        
+        self.display_cargo_name = None
+        self.category = None
+            
+    def set_display_rate(self, cargo_name, category):
+        self.display_cargo_name = cargo_name
+        self.category = category
+        for crane_id in self.crane_lookup:
+            self.crane_lookup[crane_id].set_display_rate(cargo_name, category)
+    
+    def __str__(self):
+        result = ''
+        for crane_id in self.crane_lookup:
+            result += f"\t{self.crane_lookup[crane_id]}\n"
+        return f"{self.name}: \n {result}" 
+
+
+class CRANE_CARGO_RATE(dict):
+    def __init__(self, fts, crane_id, crane_name, df_crane) -> None:
+        self.crane_name = crane_name
+        self.crane_id = crane_id
+        self.df_crane = df_crane
+        self.fts = fts
+        self.category_id_lookup = {'import': 0, 'export':1}
+        self.category_name_lookup = {0: 'import', 1:'export'}
+        self.consumption_rates = []
+        self.operation_rates = []
+        self.cargo_names = np.unique(df_crane["cargo_name"])
+        self.cargo_id_lookup = {}
+        for i in range(len(self.cargo_names)):
+            self.cargo_id_lookup[self.cargo_names[i]] = i
+        
+        for i in range(len(self.category_id_lookup)):
+            key = self.category_name_lookup[i]
+            crates = []
+            orates = []
+            for cargo in self.cargo_names:
+                result = self.df_crane.loc[ (self.df_crane["category"] == key) &
+                                       (self.df_crane["cargo_name"] == cargo)]
+                if len(result) > 0:
+                    crates.append(result.iloc[0]['consumption_rate'])
+                    orates.append(result.iloc[0]['work_rate'])
+                else:
+                    crates.append(-1)
+                    orates.append(-1)
+            
+            self.consumption_rates.append(crates)
+            self.operation_rates.append(orates)
+        self.consumption_rates = np.array(self.consumption_rates)
+        self.operation_rates = np.array(self.operation_rates)
+        self.display_cargo_name = None
+        self.category = None
+    
+    def get_rates(self, cargo_name, category):
+        index1 = self.category_id_lookup[category]
+        index2 = self.cargo_id_lookup[cargo_name]
+        return {'consumption_rate': self.consumption_rates[index1, index2] , 
+                'operation_rate': self.operation_rates[index1, index2] } 
+        
+    def set_display_rate(self, cargo_name, category):
+        self.display_cargo_name = cargo_name
+        self.category = category
+        
+    
+    def __str__(self):
+        crates =self.consumption_rates
+        orates =self.operation_rates
+        ctype = ""
+        if self.display_cargo_name != None:
+            rates = self.get_rates(self.display_cargo_name, self.category)
+            crates = rates['consumption_rate']
+            orates = rates['operation_rate']
+            ctype = f"{self.display_cargo_name} {self.category}"
+            
+        return f"{self.crane_name}  {ctype}: crate: {crates} orate: {orates}"
+
+
 class RATE_LOOKUP(dict):
     def __init__(self, crane_rate_df):
         self.crane_id_lookup = {}
@@ -77,7 +170,7 @@ class RATE_LOOKUP(dict):
             
         self.raw_data_consumption_rates = np.array(self.raw_data_consumption_rates)
         self.raw_data_operation_rates = np.array(self.raw_data_operation_rates)
-        print(self.raw_data_consumption_rates.shape, self.raw_data_operation_rates.shape)  
+        #print(self.raw_data_consumption_rates.shape, self.raw_data_operation_rates.shape)  
         
         
         self.raw_data_fts_consumption_rates = []
@@ -113,11 +206,20 @@ class RATE_LOOKUP(dict):
         
         self.raw_data_fts_consumption_rates = np.array(self.raw_data_fts_consumption_rates)
         self.raw_data_fts_operation_rates = np.array(self.raw_data_fts_operation_rates)
-        print(self.raw_data_consumption_rates.shape, self.raw_data_operation_rates.shape)  
+        #print(self.raw_data_consumption_rates.shape, self.raw_data_operation_rates.shape)  
                         
         
         
-        #print(self.crane_rate_df['category'])
+        fts_ids = np.unique(self.crane_rate_df['FTS_id'])
+        #print(self.crane_rate_df)
+        self.lookup_fts_ids = {}
+        for fts_id in fts_ids:
+            df_fts = self.crane_rate_df.loc[ self.crane_rate_df["FTS_id"] == fts_id ]
+            fts_name = np.unique(df_fts['FTS_name'])[0] 
+            #print(fts_id, fts_name)      
+            #print(results)         
+            fts_rate = FTS_CRANE_RATE(fts_id, fts_name, df_fts)
+            self.lookup_fts_ids[fts_id] = fts_rate
     
     def get_consumption_rate_by_id(self, crane_id, category_id, cargo_id):
         crane_index  = self.crane_index_lookup[crane_id]
