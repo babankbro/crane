@@ -11,13 +11,16 @@ from pymoo.algorithms.soo.nonconvex.de import DE
 from pymoo.problems import get_problem
 from pymoo.operators.sampling.lhs import LHS
 from pymoo.optimize import minimize
+from pymoo.termination import get_termination
 import json
 import pandas as pd
 
+
 sys.path.insert(0, "./utility")
 
+from insert_db_api import DBInsert
 from crane_utility import *
-from decoder import *
+from decoder_v2 import *
 from insert_db_api import *
 from output_converter import *
 
@@ -84,10 +87,11 @@ if __name__ == "__main__":
     
     #data_lookup = load_data_lookup('./dataset/data2.json')
     data_lookup = create_data_lookup()
-    decoder = Decoder(data_lookup)
+    decoder = DecoderV2(data_lookup)
     converter = OutputConverter(data_lookup)
     db_insert = DBInsert(mycursor, mydb)
     db_insert.clear_solution(1)
+    
     algorithm = BRKGA(
         n_elites=20,
         n_offsprings=40,
@@ -107,10 +111,11 @@ if __name__ == "__main__":
 
 
     problem = CraneProblem(decoder)
+    termination = get_termination("time", "00:00:15")
 
     resGA = minimize(problem,
                 algorithm,
-                ("n_gen", 300),
+                termination,
                     seed=1,
                     #display=MyDisplay(),
                     verbose=True)
@@ -145,13 +150,8 @@ if __name__ == "__main__":
             print(fts_crane_info)
     
     result_json = converter.create_solution_schedule(1, fts_crane_infos) 
-    #json_string = json.dumps(result_json, indent=2)
-    #df = pd.read_json(json_string)
-    #print(df)
     db_insert.insert_jsons(result_json)
+    result_json = converter.create_crane_solution_schedule(1, fts_crane_infos) 
+    db_insert.insert_crane_solution_schedule_jsons(result_json)
     
-    DM_lookup = data_lookup["DISTANCE_MATRIX"]
-    #print(DM_lookup.DM)
-    print(DM_lookup.index_lookup)
-    print(DM_lookup.DM[1][6+5])
-    
+  

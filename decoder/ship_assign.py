@@ -6,16 +6,19 @@ from crane_utility import *
 import numpy as np
 import pandas as pd
 
-class Ship:
+class Ship(dict):
     def __init__(self, lookup) -> None:
         self.lat = lookup['LAT']
         self.lng = lookup['LNG']
+        self.id = lookup['CARRIER_ID']
         self.open_time = lookup['ARRIVAL_TIME_HOUR']
         self.closed_time =  lookup['DUE_TIME_HOUR']
         self.total_demand = lookup['DEMAND']
         self.category = 'import' if lookup['CATEGORY'] else 'export'
         self.name = lookup['CARRIER']
         self.cargos = [lookup['CARGO']]
+        self.cargo_ids = [lookup['CARGO_ID']]
+        self.cargo_id = lookup['CARGO_ID']
         self.cargo = self.cargos[0]
         #print(self.cargo)
         self.number_bulk= lookup['BULK']
@@ -33,9 +36,10 @@ CASE_LOOK_UP = {
                 "C2-B1-T2": {"NCRANE":2, "NBULK": 1, "INDEX": [[1]]},
                 
                 "C2-B2-T1": {"NCRANE":2, "NBULK": 2, "INDEX":[[0], [1]]},
-                "C2-B3-T1": {"NCRANE":2, "NBULK": 3, "INDEX":[[0], [0], [1]]},
-                "C2-B3-T2": {"NCRANE":2, "NBULK": 3, "INDEX":[[0], [1], [1]]},
-                "C2-B4-T1": {"NCRANE":2, "NBULK": 4, "INDEX":[[0], [0], [1], [1]]},
+                #"C2-B2-T1": {"NCRANE":2, "NBULK": 2, "INDEX":[[0], [1]]},
+                #"C2-B3-T1": {"NCRANE":2, "NBULK": 3, "INDEX":[[0], [0], [1]]},
+                #"C2-B3-T2": {"NCRANE":2, "NBULK": 3, "INDEX":[[0], [1], [1]]},
+                #"C2-B4-T1": {"NCRANE":2, "NBULK": 4, "INDEX":[[0], [0], [1], [1]]},
                 "C3-B1-T1": {"NCRANE":3, "NBULK": 1, "INDEX": [[0]]},
                 "C3-B1-T2": {"NCRANE":3, "NBULK": 1, "INDEX": [[1]]},
                 "C3-B1-T3": {"NCRANE":3, "NBULK": 1, "INDEX": [[2]]},
@@ -46,14 +50,14 @@ CASE_LOOK_UP = {
                 #"C3-B2-T1": {"NCRANE":3, "NBULK": 2, "INDEX":[[0, 1], [2]]},
                 #"C3-B2-T2": {"NCRANE":3, "NBULK": 2, "INDEX":[[0], [1, 2]]},
                 "C3-B3-T1": {"NCRANE":3, "NBULK": 3, "INDEX":[[0], [1], [2]]},
-                "C3-B4-T1": {"NCRANE":3, "NBULK": 4, "INDEX":[[0], [0], [1], [2]]},
-                "C3-B4-T2": {"NCRANE":3, "NBULK": 4, "INDEX":[[0], [1], [1], [2]]},
-                "C3-B4-T3": {"NCRANE":3, "NBULK": 4, "INDEX":[[0], [1], [2], [2]]},
-                "C3-B5-T1": {"NCRANE":3, "NBULK": 5, "INDEX":[[0], [0], [1], [2], [2]]},
-                "C3-B5-T2": {"NCRANE":3, "NBULK": 5, "INDEX":[[0], [0], [1], [1], [2]]},
-                "C3-B5-T3": {"NCRANE":3, "NBULK": 5, "INDEX":[[0], [1], [1], [2], [2]]},
-                "C3-B6-T1": {"NCRANE":3, "NBULK": 6, "INDEX":[[0], [0], [1], [1], [2], [2]]},
-                }
+                #"C3-B4-T1": {"NCRANE":3, "NBULK": 4, "INDEX":[[0], [0], [1], [2]]},
+                #"C3-B4-T2": {"NCRANE":3, "NBULK": 4, "INDEX":[[0], [1], [1], [2]]},
+                #"C3-B4-T3": {"NCRANE":3, "NBULK": 4, "INDEX":[[0], [1], [2], [2]]},
+                #"C3-B5-T1": {"NCRANE":3, "NBULK": 5, "INDEX":[[0], [0], [1], [2], [2]]},
+                #"C3-B5-T2": {"NCRANE":3, "NBULK": 5, "INDEX":[[0], [0], [1], [1], [2]]},
+                #"C3-B5-T3": {"NCRANE":3, "NBULK": 5, "INDEX":[[0], [1], [1], [2], [2]]},
+                #"C3-B6-T1": {"N
+}
 
 CASE_LOOK_UPX = { 
                 "C2-B1-T1": {"NCRANE":2, "NBULK": 1, "INDEX": [[0, 1]]},
@@ -86,12 +90,17 @@ def compute_step_process_time(case, fts, ship, sbulks):
     for i in range(len(fts.cranes)):
         crane = fts.cranes[i]
         orate = crane.get_rates(ship.cargo, ship.category)['operation_rate']
+        crate = crane.get_rates(ship.cargo, ship.category)['consumption_rate']
+        
         row = {
             "bulks":[], 
             'loads':[],
             'crane':i,
-            'opearation_times':[],
-            "opearation_rate":orate
+            'operation_times':[],
+            "operation_rate":orate,
+            'consumption_rate':crate,
+            'category':ship.category,
+            'cargo':ship.cargo,
         }
         results.append(row)
     
@@ -102,13 +111,14 @@ def compute_step_process_time(case, fts, ship, sbulks):
         crane = fts.cranes[cid]
         bulk = sbulks[k]
         load = ship.load_bulks[bulk]
-        otime = round(load/orate, 2)
         orate = crane.get_rates(ship.cargo, ship.category)['operation_rate']
+        otime = round(load/orate, 2)
+        
         if len(index) == 1:
             row = results[cid]
             row["bulks"].append(bulk)
             row["loads"].append(load)
-            row["opearation_times"].append(otime)
+            row["operation_times"].append(otime)
         else:
             for i in range(1, len(index)):
                 cid = index[i]
@@ -123,11 +133,16 @@ def compute_step_process_time(case, fts, ship, sbulks):
                 corate =  crane.get_rates(ship.cargo, ship.category)['operation_rate']
                 load = otime*corate
                 row["loads"].append(load)
-                row["opearation_times"].append(otime)
+                row["operation_times"].append(otime)
     
-    max_otime = sum(results[0]["opearation_times"])
+    
+    #if case == "C2-B1-T1" or case == "C2-B1-T2":
+        #print(case)
+        #print(results) 
+    
+    max_otime = sum(results[0]["operation_times"])
     for i in range(1, len(results)):
-        max_otime = max(max_otime, sum(results[i]["opearation_times"]))
+        max_otime = max(max_otime, sum(results[i]["operation_times"]))
      
     return max_otime, results
 
@@ -141,21 +156,26 @@ def compute_process_times(case, fts, ship, bulks):
     steps = []
     for i in range(0, nbulk, step_nbulk):
         sbulks = bulks[i:i+ step_nbulk]
+        if len(sbulks) == 0:
+            continue
         
         if len(sbulks) == step_nbulk:
             
             otime, result = compute_step_process_time(case, fts, ship, sbulks)
+            #print(case, otime, sbulks)
             steps.append([otime, result])
             #print("STEP RIGHT", sbulks, otime)
         else:
             
             min_time = 10000000000000000000000
             min_result=None
+            #print("SMALL")
             for key in CASE_LOOK_UP:
                 info = CASE_LOOK_UP[key]
                 if crane_key in key and len(sbulks) == info["NBULK"]:
                     
                     otime, result = compute_step_process_time(key, fts, ship, sbulks)
+                    #print(key, "AAA", otime, sbulks)
                     if min_time > otime:
                         min_time = otime
                         min_result = result
@@ -166,10 +186,7 @@ def compute_process_times(case, fts, ship, bulks):
     for i in range(1, len(steps)):
         total_time += MOVE_TIME_FTS
         total_time += steps[i][0]
-    return total_time, steps
-                    
-            
-    
+    return total_time, steps 
 
 def generate_fts_ship_solution(fts, ship, bulks):
     ncrane = len(fts.crane_lookup)
@@ -183,6 +200,7 @@ def generate_fts_ship_solution(fts, ship, bulks):
             #compute_process_times
             
             o_time, steps = compute_process_times(key, fts, ship, bulks)
+            #print(key, o_time, bulks)
             if min_time > o_time:
                 min_time = o_time
                 min_result = steps

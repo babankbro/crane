@@ -93,7 +93,7 @@ def route():
     )
     
     algorithm = DE(
-        pop_size=100,
+        pop_size=25,
         sampling=LHS(),
         variant="DE/rand/1/bin",
         CR=0.3,
@@ -103,7 +103,7 @@ def route():
 
     
 #callback = MyCallback()
-    termination = get_termination("time", "00:00:03")
+    termination = get_termination("time", f"00:{m:02d}:{ss:02d}")
     res = minimize(problem,
                 algorithm,
                 termination,

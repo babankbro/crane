@@ -1,1 +1,0 @@
-MOVE_TIME_FTS = 0.5
