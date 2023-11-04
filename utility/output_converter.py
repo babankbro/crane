@@ -13,11 +13,56 @@ sys.path.insert(0, "./decoder")
 from crane_utility import *
 from decoder import *
 
-"""
+
+
+"""solution_schedule
     solution_id	 FTS_id	 carrier_id	 latlng	
     arrivaltime	exittime	operation_time	Setup_time	travel_Distance	travel_time	
     operation_rate	consumption_rate	
 """
+"""solution_crane_schedule
+    solution_id	
+    carrier_id	
+    start_time	due_time	operation_time	Setup_time	
+    travel_Distance	
+    travel_time	operation_rate
+    consumption_rate
+    crane_id	
+    bulk	
+    load_cargo
+"""
+""" crane_solution
+    solution_id	
+    FTS_id	
+    crane_id	
+    total_cost	
+    total_consumption_cost	
+    total_wage_cost	
+    penality_cost	
+    total_reward	
+    total_late_time	
+    total_early_time	
+    total_operation_consumption_cost
+    total_operation_time
+    total_preparation_crane_time	
+    date
+"""
+
+
+temp_crane_solution_json = {
+                               "solution_id": 2, "FTS_id": 0, 
+                               "crane_id": 0,
+                               "total_cost": 0, 
+                               "total_consumption_cost":0, "total_wage_cost": 0, 
+                               "penality_cost": 0, "total_reward": 0, 
+                               "total_late_time": 0, "total_early_time":0,
+                               "total_operation_consumption_cost":0, 
+                               "total_operation_time": 0, 
+                               "total_preparation_crane_time":0, 
+                               'date':'2023-01-01'
+}
+
+
 
 temp_solution_schedule_json = { 
                                "solution_id": 2, "FTS_id": 0, "carrier_id": 0, 
@@ -26,6 +71,18 @@ temp_solution_schedule_json = {
                                "operation_time":1440, "Setup_time": 150, 
                                "travel_Distance": 0, "travel_time": 0, 
                                "operation_rate": 700, "consumption_rate":0 }
+
+temp_solution_crane_schedule_json = { 
+                               "solution_id": 2, "carrier_id": 0, 
+                                "start_time": '2023-01-01 00:00:00',
+                               "due_time": '2023-01-01 00:00:00', 
+                               "operation_time":0, "Setup_time": 0, 
+                               "travel_Distance": 0, "travel_time": 0, 
+                               "operation_rate": 700, "consumption_rate":0,
+                               "consumption_rate":0, 
+                               "crane_id": 0, 
+                               "bulk":0, 'load_cargo':0, 'cargo_id': 0}
+
 
 class OutputConverter:
     def __init__(self, data_lookup) -> None:
@@ -101,6 +158,175 @@ class OutputConverter:
         print(fc_info)
         return result_json
 
+    def create_json_crane_info(self, sid, fts_info):
+        print("---------------------------------")
+        print(fts_info['fts'].name)
+        #print(fts_info)
+        #print('demands', fts_info['demands'])
+        #print('consumption_rates', fts_info['consumption_rates'])
+        #print('operation_rates', fts_info['operation_rates'])
+        #print('crane_setup_times', fts_info['crane_setup_times'])
+        #print(type(fts_info['crane_infos']))
+        #print(fts_info['crane_infos'])
+        result_json = []
+        for si in range(len(fts_info['ids'])):
+            crane_ship_info = fts_info['crane_infos'][si]
+            start_ship_time = fts_info['start_times'][si]
+            start_ship_time = fts_info['start_times'][si]
+            
+            crane_bulks = crane_ship_info['crane_infos']
+            
+           
+            
+            for cindx, cbulk in enumerate(crane_bulks):
+                #print(cbulk)
+                operation_rate = cbulk["operation_rate"]
+                consumption_rate = cbulk["consumption_rate"]
+                crane_index = cbulk['crane_index']
+                ship = cbulk['ship']
+                #print(ship)
+                for ibluck, bulk in enumerate(cbulk['bulks']):
+                    temp = dict(temp_solution_crane_schedule_json)
+                    
+                    
+                    """
+                    solution_id	
+                    carrier_id	
+                    start_time	due_time	operation_time	Setup_time	
+                    travel_Distance	
+                    travel_time	operation_rate
+                    consumption_rate
+                    crane_id	
+                    bulk	
+                    load_cargo
+                    cargo_id
+                    """
+                    #print(cbulk)
+                    start_hours_to_add = timedelta(hours=start_ship_time + cbulk["offset_start_times"][ibluck])
+                    end_hours_to_add = timedelta(hours=start_ship_time + cbulk["finish_times"][ibluck])
+                
+                    #if len(fts_crane_info["start_times"]) > 0:
+                        #hours_to_add = timedelta(hours=fts_crane_info["start_times"][0])
+                    enter_time = BASE_DATE_TIME + start_hours_to_add
+                    exit_time = BASE_DATE_TIME + end_hours_to_add
+                    temp['solution_id'] = sid
+                    temp['carrier_id'] = cbulk['ship'].id
+                    temp['start_time'] =enter_time.strftime('%Y-%m-%d %H:%M:%S')
+                    temp['due_time'] = exit_time.strftime('%Y-%m-%d %H:%M:%S')
+                    temp['operation_time'] = cbulk["operation_times"][ibluck]
+                    temp['Setup_time'] = 0
+                    temp['travel_time'] = 0
+                    temp['travel_Distance'] = 0
+                    temp['operation_rate'] = operation_rate
+                    temp['consumption_rate'] = consumption_rate
+                    temp['crane_id'] = fts_info['fts'].crane_ids[crane_index]
+                    temp['bulk'] = cbulk["bulks"][ibluck] + 1
+                    temp['load_cargo'] = cbulk["loads"][ibluck]
+                    temp['cargo_id'] = ship.cargo_id
+                    #print(temp)
+                    result_json.append(temp)
+                    #temp['start_time'] = 
+                    #temp['lng'] = FTS_DATA['LNG'][fts_index]
+                    #temp['operation_time'] = None
+                    #temp['Setup_time'] = None
+                    #temp['travel_Distance'] = None
+                    #temp['travel_time'] = None
+                    #temp['operation_rate'] = None
+                    #temp['consumption_rate'] = None
+                    #print(temp)
+                    #break
+                
+            #continue
+            #print(crane_info)
+               
+        return result_json
+    
+    def create_crane_solution_schedule(self, sid, fts_crane_infos):
+        result_json = []
+        for fc_info  in fts_crane_infos:
+            fts_jsons = self.create_json_crane_info(sid, fc_info)
+            #print(fc_info)
+            result_json.extend(fts_jsons)
+        #print(fc_info)
+        return result_json
+    
+    def create_json_crane_cost(self, sid, fts_info):
+        print("---------------------------------")
+        print(fts_info['fts'].name)
+        result_json = []
+        fts = fts_info['fts']
+        for i in range(len(fts.cranes)):
+            temp = dict(temp_crane_solution_json)
+            temp['solution_id'] = sid
+            temp['FTS_id'] = fts_info['fts'].id
+            temp['crane_id'] = fts_info['fts'].crane_ids[i]
+            temp['total_operation_time'] = 0
+            temp['total_operation_consumption_cost'] = 0
+            temp['total_late_time'] = 0
+            temp['total_early_time'] = 0
+            temp['date'] = '2023-01-01'
+            #temp['fixed_wage_cost'] = 
+            temp['premium_wage_cost'] = 0
+         
+            result_json.append(temp)
+        
+        for si in range(len(fts_info['ids'])):
+            crane_ship_info = fts_info['crane_infos'][si]
+            start_ship_time = fts_info['start_times'][si]
+            start_ship_time = fts_info['start_times'][si]
+            
+            crane_bulks = crane_ship_info['crane_infos']
+            
+            for cindx, cbulk in enumerate(crane_bulks):
+                #print(cbulk)
+                operation_rate = cbulk["operation_rate"]
+                consumption_rate = cbulk["consumption_rate"]
+                crane_index = cbulk['crane_index']
+                ship = cbulk['ship']
+                if len(cbulk["loads"]) == 0:
+                    continue
+                #print(ship)
+                
+                """ 
+                    solution_id	
+                    FTS_id	/
+                    crane_id	/
+                    total_cost	-
+                    total_consumption_cost -
+                    total_wage_cost	-
+                    penality_cost - 	
+                    total_reward -	
+                    total_late_time	-
+                    total_early_time -	
+                    total_operation_consumption_cost /
+                    total_operation_time /
+                    total_preparation_crane_time/	
+                    date
+                """
+                
+                temp = result_json[crane_index]
+                temp['total_operation_time'] += sum(cbulk['operation_times'])
+                temp['total_operation_consumption_cost'] += round(sum(cbulk['loads'])*cbulk['consumption_rate'], 2)
+                temp['total_preparation_crane_time'] += len(cbulk['loads'])*fts_info['fts'].setup_time_cranes[crane_index]
+                temp['premium_wage_cost'] += round(sum(cbulk['loads'])*fts_info['fts'].premium_rates[crane_index] ,2)
+                 
+        for i in range(len(fts.cranes)):
+            temp = result_json[i]
+            temp['total_wage_cost'] = temp['premium_wage_cost'] + fts_info['fts'].wage_month_costs[i] 
+            temp['total_consumption_cost'] = round(temp['total_operation_consumption_cost'], 2)
+            temp['total_cost'] = round(temp['total_wage_cost'] + temp['total_consumption_cost'] + temp['penality_cost'] - temp['total_reward'], 2)
+            temp.pop("premium_wage_cost")
+        return result_json
+    
+    def create_crane_solution(self, sid, fts_crane_infos):
+        result_json = []
+        for fc_info  in fts_crane_infos:
+            fts_jsons = self.create_json_crane_cost(sid, fc_info)
+            #print(fts_jsons)
+            result_json.extend(fts_jsons)
+            #break
+        #print(fc_info)
+        return result_json
 
 if __name__ == "__main__":
     #data_lookup = create_data_lookup()

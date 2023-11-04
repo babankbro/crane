@@ -19,10 +19,19 @@ class DBInsert:
         self.db = mydb
         self.solution_id = 1
         
+    def clear_table(self, table_name, sid):
+        sql = f"DELETE FROM {table_name} WHERE solution_id = {sid};"
+        self.cursor.execute(sql)
+        self.db.commit()
+        
     def clear_solution(self, sid):
+        self.clear_table("solution_crane_schedule", sid)
+        self.clear_table("crane_solution", sid)
         sql = f"DELETE FROM solution_schedule WHERE solution_id = {sid};"
         self.cursor.execute(sql)
         self.db.commit()
+        
+        
         
     def insert_jsons(self, json_data):
         colum_names = """solution_id,	 FTS_id,	 carrier_id,	 latlng	,
@@ -44,7 +53,68 @@ class DBInsert:
             #print(insert_query)
             self.cursor.execute(insert_query)
             self.db.commit()
-        
+            
+    def insert_crane_solution_schedule_jsons(self, json_data):
+        colum_names = """solution_id,	
+                    carrier_id,	
+                    start_time,	due_time,	operation_time,	Setup_time,	
+                    travel_Distance,	
+                    travel_time,	operation_rate,
+                    consumption_rate,
+                    crane_id,	
+                    bulk,	
+                    load_cargo,
+                    cargo_id"""
+        for d in json_data:
+            #print(d)
+            d["start_time"] = f"'{d['start_time']}'"
+            d["due_time"] = f"'{d['due_time']}'"
+            values = [str(d[x]) for x in d]
+            columns = [x for x in d]
+            colum_names = ', '.join(columns)
+           
+            values = ', '.join(values)
+            #print(colum_names)
+            #print(values)
+            values = values.replace('None', 'NULL')
+            insert_query = f"INSERT INTO solution_crane_schedule({colum_names}) VALUES ({values})"
+            #print(insert_query)
+            self.cursor.execute(insert_query)
+            self.db.commit()
+
+    def insert_crane_solution_jsons(self, json_data):
+        colum_names = """solution_id,	
+                            FTS_id,	
+                            crane_id,	
+                            total_cost,	
+                            total_consumption_cost,	
+                            total_wage_cost,	
+                            penality_cost,	
+                            total_reward,	
+                            total_late_time,	
+                            total_early_time,	
+                            total_operation_consumption_cost,
+                            total_operation_time,
+                            total_preparation_crane_time,
+                            date"""
+        for d in json_data:
+            d["date"] = f"'{d['date']}'"
+            #print(d)
+            values = [str(d[x]) for x in d]
+            columns = [x for x in d]
+            colum_names = ', '.join(columns)
+           
+            values = ', '.join(values)
+            #print(colum_names)
+            #print(values)
+            values = values.replace('None', 'NULL')
+            insert_query = f"INSERT INTO crane_solution({colum_names}) VALUES ({values})"
+            #print(insert_query)
+            self.cursor.execute(insert_query)
+            self.db.commit()
+        print("insert", len(json_data))
+
+          
 
 
 if __name__ == "__main__":

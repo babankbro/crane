@@ -64,6 +64,7 @@ def create_order_data():
         "CATEGORY": order_df['category'].to_numpy() == 'import' ,
         "BULK": order_df['bulk'].to_numpy().astype(np.int),
         "CARGO": order_df['cargo_name'].to_numpy(),
+        "CARGO_ID": order_df['cargo_id'].to_numpy(),
         "CARRIER": order_df['carrier_name'].to_numpy(),
         "CARRIER_ID":order_df['cr_id'].to_numpy(),
             }

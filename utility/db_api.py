@@ -21,25 +21,36 @@ class DateTimeEncoder(JSONEncoder):
                 return formatted_string
             if isinstance(obj, (datetime.date, datetime.datetime)):
                 return obj.isoformat()
-try:
-    mydb = mysql.connector.connect(
-        host="127.0.0.1",
-        user="sugarotpzlab_crane",
-        password="P@ssw0rd;Crane"
-    )
 
-    mycursor = mydb.cursor(dictionary=True)
-    mycursor.execute('USE sugarotpzlab_crane')
-except:
-    print("No connect database")
 
+def try_connect_db():
+    global mydb, mycursor
+    if mydb and mydb.is_connected() :
+        print("Use Last connect")
+        return mydb, mycursor
+    
+    try:
+        mydb = mysql.connector.connect(
+            host="127.0.0.1",
+            user="sugarotpzlab_crane",
+            password="P@ssw0rd;Crane"
+        )
+        mycursor = mydb.cursor(dictionary=True)
+        mycursor.execute('USE sugarotpzlab_crane')
+    except:
+        print("No connect database")
+    return mydb, mycursor
 
 def get_all_FTS():
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("select * from fts;")
     rows = mycursor.fetchall()
     return rows
 
 def get_all_crane_FTS():
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("""select *
                      from fts 
                      inner join crane on fts.id=crane.fts_id;""")
@@ -47,6 +58,8 @@ def get_all_crane_FTS():
     return rows
 
 def get_all_rates():
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("""select * from cargo_crane
                         join crane on cargo_crane.crane_id=crane.id
                         join cargo on cargo_crane.cargo_id=cargo.cargo_id
@@ -56,6 +69,8 @@ def get_all_rates():
     return rows
 
 def get_all_orders():
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("""select * from cargo_order
                         join cargo on cargo_order.cargo_id=cargo.cargo_id
                         join carrier_order on cargo_order.order_id=carrier_order.or_id
@@ -65,7 +80,8 @@ def get_all_orders():
     return rows
 
 def get_all_cargo():
-    
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("select * from cargo;")
     rows = mycursor.fetchall()
     #json_data = json.dumps(rows, indent=4)
@@ -75,17 +91,23 @@ def get_all_cargo():
     return rows
 
 def get_all_floatingCrane():
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("select * from floating_crane")
     rows = mycursor.fetchall()
     
     return rows
 
 def get_all_carrier():
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("select * from carrier")
     rows = mycursor.fetchall()
     return rows
 
 def get_all_cargo_crane():
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     mycursor.execute("""
         SELECT cargo_crane_id,floating_crane.floating_name,cargo.cargo_name,cargo_crane.consumption_rate,cargo_crane.work_rate,cargo.category 
         FROM cargo_crane INNER JOIN floating_crane ON cargo_crane.floating_id = floating_crane.floating_id 
@@ -93,6 +115,9 @@ def get_all_cargo_crane():
         """)
     rows = mycursor.fetchall()
     return rows
+
+mydb = None
+mydb, mycursor = try_connect_db()
 
 if __name__ == "__main__":
     mycursor.execute('Show Tables')

@@ -9,10 +9,19 @@ class FTS_CRANE_RATE(dict):
         self.df_fts = df_fts
         self.crane_lookup = {}
         self.cranes = []
-        crane_ids = np.unique(self.df_fts['crane_id'])
-        for crane_id in crane_ids:
+        self.setup_time_cranes = []
+        self.wage_month_costs  = []
+        self.premium_rates = []
+        self.crane_ids = np.unique(self.df_fts['crane_id'])
+        for crane_id in self.crane_ids:
             df_crane = self.df_fts.loc[ self.df_fts["crane_id"] == crane_id ]
             crane_name = np.unique(df_crane['crane_name'])[0] 
+            setup_time = np.unique(df_crane['setuptime_crane'])[0]
+            wage_month_cost = np.unique(df_crane['wage_month_cost'])[0]
+            premium_rate = np.unique(df_crane['premium_rate'])[0]
+            self.setup_time_cranes.append(setup_time/60)
+            self.wage_month_costs.append(wage_month_cost)
+            self.premium_rates.append(premium_rate)
             #print(fts_id, fts_name)      
             #print(results)         
             crane_rate = CRANE_CARGO_RATE(self, crane_id, crane_name, df_crane)
@@ -47,6 +56,7 @@ class CRANE_CARGO_RATE(dict):
         self.operation_rates = []
         self.cargo_names = np.unique(df_crane["cargo_name"])
         self.cargo_id_lookup = {}
+        #print(df_crane)
         for i in range(len(self.cargo_names)):
             self.cargo_id_lookup[self.cargo_names[i]] = i
         
@@ -121,7 +131,7 @@ class RATE_LOOKUP(dict):
         
         fts_ids = np.unique(crane_rate_df["FTS_id"])
         fts_names = np.unique(crane_rate_df["FTS_name"])
-        
+        #print(crane_rate_df)
         for i in range(len(crane_ids)):
             self.crane_id_lookup[crane_names[i]] =  crane_ids[i]
             self.crane_name_lookup[crane_ids[i]] =  crane_names[i]
@@ -156,6 +166,10 @@ class RATE_LOOKUP(dict):
                     result = self.crane_rate_df.loc[ (self.crane_rate_df["crane_id"] == crane_id) &
                                        (self.crane_rate_df["cargo_id"] == cargo_id) &
                                        (self.crane_rate_df["category"] == category_name)]
+                    if len(result) == 0:
+                        result = self.crane_rate_df.loc[ (self.crane_rate_df["crane_id"] == crane_id) &
+                                       (self.crane_rate_df["cargo_id"] == cargo_id) ]
+                        print("Fixed missing =================================================")
                     crate = result.iloc[0]['consumption_rate']
                     orate = result.iloc[0]['work_rate']
                     category_consumption_rates.append(crate)
