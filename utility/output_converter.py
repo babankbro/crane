@@ -92,8 +92,9 @@ class OutputConverter:
     def create_json_fts_info(self, sid, fts_crane_info):
         FTS_DATA = self.data_lookup['FTS_DATA']
         fts_index = fts_crane_info['fts_id']
+        fts_setup_time = fts_crane_info['fts_setup_time']
         ORDER_DATA = self.data_lookup['ORDER_DATA']
-        
+        MIN_DATE_TIME = ORDER_DATA['MIN_DATE_TIME']
         result_json = []
         temp = dict(temp_solution_schedule_json)
         temp['solution_id'] = sid
@@ -112,15 +113,20 @@ class OutputConverter:
         if len(fts_crane_info["start_times"]) > 0:
             hours_to_add = timedelta(hours=fts_crane_info["start_times"][0])
         
-        exit_time = BASE_DATE_TIME + hours_to_add
-        temp['arrivaltime'] = exit_time.strftime('%Y-%m-%d %H:%M:%S')
-        temp['exittime'] = exit_time.strftime('%Y-%m-%d %H:%M:%S')
+        #print(MIN_DATE_TIME)
+        format_string = "%Y-%m-%d %H:%M:%S" 
+        MIN_DATE_TIME = datetime.strptime(MIN_DATE_TIME, format_string)
+        #print(MIN_DATE_TIME)
+        exit_time = MIN_DATE_TIME + hours_to_add 
+        temp['arrivaltime'] = exit_time.strftime(format_string)
+        temp['exittime'] = exit_time.strftime(format_string)
         result_json.append(temp)
         ID_LIST = list(ORDER_DATA['CARRIER_ID'])
         for inx in range(len(fts_crane_info["ids"])):
             cid = fts_crane_info["ids"][inx]
             cr_id = ORDER_DATA['CARRIER_ID'][cid]
             idx_cr = ID_LIST.index(cr_id)
+            fts_setup_time = fts_crane_info['fts_setup_time']
             
             
             temp = dict(temp_solution_schedule_json)
@@ -136,12 +142,11 @@ class OutputConverter:
             temp['travel_time'] = fts_crane_info["travel_times"][inx]
             temp['operation_rate'] = fts_crane_info["operation_rates"][inx]
             temp['consumption_rate'] = fts_crane_info["consumption_rates"][inx]
-            
             start_hours_to_add = timedelta(hours=fts_crane_info["start_times"][inx])
-            end_hours_to_add = timedelta(hours=fts_crane_info["end_times"][inx])
+            end_hours_to_add = timedelta(hours=fts_crane_info["end_times"][inx] + fts_setup_time)
             
-            enter_time = BASE_DATE_TIME + start_hours_to_add
-            exit_time = BASE_DATE_TIME + end_hours_to_add
+            enter_time = MIN_DATE_TIME + start_hours_to_add
+            exit_time = MIN_DATE_TIME + end_hours_to_add
             temp['arrivaltime'] =enter_time.strftime('%Y-%m-%d %H:%M:%S')
             temp['exittime'] = exit_time.strftime('%Y-%m-%d %H:%M:%S')
             
@@ -155,12 +160,18 @@ class OutputConverter:
             fts_jsons = self.create_json_fts_info(sid, fc_info)
             #print(fc_info)
             result_json.extend(fts_jsons)
-        print(fc_info)
+        #print(fc_info)
         return result_json
 
     def create_json_crane_info(self, sid, fts_info):
-        print("---------------------------------")
-        print(fts_info['fts'].name)
+        #print("---------------------------------")
+        #print(fts_info['fts'].name)
+        ORDER_DATA = self.data_lookup['ORDER_DATA']
+        CRANE_RATE = self.data_lookup['CRANE_RATE']
+        format_string = "%Y-%m-%d %H:%M:%S" 
+        MIN_DATE_TIME = ORDER_DATA['MIN_DATE_TIME']
+        MIN_DATE_TIME = datetime.strptime(MIN_DATE_TIME, format_string)
+    
         #print(fts_info)
         #print('demands', fts_info['demands'])
         #print('consumption_rates', fts_info['consumption_rates'])
@@ -172,19 +183,19 @@ class OutputConverter:
         for si in range(len(fts_info['ids'])):
             crane_ship_info = fts_info['crane_infos'][si]
             start_ship_time = fts_info['start_times'][si]
-            start_ship_time = fts_info['start_times'][si]
+            fts_setup_time = fts_info['fts_setup_time']
             
             crane_bulks = crane_ship_info['crane_infos']
             
            
             
             for cindx, cbulk in enumerate(crane_bulks):
-                #print(cbulk)
+                #print("cbulk ==========", cbulk)
                 operation_rate = cbulk["operation_rate"]
                 consumption_rate = cbulk["consumption_rate"]
                 crane_index = cbulk['crane_index']
                 ship = cbulk['ship']
-                #print(ship)
+                #print(cbulk["operation_times"])
                 for ibluck, bulk in enumerate(cbulk['bulks']):
                     temp = dict(temp_solution_crane_schedule_json)
                     
@@ -202,13 +213,15 @@ class OutputConverter:
                     cargo_id
                     """
                     #print(cbulk)
-                    start_hours_to_add = timedelta(hours=start_ship_time + cbulk["offset_start_times"][ibluck])
-                    end_hours_to_add = timedelta(hours=start_ship_time + cbulk["finish_times"][ibluck])
+                    start_hours_to_add = timedelta(hours=start_ship_time + fts_setup_time+\
+                                                   cbulk["offset_start_times"][ibluck])
+                    end_hours_to_add = timedelta(hours=start_ship_time + fts_setup_time+\
+                                                 cbulk["finish_times"][ibluck])
                 
                     #if len(fts_crane_info["start_times"]) > 0:
                         #hours_to_add = timedelta(hours=fts_crane_info["start_times"][0])
-                    enter_time = BASE_DATE_TIME + start_hours_to_add
-                    exit_time = BASE_DATE_TIME + end_hours_to_add
+                    enter_time = MIN_DATE_TIME + start_hours_to_add
+                    exit_time = MIN_DATE_TIME + end_hours_to_add
                     temp['solution_id'] = sid
                     temp['carrier_id'] = cbulk['ship'].id
                     temp['start_time'] =enter_time.strftime('%Y-%m-%d %H:%M:%S')

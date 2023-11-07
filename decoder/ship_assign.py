@@ -89,6 +89,7 @@ def compute_step_process_time(case, fts, ship, sbulks):
     results =  []
     for i in range(len(fts.cranes)):
         crane = fts.cranes[i]
+        crane_setup_time = fts.setup_time_cranes[i]
         orate = crane.get_rates(ship.cargo, ship.category)['operation_rate']
         crate = crane.get_rates(ship.cargo, ship.category)['consumption_rate']
         
@@ -99,6 +100,7 @@ def compute_step_process_time(case, fts, ship, sbulks):
             'operation_times':[],
             "operation_rate":orate,
             'consumption_rate':crate,
+            'setup_time': crane_setup_time,
             'category':ship.category,
             'cargo':ship.cargo,
         }
@@ -113,6 +115,9 @@ def compute_step_process_time(case, fts, ship, sbulks):
         load = ship.load_bulks[bulk]
         orate = crane.get_rates(ship.cargo, ship.category)['operation_rate']
         otime = round(load/orate, 2)
+        if otime < 0:
+            print("Error", otime, load, orate)
+        
         
         if len(index) == 1:
             row = results[cid]

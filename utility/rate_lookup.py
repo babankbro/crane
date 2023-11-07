@@ -71,8 +71,14 @@ class CRANE_CARGO_RATE(dict):
                     crates.append(result.iloc[0]['consumption_rate'])
                     orates.append(result.iloc[0]['work_rate'])
                 else:
-                    crates.append(-1)
-                    orates.append(-1)
+                    result = self.df_crane.loc[ (self.df_crane["cargo_name"] == cargo)]
+                    if len(result) > 0:
+                        crates.append(result.iloc[0]['consumption_rate'])
+                        orates.append(result.iloc[0]['work_rate'])
+                    else:
+                        print("Need to Fix missing =================================================")
+                        crates.append(-1)
+                        orates.append(-1)
             
             self.consumption_rates.append(crates)
             self.operation_rates.append(orates)

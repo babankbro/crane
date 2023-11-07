@@ -5,7 +5,7 @@ from rate_lookup import *
 from datetime import datetime
 from distance_lookup import *
 
-BASE_DATE_TIME = datetime(2023, 1, 1)
+BASE_DATE_TIME = datetime(2022, 1, 1)
 ns = 1e-9
 def convert_to_hour_from_new_year(dt):
     #dt = datetime.utcfromtimestamp(npdate_time.astype(int)*ns)
@@ -27,9 +27,12 @@ def convert_to_hours(array_times):
         time_hours.append(t)
     return np.array(time_hours)
 
-def create_fts_data():
+def create_fts_data(filter_fts=[]):
     fts_json = get_all_FTS()
     fts_df = pd.DataFrame(fts_json)
+    if len(filter_fts) != 0:
+        fts_df = fts_df[fts_df['FTS_name'].isin(filter_fts)]
+    
     return {
         "NAME": fts_df['FTS_name'].to_numpy(),
         "FTS_ID":fts_df['id'].to_numpy(),
@@ -39,20 +42,26 @@ def create_fts_data():
         "SPEED": fts_df['speed'].to_numpy().astype(np.float),
             }
 
-def create_order_data():
+def create_order_data(filter_carriers=[]):
     order_json = get_all_orders()
     order_df = pd.DataFrame(order_json)
+    
+    if len(filter_carriers) != 0:
+        order_df = order_df[order_df['carrier_name'].isin(filter_carriers)]
+    
     arrival_times = order_df['arrival_time'].to_numpy()
     dutedate_times = order_df['deadline_time'].to_numpy()
     #print("arrival_times", arrival_times)
     arrival_hour_times = convert_to_hours(arrival_times)
     dutedate_hour_times = convert_to_hours(dutedate_times)
     mhour = np.min(arrival_hour_times)
+    index_min = np.argmin(arrival_hour_times)
     arrival_hour_times= arrival_hour_times - mhour
     dutedate_hour_times= dutedate_hour_times - mhour
-    print("create_order_data")
+    print("create_order_data", 'min time', order_df.iloc[index_min]['arrival_time'])
     print(order_df.columns)
     return {
+        "MIN_DATE_TIME": order_df.iloc[index_min]['arrival_time'],
         "ARRIVAL_TIME": arrival_times,
         "ARRIVAL_TIME_HOUR": arrival_hour_times,
         "DUE_TIME": dutedate_times,

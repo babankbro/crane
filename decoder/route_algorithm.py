@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
 
     problem = CraneProblem(decoder)
-    termination = get_termination("time", "00:00:15")
+    termination = get_termination("time", "00:00:03")
 
     resGA = minimize(problem,
                 algorithm,
@@ -146,8 +146,11 @@ if __name__ == "__main__":
                 'ship_infos':ship_infos} , save_file, indent = 4,  cls=NpEncoder) 
     
     for fts_crane_info in fts_crane_infos:
-        if fts_crane_info['fts_name'] == "แก่นตะวัน":
-            print(fts_crane_info)
+        #if fts_crane_info['fts_name'] == "แก่นตะวัน":
+        #print(fts_crane_info)
+        if len(fts_crane_info['process_times']) > 0 :
+            if (fts_crane_info['process_times'][0]) < 1:
+                print(fts_crane_info['process_times'])
     
     result_json = converter.create_solution_schedule(1, fts_crane_infos) 
     db_insert.insert_jsons(result_json)

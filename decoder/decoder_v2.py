@@ -52,7 +52,7 @@ class DecoderV2:
         ship = self.ships[ship_index]
         fts_crane_info = fts_crane_infos[findex]
         if len(fts_crane_info['ids']) == 0:
-            last_point_time = 0
+            last_point_time = -100
             distance = self.DM_lookup.get_fts_distance(findex, ship_index)
         else:
             last_ship_id = fts_crane_info['ids'][-1]
@@ -83,12 +83,28 @@ class DecoderV2:
             fts_input = [fts]
             start_times = [s_time]
             due_time, fts_results = groups_assign(fts_input, start_times, ship )   
+            
+            conveted_fts_results = convert_result(fts_results[0])
+            max_due_date = 0
+            #print(conveted_fts_results)
+            for cfr in conveted_fts_results["crane_infos"]:
+                if len(cfr['finish_times']) == 0:
+                    continue
+                max_due_date = max(max_due_date, max(cfr['finish_times']))
+            
+            process_time = max_due_date
+            due_time = max_due_date + s_time
             delta = ship.closed_time - due_time
             
-            process_time = due_time - s_time
+            if process_time < 0:
+                print("ERRRRRRRRRRRRRRRRRRRRRRRRR")
             
             consumption_rate_fts = -1
             process_rate_fts = -1
+            
+            #if process_time > 0:
+                #print("Errror", due_time, s_time)
+            
             
             best_cranes = [{"fts_id":findex , "arrive_time": round(a_time, 2), 
                                 "start_time":round(s_time,2), "travel_time":round(t_time,2), 
@@ -137,6 +153,24 @@ class DecoderV2:
                         #for crane in step[1]:
                             #print(crane)
                     process_time = fts_results2[v]['operation_time']
+                    
+                    
+                    conveted_fts_results = convert_result(fts_results2[v])
+                    max_due_date = 0
+                    #print(conveted_fts_results)
+                    for cfr in conveted_fts_results["crane_infos"]:
+                        if len(cfr['finish_times']) == 0:
+                            continue
+                        max_due_date = max(max_due_date, max(cfr['finish_times']))
+                    
+                    process_time = max_due_date
+                    due_time = max_due_date + s_time
+                    delta = ship.closed_time - due_time
+                    
+                    if process_time < 0:
+                        print("ERRRRRRRRRRRRRRRRRRRRRRRRR")
+                    
+                    
                     #print("type crane", type(fts_results2[i]))
                     temp_cranes.append({"fts_id":fts_indexs[v] , "arrive_time": round(arrival_times[v], 2), 
                             "start_time":round(start_times[v],2), "travel_time":round(travel_times[v],2), 

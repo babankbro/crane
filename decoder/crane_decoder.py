@@ -104,7 +104,9 @@ def groups_assign(ftses, start_times, ship):
     if nfts == 1 or (nfts==2 and nbulk==1):
         result = single_group_case(ftses[0], ship, start_times[0], bulks)
         fts_results.append(result)
-        return result['due_time'], fts_results
+        
+        max_due_date = result['due_time']
+        
     
     else:
         min_due_time = 1000000000000000000
@@ -117,8 +119,9 @@ def groups_assign(ftses, start_times, ship):
                 min_due_time = due_time
                 fts_results = results
                 #print(min_due_time, group)
-            
-    return min_due_time, fts_results
+        max_due_date = min_due_time
+    
+    return max_due_date, fts_results
 
 def convert_result(fts_info):
     steps = fts_info["steps"]
@@ -133,11 +136,13 @@ def convert_result(fts_info):
                             'fts':fts,
                             'loads': [],
                             'operation_times':[],
+                            'setup_time':0,
                             'offset_start_times':[],
                             'waiting_start_times':[],
                             'finish_times':[],
                             'operation_rate':0,
                             'consumption_rate':0,
+                            
                             'total_loads':0,
                             "crane_index":i,
                             })
@@ -152,6 +157,7 @@ def convert_result(fts_info):
             crane_info['bulks'].extend(crane_step['bulks'])
             crane_info['loads'].extend(crane_step['loads'])
             crane_info['operation_times'].extend(crane_step['operation_times'])
+            crane_info['setup_time'] =  crane_step['setup_time']
             crane_info['operation_rate'] = crane_step['operation_rate']
             crane_info['consumption_rate'] = crane_step['consumption_rate']
     
@@ -177,13 +183,15 @@ def convert_result(fts_info):
                 continue
             if s == 0:
                 crane_infos[i]['offset_start_times'].append(0)
-                crane_infos[i]['finish_times'].append(crane_infos[i]['operation_times'][0])
+              
+                crane_infos[i]['finish_times'].append(crane_infos[i]['setup_time'] + 
+                                                      crane_infos[i]['operation_times'][0])
                 crane_infos[i]['waiting_start_times'].append(max_step_times[0] - crane_infos[i]['operation_times'][0])
             else:
                 s_time = max_finish_times[-1]
-                f_time = s_time+crane_infos[i]['operation_times'][s]
+                f_time = s_time+  crane_infos[i]['operation_times'][s]
                 crane_infos[i]['offset_start_times'].append(s_time)
-                crane_infos[i]['finish_times'].append(f_time)
+                crane_infos[i]['finish_times'].append(f_time + crane_infos[i]['setup_time'])
                 crane_infos[i]['waiting_start_times'].append(max_step_times[s] - crane_infos[i]['operation_times'][s])
             max_finish_time = max(max_finish_time, crane_infos[i]['finish_times'][-1])
         max_finish_times.append(max_finish_time)
