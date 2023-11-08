@@ -70,7 +70,7 @@ class DecoderV2:
         min_due_date = 10000000
         #print(f"{ship.name} {ship.open_time} - {ship.closed_time}")
         minDelta = -1000000000000000000000000
-        
+        temp_best_cranes = []
         i = 0
         while i < len(fts_codes):
             findex = fts_codes[i]
@@ -305,7 +305,7 @@ class DecoderV2:
             #continue
             if len(fts_delta_infos) == 0:
                 #print("XXXXXXXXXXXXX")
-                return None, None
+                continue
             
             #print(crane_delta_infos[0]['crane_infos'])
             

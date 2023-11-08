@@ -27,11 +27,11 @@ def convert_to_hours(array_times):
         time_hours.append(t)
     return np.array(time_hours)
 
-def create_fts_data(filter_fts=[]):
+def create_fts_data(filter_type  = 'FTS_name', filter_fts=[]):
     fts_json = get_all_FTS()
     fts_df = pd.DataFrame(fts_json)
     if len(filter_fts) != 0:
-        fts_df = fts_df[fts_df['FTS_name'].isin(filter_fts)]
+        fts_df = fts_df[fts_df[filter_type].isin(filter_fts)]
     
     return {
         "NAME": fts_df['FTS_name'].to_numpy(),
@@ -42,12 +42,12 @@ def create_fts_data(filter_fts=[]):
         "SPEED": fts_df['speed'].to_numpy().astype(np.float),
             }
 
-def create_order_data(filter_carriers=[]):
+def create_order_data(filter_type = "carrier_name", filter_carriers=[]):
     order_json = get_all_orders()
     order_df = pd.DataFrame(order_json)
     
     if len(filter_carriers) != 0:
-        order_df = order_df[order_df['carrier_name'].isin(filter_carriers)]
+        order_df = order_df[order_df[filter_type].isin(filter_carriers)]
     
     arrival_times = order_df['arrival_time'].to_numpy()
     dutedate_times = order_df['deadline_time'].to_numpy()
@@ -59,7 +59,7 @@ def create_order_data(filter_carriers=[]):
     arrival_hour_times= arrival_hour_times - mhour
     dutedate_hour_times= dutedate_hour_times - mhour
     print("create_order_data", 'min time', order_df.iloc[index_min]['arrival_time'])
-    print(order_df.columns)
+    print(order_df)
     return {
         "MIN_DATE_TIME": order_df.iloc[index_min]['arrival_time'],
         "ARRIVAL_TIME": arrival_times,
@@ -76,6 +76,7 @@ def create_order_data(filter_carriers=[]):
         "CARGO_ID": order_df['cargo_id'].to_numpy(),
         "CARRIER": order_df['carrier_name'].to_numpy(),
         "CARRIER_ID":order_df['cr_id'].to_numpy(),
+        #"DF" : order_df,
             }
 
 def create_crane_rate_data():
@@ -108,7 +109,7 @@ if __name__ == "__main__":
     order_data = create_order_data()
     print(order_data['ARRIVAL_TIME_HOUR'])
     
-    #rates = get_all_rates()
+    #rates = get_all_ra Ptes()
     #for rate in rates:
         #print(rate)
     #rate_lookup = create_crane_rate_data()
