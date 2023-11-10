@@ -299,6 +299,7 @@ def test_decode_all():
         print(i, ship.total_demand)
     
     problem = CraneProblem(decoder)
+    xs = np.load("./dataset/bestX.npy")
     fts_infos, ship_infos = decoder.decode(xs, True)
     result = {}
     problem._evaluate(xs, result)
@@ -339,14 +340,20 @@ def test_decode_all():
     print("---------------FTS--------------------")
     converter = OutputConverter(data_lookup)
     result_json = converter.create_solution_schedule(1, fts_infos) 
+    for idx, fts in enumerate(fts_infos):
+        print(fts)
+        if idx == 1:
+            break
+        
     print("Len", len(result_json))
-    for r_json in result_json:
+    for idx, r_json in enumerate(result_json):
         if r_json['operation_rate'] == None:
             continue
         
         #print("Insert -----", r_json["operation_time"])
         print(r_json)
-        break
+        if idx >= 2:
+            break
         
     print()
     print()

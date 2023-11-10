@@ -112,8 +112,9 @@ class OutputConverter:
 
     def create_json_fts_info(self, sid, fts_crane_info):
         FTS_DATA = self.data_lookup['FTS_DATA']
-        fts_index = fts_crane_info['fts_id']
         fts_setup_time = fts_crane_info['fts_setup_time']
+        fts_index = fts_crane_info['fts_id']
+        
         ORDER_DATA = self.data_lookup['ORDER_DATA']
         MIN_DATE_TIME = ORDER_DATA['MIN_DATE_TIME']
         result_json = []
@@ -164,7 +165,7 @@ class OutputConverter:
             temp['operation_rate'] = fts_crane_info["operation_rates"][inx]
             temp['consumption_rate'] = fts_crane_info["consumption_rates"][inx]
             start_hours_to_add = timedelta(hours=fts_crane_info["start_times"][inx])
-            end_hours_to_add = timedelta(hours=fts_crane_info["end_times"][inx] + fts_setup_time)
+            end_hours_to_add = timedelta(hours=fts_crane_info["end_times"][inx])
             
             enter_time = MIN_DATE_TIME + start_hours_to_add
             exit_time = MIN_DATE_TIME + end_hours_to_add
@@ -178,7 +179,12 @@ class OutputConverter:
     def create_solution_schedule(self, sid, fts_crane_infos):
         result_json = []
         for fc_info  in fts_crane_infos:
+            if fc_info['fts_id']==1:
+                print(fc_info['fts_name'])
+                print("##############################")
             fts_jsons = self.create_json_fts_info(sid, fc_info)
+            if fc_info['fts_id']==1:
+                print("##############################")
             #print(fc_info)
             result_json.extend(fts_jsons)
         #print(fc_info)

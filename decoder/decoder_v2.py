@@ -94,8 +94,11 @@ class DecoderV2:
                     continue
                 max_due_date = max(max_due_date, max(cfr['finish_times']))
             
+            #print(type(fts))
+            #print(fts)
+            fts_setup_time = fts_crane_infos[findex]['fts_setup_time']
             process_time = max_due_date
-            due_time = max_due_date + s_time
+            due_time = max_due_date + s_time + fts_setup_time
             delta = ship.closed_time - due_time
             
             if process_time < 0:
@@ -182,8 +185,9 @@ class DecoderV2:
                             continue
                         max_due_date = max(max_due_date, max(cfr['finish_times']))
                     
+                    fts_setup_time = fts_crane_infos[fts_indexs[v]]['fts_setup_time']
                     process_time = max_due_date
-                    due_time = max_due_date + s_time
+                    due_time = max_due_date + s_time + fts_setup_time
                     delta = ship.closed_time - due_time
                     
                     if process_time < 0:
