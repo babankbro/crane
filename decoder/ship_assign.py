@@ -11,6 +11,7 @@ class Ship(dict):
         self.lat = lookup['LAT']
         self.lng = lookup['LNG']
         self.id = lookup['CARRIER_ID']
+        self.order_id = lookup['ORDER_ID']
         self.open_time = lookup['ARRIVAL_TIME_HOUR']
         self.closed_time =  lookup['DUE_TIME_HOUR']
         self.total_demand = lookup['DEMAND']
@@ -28,7 +29,7 @@ class Ship(dict):
             self.load_bulks.append( round(self.total_demand/self.number_bulk, 2))
             
     def __str__(self):
-        return f""" {self.name}  open-closed: {round(self.open_time, 2)} - {round(self.closed_time, 2)}  {self.load_bulks} """
+        return f""" {self.id} {self.order_id} {self.name}  open-closed: {round(self.open_time, 2)} - {round(self.closed_time, 2)}  {self.load_bulks} """
             
 CASE_LOOK_UP = { 
                 #"C2-B1-T1": {"NCRANE":2, "NBULK": 1, "INDEX": [[0, 1]]},

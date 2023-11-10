@@ -5,9 +5,11 @@ import sys
 
 
 
+
+
 sys.path.insert(0, "./utility")
 sys.path.insert(0, "./decoder")
-
+from route_algorithm import CraneProblem
 from crane_utility import *
 from crane_configuration import *
 from ship_assign import *
@@ -296,7 +298,11 @@ def test_decode_all():
     for i, ship in enumerate(decoder.ships):
         print(i, ship.total_demand)
     
+    problem = CraneProblem(decoder)
     fts_infos, ship_infos = decoder.decode(xs, True)
+    result = {}
+    problem._evaluate(xs, result)
+    
     print("-------------------------- CRANES  -------------------------------------------")
     #print(fts_infos)
     for fts_info in fts_infos:
@@ -357,6 +363,7 @@ def test_decode_all():
     for r_json in result_json:
         print(r_json)
         break
+    print(result)
 
 if __name__ == "__main__":
     print("test_decode_all")

@@ -112,7 +112,7 @@ if __name__ == "__main__":
         )
     
     algorithm = DE(
-        pop_size=100,
+        pop_size=20,
         sampling=LHS(),
         variant="DE/rand/1/bin",
         CR=0.3,
@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
 
     problem = CraneProblem(decoder)
-    termination = get_termination("time", "00:00:03")
+    termination = get_termination("time", "00:00:50")
 
     resGA = minimize(problem,
                 algorithm,
@@ -169,5 +169,9 @@ if __name__ == "__main__":
     db_insert.insert_crane_solution_schedule_jsons(result_json)
     result_json = converter.create_ship_solution_schedule(1, ship_infos) 
     db_insert.insert_carrier_solution_jsons(result_json)
+    
+    result = {}
+    problem._evaluate(resGA.X,result)
+    print(result)
     
   

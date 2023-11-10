@@ -73,12 +73,14 @@ class DecoderV2:
         temp_best_cranes = []
         i = 0
         while i < len(fts_codes):
-            findex = fts_codes[i]
+            #print("decode ================", i)
+            ii = i
+            i+=1
+            findex = fts_codes[ii]
             fts = self.ftses[findex]
             distance, t_time, a_time, s_time = self.get_result_info(findex,  ship_index, fts_crane_infos)
             
             if a_time > ship.closed_time:
-                i+=1
                 continue
             fts_input = [fts]
             start_times = [s_time]
@@ -106,7 +108,7 @@ class DecoderV2:
                 #print("Errror", due_time, s_time)
             
             
-            best_cranes = [{"fts_id":findex , "arrive_time": round(a_time, 2), 
+            temp_best_cranes = [{"fts_id":findex , "arrive_time": round(a_time, 2), 
                                 "start_time":round(s_time,2), "travel_time":round(t_time,2), 
                                 "consumption_rate":round(consumption_rate_fts,2), 
                                 "distance":round(distance,2),"process_rate":process_rate_fts,
@@ -115,21 +117,37 @@ class DecoderV2:
                                 } ]
             
             if delta > 0  :
+                #if ship_index == 15:
+                #print(ship_index, ship, "delta===================================",delta)
                 break
+            test = [ #7, #5, 9, 10
+                    ]
+                    
+            if ship.id in test:
+                print(findex, f"======================== {ship.id}",delta)
             
             if minDelta < delta:
                 minDelta = delta
-                temp_best_cranes = best_cranes
+                best_cranes = temp_best_cranes 
+            
                 
             j = 1
             isFound = False
             temp_best_cranes = []
-            while i + j < len(fts_codes): 
-                k = i + j
-                j += 1
+            while j < len(fts_codes): 
+                jj = j
+                j+=1
+                k = jj
+
+                if ii == k:
+                    #print(i, k)
+                    continue
+                
                 findex2 = fts_codes[k]
                 distance2, t_time2, a_time2, s_time2 = self.get_result_info(findex2,  ship_index, fts_crane_infos)
                 
+                if ship.id in test:
+                    print(i, k, findex, findex2)
                 
                 fts2 = self.ftses[findex2]
                 fts_input = [fts, fts2]
@@ -140,7 +158,8 @@ class DecoderV2:
                 fts_indexs = [findex, findex2]
                 #print("fts_input", len(fts_input))
                 due_time2, fts_results2 = groups_assign(fts_input, start_times, ship )   
-                isNewStart = (len(fts_crane_infos[findex]['ids']) == 0) and (len(fts_crane_infos[findex2]['ids']) == 0)
+                isNewStart = ((len(fts_crane_infos[findex]['ids']) == 0) and 
+                             (len(fts_crane_infos[findex2]['ids']) == 0))
                 
                 temp_cranes = []
                 for v in range(len(fts_results2)):
@@ -180,22 +199,30 @@ class DecoderV2:
                             "crane_infos": fts_results2[v],
                             } )
                 
-                if isNewStart:
-                    return temp_cranes
+                #if isNewStart:
+                    #print("Exist ===========================")
+                    #return temp_cranes
                 
-                if start_times[0] <= ship.closed_time and start_times[1] < ship.closed_time:
+                if start_times[0] >= ship.closed_time and start_times[1] >= ship.closed_time:
                     isFound = True
-                    break
+                    #print(start_times, ship.closed_time)
+                    continue
                 
                 delta = ship.closed_time - due_time2
+                
+                if ship.id in test:
+                    print(findex, findex2, "L2======================== {ship.id}",delta, due_time2, ship.closed_time)
                 if minDelta < delta:
                     minDelta = delta
-                    temp_best_cranes = temp_cranes
+                    best_cranes = temp_cranes
+                    #best_cranes = temp_best_cranes
+                    
+            #print("")
                 
-            if isFound:
-                break
+            #if isFound:
+                #break
             
-            i+=1
+            
         
         if len(best_cranes) == 0:
             return temp_best_cranes
