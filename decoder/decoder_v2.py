@@ -176,7 +176,7 @@ class DecoderV2:
                             "start_time":round(start_times[v],2), "travel_time":round(travel_times[v],2), 
                             "consumption_rate":round(consumption_rate_fts,2), 
                             "distance":round(distances[v],2),"process_rate":process_rate_fts,
-                            "process_time":round(process_time,4), "end_time":round(fts_results2[v]['due_time'],2),
+                            "process_time":round(process_time,4), "end_time":round(due_time,2),
                             "crane_infos": fts_results2[v],
                             } )
                 

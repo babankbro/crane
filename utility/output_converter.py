@@ -277,6 +277,8 @@ class OutputConverter:
             temp['total_operation_consumption_cost'] = 0
             temp['total_late_time'] = 0
             temp['total_early_time'] = 0
+            temp['penality_cost'] =  0
+            temp['total_reward'] =  0
             temp['date'] = '2023-01-01'
             #temp['fixed_wage_cost'] = 
             temp['premium_wage_cost'] = 0

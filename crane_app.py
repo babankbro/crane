@@ -65,15 +65,14 @@ def hello_world():
 @cross_origin()
 def route():
     datas = request.get_json( )
-    data_date = datas['date']
+    #data_date = datas['date']
     compute_time = int(datas['computetime'])
-    current_time = datas['currenttime']
+    #current_time = datas['currenttime']
     
     data_lookup = create_data_lookup()
     decoder = DecoderV2(data_lookup)
     converter = OutputConverter(data_lookup)
-    db_insert = DBInsert(mycursor, mydb)
-    db_insert.clear_solution(1)
+    
     
     
     compute_time = compute_time*60
@@ -139,6 +138,9 @@ def route():
     for fts_crane_info in fts_crane_infos:
         if fts_crane_info['fts_name'] == "แก่นตะวัน":
             print(fts_crane_info)
+
+    db_insert = DBInsert(mycursor, mydb)
+    db_insert.clear_solution(1)
     
     result_json = converter.create_solution_schedule(1, fts_crane_infos) 
     db_insert.insert_jsons(result_json)
@@ -149,12 +151,11 @@ def route():
     
     
     return {'status':"success",
-            "data_date":data_date, 
+            #"data_date":data_date, 
                 "compute_time":compute_time,
-                "start_date":current_time}
+              #  "start_date":current_time
+                }
     
-
-
 if __name__ == "__main__":
     socketio.run(app=app, debug=True, host="0.0.0.0", port = 5011)
     
