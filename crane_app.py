@@ -75,7 +75,7 @@ def route():
     
     
     
-    compute_time = compute_time*60
+    compute_time = compute_time*1
     m = compute_time//60
     ss = compute_time % 60
     print("compute_time",compute_time, m, ss)
@@ -92,7 +92,7 @@ def route():
     )
     
     algorithm = DE(
-        pop_size=25,
+        pop_size=5,
         sampling=LHS(),
         variant="DE/rand/1/bin",
         CR=0.3,
@@ -150,6 +150,8 @@ def route():
     db_insert.insert_crane_solution_jsons(result_json)
     result_json = converter.create_ship_solution_schedule(1, ship_infos) 
     db_insert.insert_carrier_solution_jsons(result_json)
+
+    np.save("./dataset/bestX.npy", np.array(res.X))
     
     return {'status':"success",
             #"data_date":data_date, 
