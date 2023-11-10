@@ -63,6 +63,16 @@ class CraneProblem(ElementwiseProblem):
             #print(process)
             tcost += process + travel
         return tcost
+    
+    def ship_cost(self, ship_infos):
+        tcost = 0
+        for si in ship_infos:
+            if si['delta_time'] < 0:
+                tcost += -(si['delta_time'])*si['penalty_rate']
+            else:
+                tcost += -(si['delta_time'])*si['reward_rate']
+                
+        return tcost
 
     def _evaluate(self, x, out, *args, **kwargs):
         crane_infos, ship_infos = self.decoder.decode(x)
@@ -76,6 +86,7 @@ class CraneProblem(ElementwiseProblem):
             total_delta_due_time= self.get_total_delta_due_times(ship_infos)
             sum_delta_load = self.get_balance_work_loads(crane_infos)
             tcost = self.cost(crane_infos)
+            tcost += self.ship_cost(ship_infos)
 
         #print(tcost)
         out["hash"] = hash(str(x)) + tcost
@@ -156,5 +167,7 @@ if __name__ == "__main__":
     db_insert.insert_jsons(result_json)
     result_json = converter.create_crane_solution_schedule(1, fts_crane_infos) 
     db_insert.insert_crane_solution_schedule_jsons(result_json)
+    result_json = converter.create_ship_solution_schedule(1, ship_infos) 
+    db_insert.insert_carrier_solution_jsons(result_json)
     
   

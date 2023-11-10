@@ -246,11 +246,14 @@ class DecoderV2:
         ORDER_DATA = self.data_lookup['ORDER_DATA']
         for ship_id in range(NSHIP):
             ship_info = {"ship_id": ship_id, 
+                         "order_id": ORDER_DATA['ORDER_ID'][ship_id],
                          "ship_db_id": ORDER_DATA['CARRIER_ID'][ship_id],
                          "ship_name": ORDER_DATA['CARRIER'][ship_id],
                          "open_time": ORDER_DATA['ARRIVAL_TIME_HOUR'][ship_id], 
                          "due_time": ORDER_DATA['DUE_TIME_HOUR'][ship_id], 
                          "cargo_type":ORDER_DATA['CARGO'][ship_id], 
+                         "penalty_rate":ORDER_DATA['PENALTY_RATE'][ship_id],
+                         "reward_rate":ORDER_DATA['REWARD_RATE'][ship_id],
                         "demand":    ORDER_DATA['DEMAND'][ship_id], 
                         "categroy_name": 'export' if  ORDER_DATA['CATEGORY'][ship_id] else 'import', 
                         "fts_crane_ids":[], 
@@ -333,6 +336,13 @@ class DecoderV2:
                 ship_info["fts_crane_enter_times"].append(fts_delta_info['start_time'])
                 ship_info["fts_crane_exit_times"].append(fts_delta_info['end_time'])
                 ship_info["fts_crane_operation_times"].append(fts_delta_info['process_time'])
+                
+        for i in range(self.NSHIP):
+            ship_id = ship_order_ids[i]
+            exit_time = max(ship_infos[ship_id]["fts_crane_exit_times"])
+            due_time = ship_infos[ship_id]["due_time"]
+            ship_infos[ship_id]["delta_time"] = due_time-exit_time
+ 
         return fts_crane_infos, ship_infos
          
 

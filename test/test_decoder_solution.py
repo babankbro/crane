@@ -352,7 +352,11 @@ def test_decode_all():
         break
     
     print(data_lookup["ORDER_DATA"]["DUE_TIME_HOUR"])
-
+    print("----------------------------  INFO SHIPS --------------------------------------------")
+    result_json = converter.create_ship_solution_schedule(1, ship_infos) 
+    for r_json in result_json:
+        print(r_json)
+        break
 
 if __name__ == "__main__":
     print("test_decode_all")

@@ -19,14 +19,15 @@ class DBInsert:
         self.db = mydb
         self.solution_id = 1
         
-    def clear_table(self, table_name, sid):
-        sql = f"DELETE FROM {table_name} WHERE solution_id = {sid};"
+    def clear_table(self, table_name, sid, sol_name_id = "solution_id"):
+        sql = f"DELETE FROM {table_name} WHERE {sol_name_id} = {sid};"
         self.cursor.execute(sql)
         self.db.commit()
         
     def clear_solution(self, sid):
         self.clear_table("solution_crane_schedule", sid)
         self.clear_table("crane_solution", sid)
+        self.clear_table("solution_carrier_order", sid, sol_name_id="s_id")
         sql = f"DELETE FROM solution_schedule WHERE solution_id = {sid};"
         self.cursor.execute(sql)
         self.db.commit()
@@ -114,7 +115,30 @@ class DBInsert:
             self.db.commit()
         print("insert", len(json_data))
 
-          
+    def insert_carrier_solution_jsons(self, json_data):
+        colum_names = """s_id,  
+                         order_id,
+                         start_time,
+                        finish_time,
+                        penalty_cost, 
+                        reward"""
+        for d in json_data:
+            d["start_time"] = f"'{d['start_time']}'"
+            d["finish_time"] = f"'{d['finish_time']}'"
+            #print(d)
+            values = [str(d[x]) for x in d]
+            columns = [x for x in d]
+            colum_names = ', '.join(columns)
+           
+            values = ', '.join(values)
+            #print(colum_names)
+            #print(values)
+            values = values.replace('None', 'NULL')
+            insert_query = f"INSERT INTO solution_carrier_order({colum_names}) VALUES ({values})"
+            #print(insert_query)
+            self.cursor.execute(insert_query)
+            self.db.commit()
+        print("insert", len(json_data))
 
 
 if __name__ == "__main__":

@@ -76,6 +76,9 @@ def create_order_data(filter_type = "carrier_name", filter_carriers=[]):
         "CARGO_ID": order_df['cargo_id'].to_numpy(),
         "CARRIER": order_df['carrier_name'].to_numpy(),
         "CARRIER_ID":order_df['cr_id'].to_numpy(),
+        "PENALTY_RATE": order_df['penalty_rate'].to_numpy(),
+        "REWARD_RATE":order_df['reward_rate'].to_numpy(),
+        "ORDER_ID":order_df['order_id'].to_numpy(),
         #"DF" : order_df,
             }
 

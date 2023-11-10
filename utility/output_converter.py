@@ -13,7 +13,9 @@ sys.path.insert(0, "./decoder")
 from crane_utility import *
 from decoder import *
 
-
+"""solution_carrier_order
+   s_id order_id start_time finish_time penalty_cost reward
+"""
 
 """solution_schedule
     solution_id	 FTS_id	 carrier_id	 latlng	
@@ -47,6 +49,15 @@ from decoder import *
     total_preparation_crane_time	
     date
 """
+
+temp_ship_solution_json = {
+
+   "s_id": 0,  "order_id":0,
+   "start_time":'2023-01-01 00:00:00',
+   "finish_time":'2023-01-01 00:00:00',
+   "penalty_cost":0, "reward":0
+
+}
 
 
 temp_crane_solution_json = {
@@ -88,6 +99,16 @@ class OutputConverter:
     def __init__(self, data_lookup) -> None:
         self.data_lookup= data_lookup
     
+
+    def create_json_ship_info(self, sid, ship_info):
+        temp = dict(temp_ship_solution_json)
+        temp['s_id'] = sid
+        temp['order_id'] = ship_info['order_id']
+        if ship_info['delta_time'] < 0:
+            temp['penalty_cost'] =  abs(ship_info['delta_time']) * ship_info['penalty_rate']
+        else:
+            temp['reward'] =  ship_info['delta_time'] * ship_info['reward_rate']
+        return temp
 
     def create_json_fts_info(self, sid, fts_crane_info):
         FTS_DATA = self.data_lookup['FTS_DATA']
@@ -161,6 +182,14 @@ class OutputConverter:
             #print(fc_info)
             result_json.extend(fts_jsons)
         #print(fc_info)
+        return result_json
+    
+    def create_ship_solution_schedule(self, sid, ship_infos):
+        result_json = []
+        for i in range(len(ship_infos)):
+            #print(ship_infos[i])
+            ship_jsons = self.create_json_ship_info(sid, ship_infos[i])
+            result_json.append(ship_jsons)
         return result_json
 
     def create_json_crane_info(self, sid, fts_info):
