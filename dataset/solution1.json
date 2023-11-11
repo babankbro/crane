@@ -1387,7 +1387,7 @@
             ],
             "end_times": [
                 63.32,
-                115.56,
+                117.12,
                 453.76,
                 1343.32
             ],
@@ -1405,7 +1405,7 @@
             ],
             "process_times": [
                 40.32,
-                26.06,
+                27.62,
                 17.26,
                 45.32
             ],
@@ -1518,24 +1518,24 @@
                                 2796.0
                             ],
                             "operation_times": [
-                                11.03,
-                                11.03
+                                11.81,
+                                11.81
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                13.03
+                                13.81
                             ],
                             "waiting_start_times": [
                                 0.0,
                                 0.0
                             ],
                             "finish_times": [
-                                13.03,
-                                26.06
+                                13.81,
+                                27.62
                             ],
-                            "operation_rate": 253.49,
-                            "consumption_rate": 0.2735,
+                            "operation_rate": 236.81,
+                            "consumption_rate": 0.2734,
                             "total_loads": 5592.0,
                             "crane_index": 0
                         },
@@ -1557,15 +1557,15 @@
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                13.03
+                                13.81
                             ],
                             "waiting_start_times": [
-                                0.06999999999999851,
-                                0.06999999999999851
+                                0.8499999999999996,
+                                0.8499999999999996
                             ],
                             "finish_times": [
                                 12.96,
-                                25.990000000000002
+                                26.770000000000003
                             ],
                             "operation_rate": 255.18,
                             "consumption_rate": 0.2671,
@@ -3369,7 +3369,7 @@
                 2
             ],
             "fts_crane_demands": [
-                -26,
+                -28,
                 -14
             ],
             "fts_crane_enter_times": [
@@ -3377,14 +3377,14 @@
                 87.5
             ],
             "fts_crane_exit_times": [
-                115.56,
+                117.12,
                 103.72
             ],
             "fts_crane_operation_times": [
-                26.06,
+                27.62,
                 14.22
             ],
-            "delta_time": 19.939999999999998
+            "delta_time": 18.379999999999995
         },
         {
             "ship_id": 4,
