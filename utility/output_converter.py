@@ -298,11 +298,14 @@ class OutputConverter:
         #print(fc_info)
         return result_json
     
-    def create_json_crane_cost(self, sid, fts_info):
+    def create_json_crane_cost(self, sid, fts_info, ship_infos):
         print("---------------------------------")
         print(fts_info['fts'].name)
-        result_json = []
+        #print(fts_info)
         fts = fts_info['fts']
+        fts_id = fts_info["fts_id"]
+        result_json = []
+        #fts = fts_info['fts']
         for i in range(len(fts.cranes)):
             temp = dict(temp_crane_solution_json)
             temp['solution_id'] = sid
@@ -324,11 +327,21 @@ class OutputConverter:
             crane_ship_info = fts_info['crane_infos'][si]
             start_ship_time = fts_info['start_times'][si]
             start_ship_time = fts_info['start_times'][si]
+            order_id = fts_info['ids'][si]
+            ship = ship_infos[order_id]
             
+            ship_due_time = ship["due_time"]
+            #print("ship =============",ship)
+            crane_index = ship["fts_crane_ids"].index(fts_id)
+            
+            reward_rate = ship['reward_rate']
+            penalty_rate = ship['penalty_rate']
             crane_bulks = crane_ship_info['crane_infos']
-            
+            exit_time = ship["fts_crane_exit_times"][crane_index]
+            #fts_crane_ids #fts_crane_exit_times
             for cindx, cbulk in enumerate(crane_bulks):
                 #print(cbulk)
+                
                 operation_rate = cbulk["operation_rate"]
                 consumption_rate = cbulk["consumption_rate"]
                 crane_index = cbulk['crane_index']
@@ -359,19 +372,32 @@ class OutputConverter:
                 temp['total_operation_consumption_cost'] += round(sum(cbulk['loads'])*cbulk['consumption_rate'], 2)
                 temp['total_preparation_crane_time'] += len(cbulk['loads'])*fts_info['fts'].setup_time_cranes[crane_index]
                 temp['premium_wage_cost'] += round(sum(cbulk['loads'])*fts_info['fts'].premium_rates[crane_index] ,2)
-                 
+                exit_time = cbulk["finish_times"][-1]
+                #print("cbulk =====================", cbulk)
+                delta_time = ship_due_time - exit_time
+                if delta_time > 0:
+                    temp['total_early_time'] = delta_time
+                    temp['total_reward'] = temp['total_early_time']*reward_rate
+                else:
+                    temp['total_late_time'] = -delta_time
+                    temp['penality_cost'] =  temp['total_late_time']*penalty_rate
+                
+                
+                
+                
         for i in range(len(fts.cranes)):
             temp = result_json[i]
             temp['total_wage_cost'] = temp['premium_wage_cost'] + fts_info['fts'].wage_month_costs[i] 
             temp['total_consumption_cost'] = round(temp['total_operation_consumption_cost'], 2)
             temp['total_cost'] = round(temp['total_wage_cost'] + temp['total_consumption_cost'] + temp['penality_cost'] - temp['total_reward'], 2)
             temp.pop("premium_wage_cost")
+            
         return result_json
     
-    def create_crane_solution(self, sid, fts_crane_infos):
+    def create_crane_solution(self, sid, fts_crane_infos, ship_infos):
         result_json = []
         for fc_info  in fts_crane_infos:
-            fts_jsons = self.create_json_crane_cost(sid, fc_info)
+            fts_jsons = self.create_json_crane_cost(sid, fc_info, ship_infos)
             #print(fts_jsons)
             result_json.extend(fts_jsons)
             #break

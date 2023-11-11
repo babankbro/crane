@@ -371,6 +371,7 @@ def test_decode_all():
         print(r_json)
         break
     print(result)
+    result_json = converter.create_crane_solution(1, fts_infos, ship_infos) 
 
 if __name__ == "__main__":
     print("test_decode_all")

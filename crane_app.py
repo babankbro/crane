@@ -146,7 +146,7 @@ def route():
     db_insert.insert_jsons(result_json)
     result_json = converter.create_crane_solution_schedule(1, fts_crane_infos) 
     db_insert.insert_crane_solution_schedule_jsons(result_json)
-    result_json = converter.create_crane_solution(1, fts_crane_infos) 
+    result_json = converter.create_crane_solution(1, fts_crane_infos, ship_infos) 
     db_insert.insert_crane_solution_jsons(result_json)
     result_json = converter.create_ship_solution_schedule(1, ship_infos) 
     db_insert.insert_carrier_solution_jsons(result_json)
