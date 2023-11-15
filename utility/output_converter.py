@@ -389,8 +389,10 @@ class OutputConverter:
             temp = result_json[i]
             temp['total_wage_cost'] = temp['premium_wage_cost'] + fts_info['fts'].wage_month_costs[i] 
             temp['total_consumption_cost'] = round(temp['total_operation_consumption_cost'], 2)
-            temp['total_cost'] = round(temp['total_wage_cost'] + temp['total_consumption_cost'] + temp['penality_cost'] - temp['total_reward'], 2)
+            temp['total_cost'] = round(temp['total_wage_cost'] + temp['total_consumption_cost'] + temp['penality_cost'] , 2)
             temp.pop("premium_wage_cost")
+            if "penalty_cost" in temp:
+                temp.pop('penalty_cost')
             
         return result_json
     

@@ -17,10 +17,16 @@ def convert_to_hours(array_times):
     time_hours = []
     for i in range(len(array_times)):
         npdate_time = array_times[i]
-        #print(npdate_time)
+        print(npdate_time)
         if 'T' in npdate_time and 'Z' in npdate_time:
             npdate_time = npdate_time.replace("T", " ")
             npdate_time = npdate_time.replace(".000Z", "")
+            print("T or Z in")
+        if 'T' in npdate_time and len(npdate_time.split(":")) == 2:
+            npdate_time = npdate_time.replace("T", " ")
+            npdate_time += ":00"
+            print("T", npdate_time)
+            
         
         npdate_time = datetime.strptime(npdate_time, '%Y-%m-%d %H:%M:%S')
         t = convert_to_hour_from_new_year(npdate_time)

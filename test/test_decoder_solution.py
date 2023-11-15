@@ -372,7 +372,23 @@ def test_decode_all():
         break
     print(result)
     result_json = converter.create_crane_solution(1, fts_infos, ship_infos) 
-
+    print("CRANE SOLUTION 1")
+    db_insert = DBInsert(mycursor, mydb)
+    db_insert.clear_solution(1)
+    print("CRANE SOLUTION 2")
+    result_json = converter.create_solution_schedule(1, fts_infos) 
+    print("CRANE SOLUTION 3")
+    db_insert.insert_jsons(result_json)
+    print("CRANE SOLUTION 4")
+    result_json = converter.create_crane_solution_schedule(1, fts_infos) 
+    print("CRANE SOLUTION 5")
+    db_insert.insert_crane_solution_schedule_jsons(result_json)
+    
+    result_json = converter.create_crane_solution(1, fts_infos, ship_infos) 
+    db_insert.insert_crane_solution_jsons(result_json)
+    result_json = converter.create_ship_solution_schedule(1, ship_infos) 
+    db_insert.insert_carrier_solution_jsons(result_json)
+    
 if __name__ == "__main__":
     print("test_decode_all")
     test_decode_all()

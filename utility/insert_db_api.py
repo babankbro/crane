@@ -65,11 +65,15 @@ class DBInsert:
                     crane_id,	
                     bulk,	
                     load_cargo,
-                    cargo_id"""
+                    cargo_id, 
+                    penalty_cost, 
+                    reward"""
         for d in json_data:
             #print(d)
             d["start_time"] = f"'{d['start_time']}'"
             d["due_time"] = f"'{d['due_time']}'"
+            d["penalty_cost"] = 0
+            d["reward"] = 0
             values = [str(d[x]) for x in d]
             columns = [x for x in d]
             colum_names = ', '.join(columns)
