@@ -23,11 +23,12 @@ class DecoderV2:
         
         self.MIN_TIME = min(self.arrival_hours)
         self.MAX_TIME = max(self.due_hours)
-        print("MIN-MAX", self.MIN_TIME, self.MAX_TIME)
+        
         
         df = pd.DataFrame(data_lookup['ORDER_DATA'])
         fts_rate_lookups = data_lookup['CRANE_RATE'].lookup_fts_ids
-        
+        self.NFTS = len(fts_rate_lookups)
+        print("MIN-MAX", self.MIN_TIME, self.MAX_TIME, self.NFTS)
         self.D = self.NSHIP*self.NFTS + self.NSHIP
         self.WEIGHT_CRANE_SHIPs = []
         self.SHIP_WEIGHTs = (due_hours-self.MIN_TIME)/(np.max(due_hours)-self.MIN_TIME) 
@@ -72,8 +73,11 @@ class DecoderV2:
         minDelta = -1000000000000000000000000
         temp_best_cranes = []
         i = 0
+        tta = 0
+        deltacc = 0
+        #print("------------------------", fts_codes)
         while i < len(fts_codes):
-            #print("decode ================", i)
+            #print("decode ================", i, len(temp_best_cranes))
             ii = i
             i+=1
             findex = fts_codes[ii]
@@ -81,6 +85,7 @@ class DecoderV2:
             distance, t_time, a_time, s_time = self.get_result_info(findex,  ship_index, fts_crane_infos)
             
             if a_time > ship.closed_time:
+                tta += 1
                 continue
             fts_input = [fts]
             start_times = [s_time]
@@ -118,8 +123,11 @@ class DecoderV2:
                                 "process_time":round(process_time,4), "end_time":round(due_time,2),
                                 "crane_infos": fts_results[0],
                                 } ]
+            #print("\ttemp_best_cranes", len(temp_best_cranes), findex)
             
             if delta > 0  :
+                #print("\tbreak")
+                deltacc += 1
                 #if ship_index == 15:
                 #print(ship_index, ship, "delta===================================",delta)
                 break
@@ -136,7 +144,7 @@ class DecoderV2:
                 
             j = 1
             isFound = False
-            temp_best_cranes = []
+            
             while j < len(fts_codes): 
                 jj = j
                 j+=1
@@ -216,9 +224,10 @@ class DecoderV2:
                 
                 if ship.id in test:
                     print(findex, findex2, "L2======================== {ship.id}",delta, due_time2, ship.closed_time)
-                if minDelta < delta:
+                if minDelta < delta and len(temp_cranes) != 0:
                     minDelta = delta
                     best_cranes = temp_cranes
+                    
                     #best_cranes = temp_best_cranes
                     
             #print("")
@@ -226,9 +235,14 @@ class DecoderV2:
             #if isFound:
                 #break
             
-            
+        #if len(best_cranes) == 0 and len(temp_best_cranes):
+            #print(deltacc, ship, tta, tta == len(fts_crane_infos))
         
+        
+        #print("temp_best_cranesssssssssssss", temp_best_cranes)
         if len(best_cranes) == 0:
+            #print("temp_best_cranes", ship.id, temp_best_cranes, deltacc, tta)
+            #print('end_time', temp_best_cranes[0]['end_time'])
             return temp_best_cranes
         
         
@@ -267,7 +281,6 @@ class DecoderV2:
                          "operation_rates":[],
                          "crane_infos": [],
                          'fts':self.ftses[i]}
-            #print(crane_info)
             fts_infos.append(fts_info)
         return fts_infos
 
@@ -301,11 +314,12 @@ class DecoderV2:
         
         #ship_ids = np.argsort(xs[:self.NSHIP]*self.WSHIP + (1-self.WSHIP)*self.SHIP_WEIGHTs)
         ship_order_ids = np.argsort(self.data_lookup['ORDER_DATA']['DUE_TIME_HOUR'])
-        fts_codes = self.get_ship_codes(xs[self.NSHIP:])
+        fts_codes = self.get_ship_codes(xs[:])
+        
         fts_crane_infos = self.init_fts_infos()
         #print(ship_order_ids)
         #print(crane_infos)
-        
+        #print("fts_crane_infos", len(fts_crane_infos), len(fts_codes), len(fts_codes[0]))
         
         ship_infos = self.init_ship_infos()
         #for ship in ship_infos:
@@ -321,9 +335,14 @@ class DecoderV2:
             #print(ship_order_ids)
             for i in range(self.NSHIP):
                 continue
-                #ship_info = ship_infos[i]
+                ship_info = ship_infos[i]
                 #print(ship_info)
                 #print(self.ships[i])
+                ship_id = ship_order_ids[i]
+                ship_info = ship_infos[ship_id]
+                fts_code = fts_codes[ship_id]
+                #print(ship_id, fts_code)
+            #print("------------------------------")
         
         
         for i in range(self.NSHIP):
@@ -370,6 +389,8 @@ class DecoderV2:
                 
         for i in range(self.NSHIP):
             ship_id = ship_order_ids[i]
+            #if len(ship_infos[ship_id]["fts_crane_exit_times"]) == 0:
+                #continue
             exit_time = max(ship_infos[ship_id]["fts_crane_exit_times"])
             due_time = ship_infos[ship_id]["due_time"]
             ship_infos[ship_id]["delta_time"] = due_time-exit_time
