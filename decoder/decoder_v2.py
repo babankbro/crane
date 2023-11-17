@@ -64,7 +64,6 @@ class DecoderV2:
         s_time = a_time if a_time > ship.open_time else ship.open_time
         return distance, t_time, a_time, s_time
     
-    
     def assign_fts_ship(self, ship_index, fts_codes, fts_crane_infos, isDebug=False):
         ship = self.ships[ship_index]
         best_cranes = []
@@ -247,7 +246,6 @@ class DecoderV2:
         
         
         return best_cranes
-    
     
     def get_ship_codes(self, xs):
         codes = []
