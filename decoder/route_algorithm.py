@@ -20,7 +20,7 @@ sys.path.insert(0, "./utility")
 
 from insert_db_api import DBInsert
 from crane_utility import *
-from decoder_v2 import *
+from decoder_v3 import *
 from insert_db_api import *
 from output_converter import *
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
     
     #data_lookup = load_data_lookup('./dataset/data2.json')
     data_lookup = create_data_lookup()
-    decoder = DecoderV2(data_lookup)
+    decoder = DecoderV3(data_lookup)
     converter = OutputConverter(data_lookup)
     db_insert = DBInsert(mycursor, mydb)
     db_insert.clear_solution(1)
