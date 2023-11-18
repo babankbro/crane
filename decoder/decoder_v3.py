@@ -293,7 +293,7 @@ class DecoderV3:
                 fts_code = fts_codes[ship_id]
                 
                 if (len(ship_info['fts_crane_ids'])> 0 and 
-                       ship_info['due_time'] > max(ship_info["fts_crane_exit_times"])) :
+                       (ship_info['due_time'] - max(ship_info["fts_crane_exit_times"])) * ship_info["penalty_rate"] >= 0 ) :
                     #print(" Done =====================================================",
                           #ship_id, ship_info['due_time'] , max(ship_info["fts_crane_exit_times"]))
                     continue

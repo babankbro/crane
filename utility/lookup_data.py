@@ -66,8 +66,19 @@ def create_order_data(filter_type = "carrier_name", filter_carriers=[]):
     dutedate_hour_times= dutedate_hour_times - mhour
     print("create_order_data", 'min time', order_df.iloc[index_min]['arrival_time'])
     print(order_df)
+    MIN_DATE_TIME = order_df.iloc[index_min]['arrival_time']
+    if 'T' in MIN_DATE_TIME and 'Z' in MIN_DATE_TIME:
+        MIN_DATE_TIME = MIN_DATE_TIME.replace("T", " ")
+        MIN_DATE_TIME = MIN_DATE_TIME.replace(".000Z", "")
+        print("T or Z in")
+    if 'T' in MIN_DATE_TIME and len(MIN_DATE_TIME.split(":")) == 2:
+        MIN_DATE_TIME = MIN_DATE_TIME.replace("T", " ")
+        MIN_DATE_TIME += ":00"
+        print("T", MIN_DATE_TIME)
+    
+    
     return {
-        "MIN_DATE_TIME": order_df.iloc[index_min]['arrival_time'],
+        "MIN_DATE_TIME": MIN_DATE_TIME,
         "ARRIVAL_TIME": arrival_times,
         "ARRIVAL_TIME_HOUR": arrival_hour_times,
         "DUE_TIME": dutedate_times,

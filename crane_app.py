@@ -76,7 +76,7 @@ def route():
     
     
     
-    compute_time = compute_time*1
+    compute_time = compute_time*60
     m = compute_time//60
     ss = compute_time % 60
     print("compute_time",compute_time, m, ss)
@@ -153,6 +153,12 @@ def route():
     db_insert.insert_carrier_solution_jsons(result_json)
 
     np.save("./dataset/bestX.npy", np.array(res.X))
+    print("----------------------------   SHIPS --------------------------------------------")
+    for ship_info in ship_infos:
+        #continue
+        print(ship_info['ship_id'], ship_info['maxFTS'], ship_info['demand'],  ship_info['open_time'], ship_info['due_time'], ship_info['fts_crane_ids'],
+              ship_info['fts_crane_enter_times'], ship_info['fts_crane_exit_times'])
+    
     
     return {'status':"success",
             #"data_date":data_date, 
