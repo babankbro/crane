@@ -5,6 +5,7 @@ from crane_decoder import *
 sys.path.insert(0, "./utility")
 
 from crane_utility import *
+from output_converter import *
 import numpy as np
 import pandas as pd
 
@@ -399,8 +400,8 @@ class DecoderV2:
 
 if __name__ == "__main__":
     
-    #data_lookup = create_data_lookup()
-    data_lookup = load_data_lookup('./dataset/data2.json')
+    data_lookup = create_data_lookup()
+    #data_lookup = load_data_lookup('./dataset/data2.json')
     decoder = DecoderV2(data_lookup)
     DM_lookup = data_lookup["DISTANCE_MATRIX"]
     print(pd.DataFrame(data_lookup['FTS_DATA']))
@@ -409,16 +410,30 @@ if __name__ == "__main__":
     print(DM_lookup.index_lookup)
     np.random.seed(0)
     xs = np.random.rand(decoder.D)
-    
+    converter = OutputConverter(data_lookup)
     
     crane_infos, ship_infos = decoder.decode(xs)
-    print("-------------------------- CRANES  -------------------------------------------")
-    for crane_info in crane_infos:
-        print(crane_info)
-    print()
+    
     print("----------------------------   SHIPS --------------------------------------------")
     for ship_info in ship_infos:
+        #continue
         print(ship_info)
+    
+    print("-------------------------- CRANES  -------------------------------------------")
+    
+    fts_infos = converter.create_solution_schedule(0, crane_infos)
+    
+    for crane_info in crane_infos:
+        #continue
+        print(crane_info)
+        date_str = '2023-02-28 14:30:00'
+        date_format = '%Y-%m-%d %H:%M:%S'
+        #crane_info['delta'] = (datetime.strptime(crane_info['exittime'], date_format) - 
+        #                       datetime.strptime(crane_info['arrivaltime'], date_format))
+    print()
+    
+    df = pd.DataFrame(fts_infos)
+    print(df)
     
     print(DM_lookup.DM.shape)
     print(DM_lookup.get_carrier_distance(10, 12))

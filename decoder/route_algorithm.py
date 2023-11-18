@@ -123,15 +123,15 @@ if __name__ == "__main__":
 
     problem = CraneProblem(decoder)
     termination = get_termination("time", "00:00:10")
-    """
+    
     resGA = minimize(problem,algorithm,termination,seed=1,verbose=True)
 
     print("Best solution found: \nX = %s\nF = %s" % (resGA.X, resGA.F))
     print("Solution", resGA.opt.get("pheno")[0])
     print()
     xs = resGA.X
-    """
-    xs = np.random.random(decoder.D)
+    
+    #xs = np.random.random(decoder.D)
     fts_crane_infos, ship_infos =  decoder.decode(xs, True)
 
     #for ci in fts_crane_infos:
@@ -170,8 +170,27 @@ if __name__ == "__main__":
     result_json = converter.create_ship_solution_schedule(1, ship_infos) 
     db_insert.insert_carrier_solution_jsons(result_json)
     
+    print("----------------------------   SHIPS --------------------------------------------")
+    for ship_info in ship_infos:
+        #continue
+        print(ship_info)
+    
+    
     result = {}
     problem._evaluate(xs,result)
     print(result)
+    fts_infos = converter.create_solution_schedule(1, fts_crane_infos)
+    for crane_info in fts_infos:
+        #continue
+        print(crane_info)
+        date_str = '2023-02-28 14:30:00'
+        date_format = '%Y-%m-%d %H:%M:%S'
+        crane_info['delta'] = (datetime.strptime(crane_info['exittime'], date_format) - 
+                               datetime.strptime(crane_info['arrivaltime'], date_format))
+    print()
+    
+    df = pd.DataFrame(fts_infos)
+    print(df)
+    
     
   
