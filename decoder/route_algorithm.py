@@ -191,7 +191,7 @@ if __name__ == "__main__":
     
     df = pd.DataFrame(fts_infos)
     print(df)
-    np.save("./dataset/xs_v1.npy", xs)
+    np.save("./dataset/xs_v2.npy", xs)
     
     
   
