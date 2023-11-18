@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
 
     problem = CraneProblem(decoder)
-    termination = get_termination("time", "00:00:30")
+    termination = get_termination("time", "00:00:10")
     
     resGA = minimize(problem,algorithm,termination,seed=1,verbose=True)
 

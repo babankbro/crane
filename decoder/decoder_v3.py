@@ -163,10 +163,13 @@ class DecoderV3:
                 for ik, sid in enumerate(fts_info['ids']):
                     if ((temp_fts['end_time'] >= fts_info['start_times'][ik] and 
                         temp_fts['end_time'] <= fts_info['end_times'][ik]) or 
-                        (temp_fts['arrive_time'] >= fts_info['start_times'][ik] and 
-                        temp_fts['arrive_time'] < fts_info['end_times'][ik]) )  :
+                        (temp_fts['start_time'] >= fts_info['start_times'][ik] and 
+                        temp_fts['start_time'] < fts_info['end_times'][ik])   or 
+                        (fts_info['end_times'][ik] > temp_fts['start_time'] and 
+                        fts_info['end_times'][ik] <  temp_fts['end_time']) or 
+                        (fts_info['start_times'][ik] > temp_fts['start_time'] and 
+                        fts_info['start_times'][ik] <  temp_fts['end_time'])):
                         is_interset = True
-                        #print("Is_intersect", temp_fts['end_time'], fts_info['start_times'], fts_info['end_times'])
                         break
                 if (temp_fts['process_time'] < 0 or 
                     temp_fts['start_time'] > temp_fts['end_time'] or 
@@ -221,13 +224,13 @@ class DecoderV3:
         fts_infos = []
         for i in range(self.NFTS):
             setup_time = SETUP_TIMEs[i]
-            fts_info = {  "fts_id": i, 
-                          "fts_db_id": IDs[i],
-                           "fts_name": NAMEs[i]  ,
-                           'speed': SPEEDs[i], 
-                          "ids":[], "end_times":[], "start_times":[], "demands":[], "process_times":[],
-                          "fts_setup_time":setup_time/60,
-                          "crane_setup_times": [],
+            fts_info = { "fts_id": i, 
+                        "fts_db_id": IDs[i],
+                        "fts_name": NAMEs[i]  ,
+                        'speed': SPEEDs[i], 
+                        "ids":[], "end_times":[], "start_times":[], "demands":[], "process_times":[],
+                        "fts_setup_time":setup_time/60,
+                        "crane_setup_times": [],
                          "distances":[], 
                          "travel_times":[], 
                          "consumption_rates":[],
@@ -275,7 +278,7 @@ class DecoderV3:
                 ship_info = ship_infos[ship_id]
                 fts_code = fts_codes[ship_id]
                 
-                if len(ship_info['fts_crane_ids']) >=  ship_info['maxFTS']: #:ship_info['maxFTS']
+                if len(ship_info['fts_crane_ids']) >= 2: #:ship_info['maxFTS']
                     continue
                 isLast = (len(ship_info['fts_crane_ids']) - 1) ==  ship_info['maxFTS']
                 fts_delta_infos = self.assign_fts_ship(isLast, fts_code, ship_id,  
@@ -424,7 +427,7 @@ if __name__ == "__main__":
     print(DM_lookup.index_lookup)
     np.random.seed(0)
     #xs = np.random.rand(decoder.D)
-    xs = np.load("./dataset/xs_v1.npy")
+    xs = np.load("./dataset/xs_v2.npy")
     converter = OutputConverter(data_lookup)
     
     crane_infos, ship_infos = decoder.decode(xs)
