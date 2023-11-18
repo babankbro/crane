@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
 
     problem = CraneProblem(decoder)
-    termination = get_termination("time", "00:00:10")
+    termination = get_termination("time", "00:00:30")
     
     resGA = minimize(problem,algorithm,termination,seed=1,verbose=True)
 
@@ -191,6 +191,7 @@ if __name__ == "__main__":
     
     df = pd.DataFrame(fts_infos)
     print(df)
+    np.save("./dataset/xs_v1.npy", xs)
     
     
   

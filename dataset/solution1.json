@@ -7,77 +7,59 @@
             "speed": 20.0,
             "ids": [
                 4,
-                5,
-                10,
-                12,
-                13,
-                14
+                18,
+                16,
+                0
             ],
             "end_times": [
                 388.73,
-                482.06,
-                723.3,
-                846.5,
-                894.77,
-                967.39
+                1271.44,
+                1373.69,
+                459.52
             ],
             "start_times": [
                 280.0,
-                388.79,
-                671.5,
-                712.5,
-                761.5,
-                849.5
+                471.5,
+                1296.0,
+                388.78
             ],
             "demands": [
                 65499.979999999996,
-                39802.98,
-                20000.0,
-                63738.01,
-                63350.0,
-                71572.97
+                600000.0,
+                37725.0,
+                50567.14
             ],
             "process_times": [
                 106.73,
-                91.27,
-                49.8,
-                132.0,
-                131.27,
-                115.89
+                797.94,
+                75.69,
+                68.74
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
                 0.52,
-                1.21,
-                1.23,
-                0.25,
-                1.29,
-                2.64
+                4.3,
+                0.63,
+                0.93
             ],
             "travel_times": [
                 0.03,
-                0.06,
-                0.06,
-                0.01,
-                0.06,
-                0.13
+                0.22,
+                0.03,
+                0.05
             ],
             "consumption_rates": [
                 0.21129999999999996,
+                0.2113,
                 0.3097,
-                0.3097,
-                0.3161,
-                0.31609999999999994,
                 0.2113
             ],
             "operation_rates": [
                 378.81999999999994,
+                378.82,
                 280.96,
-                280.96,
-                292.83,
-                292.83,
-                378.81999999999994
+                378.82
             ],
             "crane_infos": [
                 {
@@ -178,7 +160,7 @@
                     "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 39802.98,
+                    "total_loads": 600000.0,
                     "crane_infos": [
                         {
                             "bulks": [
@@ -189,404 +171,34 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                5686.14,
-                                5686.14,
-                                5686.14
+                                100000.0,
+                                100000.0,
+                                100000.0
                             ],
                             "operation_times": [
-                                21.01,
-                                21.01,
-                                21.01
+                                263.26,
+                                263.26,
+                                263.26
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                23.01,
-                                46.02
+                                265.98,
+                                531.96
                             ],
                             "waiting_start_times": [
-                                0.0,
-                                0.0,
-                                0.0
+                                0.7200000000000273,
+                                0.7200000000000273,
+                                0.7200000000000273
                             ],
                             "finish_times": [
-                                23.01,
-                                46.02,
-                                69.03
-                            ],
-                            "operation_rate": 270.66,
-                            "consumption_rate": 0.3397,
-                            "total_loads": 17058.420000000002,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                3,
-                                5,
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                5686.14,
-                                5686.14,
-                                5686.14,
-                                5686.14
-                            ],
-                            "operation_times": [
-                                20.24,
-                                20.24,
-                                20.24,
-                                20.24
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                23.01,
-                                46.02,
-                                69.03
-                            ],
-                            "waiting_start_times": [
-                                0.7700000000000031,
-                                0.7700000000000031,
-                                0.7700000000000031,
-                                0.0
-                            ],
-                            "finish_times": [
-                                22.24,
-                                45.25,
-                                68.26,
-                                91.27
-                            ],
-                            "operation_rate": 280.96,
-                            "consumption_rate": 0.3097,
-                            "total_loads": 22744.56,
-                            "crane_index": 1
-                        }
-                    ],
-                    "avg_consumption_rate": 0.3097,
-                    "avg_operation_rate": 280.96
-                },
-                {
-                    "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 20000.0,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                2
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                4000.0,
-                                4000.0
-                            ],
-                            "operation_times": [
-                                14.78,
-                                14.78
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                16.78
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                16.78,
-                                33.56
-                            ],
-                            "operation_rate": 270.66,
-                            "consumption_rate": 0.3397,
-                            "total_loads": 8000.0,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                3,
-                                4
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                4000.0,
-                                4000.0,
-                                4000.0
-                            ],
-                            "operation_times": [
-                                14.24,
-                                14.24,
-                                14.24
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                16.78,
-                                33.56
-                            ],
-                            "waiting_start_times": [
-                                0.5399999999999991,
-                                0.5399999999999991,
-                                0.0
-                            ],
-                            "finish_times": [
-                                16.240000000000002,
-                                33.02,
-                                49.800000000000004
-                            ],
-                            "operation_rate": 280.96,
-                            "consumption_rate": 0.3097,
-                            "total_loads": 12000.0,
-                            "crane_index": 1
-                        }
-                    ],
-                    "avg_consumption_rate": 0.3097,
-                    "avg_operation_rate": 280.96
-                },
-                {
-                    "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 63738.01,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                2,
-                                4,
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                9105.43,
-                                9105.43,
-                                9105.43,
-                                9105.43
-                            ],
-                            "operation_times": [
-                                30.73,
-                                30.73,
-                                30.73,
-                                30.73
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                33.09,
-                                66.18,
-                                99.27000000000001
-                            ],
-                            "waiting_start_times": [
-                                0.35999999999999943,
-                                0.35999999999999943,
-                                0.35999999999999943,
-                                0.0
-                            ],
-                            "finish_times": [
-                                32.730000000000004,
-                                65.82000000000001,
-                                98.91000000000001,
-                                132.0
-                            ],
-                            "operation_rate": 296.35,
-                            "consumption_rate": 0.3225,
-                            "total_loads": 36421.72,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                3,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                9105.43,
-                                9105.43,
-                                9105.43
-                            ],
-                            "operation_times": [
-                                31.09,
-                                31.09,
-                                31.09
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                33.09,
-                                66.18
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                33.09,
-                                66.18,
-                                99.27000000000001
-                            ],
-                            "operation_rate": 292.83,
-                            "consumption_rate": 0.3161,
-                            "total_loads": 27316.29,
-                            "crane_index": 1
-                        }
-                    ],
-                    "avg_consumption_rate": 0.3161,
-                    "avg_operation_rate": 292.83
-                },
-                {
-                    "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 63350.0,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                2,
-                                4,
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                9050.0,
-                                9050.0,
-                                9050.0,
-                                9050.0
-                            ],
-                            "operation_times": [
-                                30.54,
-                                30.54,
-                                30.54,
-                                30.54
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                32.91,
-                                65.82,
-                                98.72999999999999
-                            ],
-                            "waiting_start_times": [
-                                0.370000000000001,
-                                0.370000000000001,
-                                0.370000000000001,
-                                0.0
-                            ],
-                            "finish_times": [
-                                32.54,
-                                65.44999999999999,
-                                98.35999999999999,
-                                131.26999999999998
-                            ],
-                            "operation_rate": 296.35,
-                            "consumption_rate": 0.3225,
-                            "total_loads": 36200.0,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                3,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                9050.0,
-                                9050.0,
-                                9050.0
-                            ],
-                            "operation_times": [
-                                30.91,
-                                30.91,
-                                30.91
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                32.91,
-                                65.82
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                32.91,
-                                65.82,
-                                98.72999999999999
-                            ],
-                            "operation_rate": 292.83,
-                            "consumption_rate": 0.3161,
-                            "total_loads": 27150.0,
-                            "crane_index": 1
-                        }
-                    ],
-                    "avg_consumption_rate": 0.31609999999999994,
-                    "avg_operation_rate": 292.83
-                },
-                {
-                    "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 71572.97,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                2,
-                                4,
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                10224.71,
-                                10224.71,
-                                10224.71,
-                                10224.71
-                            ],
-                            "operation_times": [
-                                26.92,
-                                26.92,
-                                26.92,
-                                26.92
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                28.99,
-                                57.98,
-                                86.97
-                            ],
-                            "waiting_start_times": [
-                                0.06999999999999673,
-                                0.06999999999999673,
-                                0.06999999999999673,
-                                0.0
-                            ],
-                            "finish_times": [
-                                28.92,
-                                57.91,
-                                86.9,
-                                115.89
+                                265.26,
+                                531.24,
+                                797.22
                             ],
                             "operation_rate": 379.85,
                             "consumption_rate": 0.1919,
-                            "total_loads": 40898.84,
+                            "total_loads": 300000.0,
                             "crane_index": 0
                         },
                         {
@@ -598,20 +210,20 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                10224.71,
-                                10224.71,
-                                10224.71
+                                100000.0,
+                                100000.0,
+                                100000.0
                             ],
                             "operation_times": [
-                                26.99,
-                                26.99,
-                                26.99
+                                263.98,
+                                263.98,
+                                263.98
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                28.99,
-                                57.98
+                                265.98,
+                                531.96
                             ],
                             "waiting_start_times": [
                                 0.0,
@@ -619,18 +231,170 @@
                                 0.0
                             ],
                             "finish_times": [
-                                28.99,
-                                57.98,
-                                86.97
+                                265.98,
+                                531.96,
+                                797.94
                             ],
                             "operation_rate": 378.82,
                             "consumption_rate": 0.2113,
-                            "total_loads": 30674.129999999997,
+                            "total_loads": 300000.0,
                             "crane_index": 1
                         }
                     ],
                     "avg_consumption_rate": 0.2113,
-                    "avg_operation_rate": 378.81999999999994
+                    "avg_operation_rate": 378.82
+                },
+                {
+                    "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 37725.0,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                2,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                6287.5,
+                                6287.5,
+                                6287.5
+                            ],
+                            "operation_times": [
+                                23.23,
+                                23.23,
+                                23.23
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                25.23,
+                                50.46
+                            ],
+                            "waiting_start_times": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "finish_times": [
+                                25.23,
+                                50.46,
+                                75.69
+                            ],
+                            "operation_rate": 270.66,
+                            "consumption_rate": 0.3397,
+                            "total_loads": 18862.5,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                3,
+                                5
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                6287.5,
+                                6287.5,
+                                6287.5
+                            ],
+                            "operation_times": [
+                                22.38,
+                                22.38,
+                                22.38
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                25.23,
+                                50.46
+                            ],
+                            "waiting_start_times": [
+                                0.8500000000000014,
+                                0.8500000000000014,
+                                0.8500000000000014
+                            ],
+                            "finish_times": [
+                                24.38,
+                                49.61,
+                                74.84
+                            ],
+                            "operation_rate": 280.96,
+                            "consumption_rate": 0.3097,
+                            "total_loads": 18862.5,
+                            "crane_index": 1
+                        }
+                    ],
+                    "avg_consumption_rate": 0.3097,
+                    "avg_operation_rate": 280.96
+                },
+                {
+                    "fts_name": "\u0e28\u0e38\u0e20\u0e23\u0e32\u0e0a",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 50567.14,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                5
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                25283.57
+                            ],
+                            "operation_times": [
+                                66.56
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0
+                            ],
+                            "waiting_start_times": [
+                                0.1799999999999926
+                            ],
+                            "finish_times": [
+                                68.56
+                            ],
+                            "operation_rate": 379.85,
+                            "consumption_rate": 0.1919,
+                            "total_loads": 25283.57,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                6
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                25283.57
+                            ],
+                            "operation_times": [
+                                66.74
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0
+                            ],
+                            "waiting_start_times": [
+                                0.0
+                            ],
+                            "finish_times": [
+                                68.74
+                            ],
+                            "operation_rate": 378.82,
+                            "consumption_rate": 0.2113,
+                            "total_loads": 25283.57,
+                            "crane_index": 1
+                        }
+                    ],
+                    "avg_consumption_rate": 0.2113,
+                    "avg_operation_rate": 378.82
                 }
             ],
             "fts": {}
@@ -642,50 +406,59 @@
             "speed": 20.0,
             "ids": [
                 6,
-                16,
-                2
+                17,
+                1,
+                7
             ],
             "end_times": [
                 461.55,
-                1376.99,
-                498.66
+                1377.63,
+                203.47,
+                786.03
             ],
             "start_times": [
                 434.5,
                 1296.0,
-                461.58
+                93.62,
+                449.5
             ],
             "demands": [
                 9850.02,
-                37725.0,
-                10035.71
+                37699.97,
+                25822.5,
+                60728.58
             ],
             "process_times": [
                 25.05,
-                78.99,
-                35.08
+                79.63,
+                70.04,
+                107.25
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                1.24,
-                5.19,
-                0.61
+                1.29,
+                3.77,
+                0.0,
+                1.57
             ],
             "travel_times": [
                 0.06,
-                0.26,
-                0.03
+                0.19,
+                0.0,
+                0.08
             ],
             "consumption_rates": [
                 0.3856,
-                0.3856,
+                0.1935,
+                0.38560000000000005,
                 0.1935
             ],
             "operation_rates": [
                 258.38,
-                258.38,
-                299.9
+                299.9,
+                258.38000000000005,
+                299.90000000000003
             ],
             "crane_infos": [
                 {
@@ -780,45 +553,51 @@
                     "fts_name": "\u0e41\u0e01\u0e48\u0e19\u0e15\u0e30\u0e27\u0e31\u0e19",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 37725.0,
+                    "total_loads": 37699.97,
                     "crane_infos": [
                         {
                             "bulks": [
                                 0,
                                 2,
-                                4
+                                4,
+                                6
                             ],
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                6287.5,
-                                6287.5,
-                                6287.5
+                                5385.71,
+                                5385.71,
+                                5385.71,
+                                5385.71
                             ],
                             "operation_times": [
-                                23.91,
-                                23.91,
-                                23.91
+                                17.75,
+                                17.75,
+                                17.75,
+                                17.75
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                26.33,
-                                52.66
+                                19.96,
+                                39.92,
+                                59.88
                             ],
                             "waiting_start_times": [
-                                0.41999999999999815,
-                                0.41999999999999815,
-                                0.41999999999999815
+                                0.21000000000000085,
+                                0.21000000000000085,
+                                0.21000000000000085,
+                                0.0
                             ],
                             "finish_times": [
-                                25.91,
-                                52.239999999999995,
-                                78.57
+                                19.75,
+                                39.71,
+                                59.67,
+                                79.63
                             ],
-                            "operation_rate": 263.01,
-                            "consumption_rate": 0.364,
-                            "total_loads": 18862.5,
+                            "operation_rate": 303.36,
+                            "consumption_rate": 0.204,
+                            "total_loads": 21542.84,
                             "crane_index": 0
                         },
                         {
@@ -830,20 +609,20 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                6287.5,
-                                6287.5,
-                                6287.5
+                                5385.71,
+                                5385.71,
+                                5385.71
                             ],
                             "operation_times": [
-                                24.33,
-                                24.33,
-                                24.33
+                                17.96,
+                                17.96,
+                                17.96
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                26.33,
-                                52.66
+                                19.96,
+                                39.92
                             ],
                             "waiting_start_times": [
                                 0.0,
@@ -851,36 +630,69 @@
                                 0.0
                             ],
                             "finish_times": [
-                                26.33,
-                                52.66,
-                                78.99
+                                19.96,
+                                39.92,
+                                59.88
                             ],
-                            "operation_rate": 258.38,
-                            "consumption_rate": 0.3856,
-                            "total_loads": 18862.5,
+                            "operation_rate": 299.9,
+                            "consumption_rate": 0.1935,
+                            "total_loads": 16157.130000000001,
                             "crane_index": 1
                         }
                     ],
-                    "avg_consumption_rate": 0.3856,
-                    "avg_operation_rate": 258.38
+                    "avg_consumption_rate": 0.1935,
+                    "avg_operation_rate": 299.9
                 },
                 {
                     "fts_name": "\u0e41\u0e01\u0e48\u0e19\u0e15\u0e30\u0e27\u0e31\u0e19",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 10035.71,
+                    "total_loads": 25822.5,
                     "crane_infos": [
                         {
                             "bulks": [
-                                6
+                                0,
+                                2
                             ],
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                10035.71
+                                8607.5,
+                                8607.5
                             ],
                             "operation_times": [
-                                33.08
+                                32.73,
+                                32.73
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                35.31
+                            ],
+                            "waiting_start_times": [
+                                0.5800000000000054,
+                                0.0
+                            ],
+                            "finish_times": [
+                                34.73,
+                                70.03999999999999
+                            ],
+                            "operation_rate": 263.01,
+                            "consumption_rate": 0.364,
+                            "total_loads": 17215.0,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                8607.5
+                            ],
+                            "operation_times": [
+                                33.31
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
@@ -890,31 +702,104 @@
                                 0.0
                             ],
                             "finish_times": [
-                                35.08
+                                35.31
+                            ],
+                            "operation_rate": 258.38,
+                            "consumption_rate": 0.3856,
+                            "total_loads": 8607.5,
+                            "crane_index": 1
+                        }
+                    ],
+                    "avg_consumption_rate": 0.38560000000000005,
+                    "avg_operation_rate": 258.38000000000005
+                },
+                {
+                    "fts_name": "\u0e41\u0e01\u0e48\u0e19\u0e15\u0e30\u0e27\u0e31\u0e19",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 60728.58,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                2,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                10121.43,
+                                10121.43,
+                                10121.43
+                            ],
+                            "operation_times": [
+                                33.36,
+                                33.36,
+                                33.36
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                35.75,
+                                71.5
+                            ],
+                            "waiting_start_times": [
+                                0.39000000000000057,
+                                0.39000000000000057,
+                                0.39000000000000057
+                            ],
+                            "finish_times": [
+                                35.36,
+                                71.11,
+                                106.86
                             ],
                             "operation_rate": 303.36,
                             "consumption_rate": 0.204,
-                            "total_loads": 10035.71,
+                            "total_loads": 30364.29,
                             "crane_index": 0
                         },
                         {
-                            "bulks": [],
+                            "bulks": [
+                                1,
+                                3,
+                                5
+                            ],
                             "ship": {},
                             "fts": {},
-                            "loads": [],
-                            "operation_times": [],
+                            "loads": [
+                                10121.43,
+                                10121.43,
+                                10121.43
+                            ],
+                            "operation_times": [
+                                33.75,
+                                33.75,
+                                33.75
+                            ],
                             "setup_time": 2.0,
-                            "offset_start_times": [],
-                            "waiting_start_times": [],
-                            "finish_times": [],
+                            "offset_start_times": [
+                                0,
+                                35.75,
+                                71.5
+                            ],
+                            "waiting_start_times": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "finish_times": [
+                                35.75,
+                                71.5,
+                                107.25
+                            ],
                             "operation_rate": 299.9,
                             "consumption_rate": 0.1935,
-                            "total_loads": 0,
+                            "total_loads": 30364.29,
                             "crane_index": 1
                         }
                     ],
                     "avg_consumption_rate": 0.1935,
-                    "avg_operation_rate": 299.9
+                    "avg_operation_rate": 299.90000000000003
                 }
             ],
             "fts": {}
@@ -925,441 +810,46 @@
             "fts_name": "\u0e1a\u0e38\u0e2b\u0e07\u0e32",
             "speed": 20.0,
             "ids": [
-                8,
-                15,
-                0
+                1,
+                3
             ],
             "end_times": [
-                678.63,
-                1245.0,
-                769.09
+                176.01,
+                201.54
             ],
             "start_times": [
-                622.0,
-                1187.5,
-                277.97
+                131.43,
+                131.4
             ],
             "demands": [
-                22697.99,
-                26999.98,
-                151701.41999999998
+                8607.5,
+                16776.0
             ],
             "process_times": [
-                54.63,
-                55.5,
-                185.88
+                42.58,
+                28.44
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                1.5,
-                6.12,
+                0.62,
                 0.0
             ],
             "travel_times": [
-                0.08,
-                0.31,
+                0.03,
                 0.0
             ],
             "consumption_rates": [
                 0.3113,
-                0.216,
-                0.18880000000000002
+                0.216
             ],
             "operation_rates": [
                 194.57,
-                228.88,
-                287.03000000000003
+                228.88
             ],
             "crane_infos": [
                 {
                     "fts_name": "\u0e1a\u0e38\u0e2b\u0e07\u0e32",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 22697.99,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                3
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                3242.57,
-                                3242.57
-                            ],
-                            "operation_times": [
-                                16.28,
-                                16.28
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                18.67
-                            ],
-                            "waiting_start_times": [
-                                0.39000000000000057,
-                                0.39000000000000057
-                            ],
-                            "finish_times": [
-                                18.28,
-                                36.95
-                            ],
-                            "operation_rate": 199.12,
-                            "consumption_rate": 0.3339,
-                            "total_loads": 6485.14,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                4,
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                3242.57,
-                                3242.57,
-                                3242.57
-                            ],
-                            "operation_times": [
-                                15.29,
-                                15.29,
-                                15.29
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                18.67,
-                                37.34
-                            ],
-                            "waiting_start_times": [
-                                1.3800000000000026,
-                                1.3800000000000026,
-                                0.0
-                            ],
-                            "finish_times": [
-                                17.29,
-                                35.96,
-                                54.63
-                            ],
-                            "operation_rate": 212.11,
-                            "consumption_rate": 0.3279,
-                            "total_loads": 9727.710000000001,
-                            "crane_index": 1
-                        },
-                        {
-                            "bulks": [
-                                2,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                3242.57,
-                                3242.57
-                            ],
-                            "operation_times": [
-                                16.67,
-                                16.67
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                18.67
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                18.67,
-                                37.34
-                            ],
-                            "operation_rate": 194.57,
-                            "consumption_rate": 0.3113,
-                            "total_loads": 6485.14,
-                            "crane_index": 2
-                        }
-                    ],
-                    "avg_consumption_rate": 0.3113,
-                    "avg_operation_rate": 194.57
-                },
-                {
-                    "fts_name": "\u0e1a\u0e38\u0e2b\u0e07\u0e32",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 26999.98,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                3,
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                3857.14,
-                                3857.14,
-                                3857.14
-                            ],
-                            "operation_times": [
-                                15.8,
-                                15.8,
-                                15.8
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                18.85,
-                                37.7
-                            ],
-                            "waiting_start_times": [
-                                1.0500000000000007,
-                                1.0500000000000007,
-                                0.0
-                            ],
-                            "finish_times": [
-                                17.8,
-                                36.650000000000006,
-                                55.5
-                            ],
-                            "operation_rate": 244.08,
-                            "consumption_rate": 0.1938,
-                            "total_loads": 11571.42,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                4
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                3857.14,
-                                3857.14
-                            ],
-                            "operation_times": [
-                                16.16,
-                                16.16
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                18.85
-                            ],
-                            "waiting_start_times": [
-                                0.6900000000000013,
-                                0.6900000000000013
-                            ],
-                            "finish_times": [
-                                18.16,
-                                37.010000000000005
-                            ],
-                            "operation_rate": 238.69,
-                            "consumption_rate": 0.2038,
-                            "total_loads": 7714.28,
-                            "crane_index": 1
-                        },
-                        {
-                            "bulks": [
-                                2,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                3857.14,
-                                3857.14
-                            ],
-                            "operation_times": [
-                                16.85,
-                                16.85
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                18.85
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                18.85,
-                                37.7
-                            ],
-                            "operation_rate": 228.88,
-                            "consumption_rate": 0.216,
-                            "total_loads": 7714.28,
-                            "crane_index": 2
-                        }
-                    ],
-                    "avg_consumption_rate": 0.216,
-                    "avg_operation_rate": 228.88
-                },
-                {
-                    "fts_name": "\u0e1a\u0e38\u0e2b\u0e07\u0e32",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 151701.41999999998,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                3
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                25283.57,
-                                25283.57
-                            ],
-                            "operation_times": [
-                                90.94,
-                                90.94
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                92.94
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                92.94,
-                                185.88
-                            ],
-                            "operation_rate": 278.03,
-                            "consumption_rate": 0.2046,
-                            "total_loads": 50567.14,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                4
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                25283.57,
-                                25283.57
-                            ],
-                            "operation_times": [
-                                90.43,
-                                90.43
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                92.94
-                            ],
-                            "waiting_start_times": [
-                                0.5099999999999909,
-                                0.5099999999999909
-                            ],
-                            "finish_times": [
-                                92.43,
-                                185.37
-                            ],
-                            "operation_rate": 279.59,
-                            "consumption_rate": 0.2068,
-                            "total_loads": 50567.14,
-                            "crane_index": 1
-                        },
-                        {
-                            "bulks": [
-                                2,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                25283.57,
-                                25283.57
-                            ],
-                            "operation_times": [
-                                88.09,
-                                88.09
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                92.94
-                            ],
-                            "waiting_start_times": [
-                                2.8499999999999943,
-                                2.8499999999999943
-                            ],
-                            "finish_times": [
-                                90.09,
-                                183.03
-                            ],
-                            "operation_rate": 287.03,
-                            "consumption_rate": 0.1888,
-                            "total_loads": 50567.14,
-                            "crane_index": 2
-                        }
-                    ],
-                    "avg_consumption_rate": 0.18880000000000002,
-                    "avg_operation_rate": 287.03000000000003
-                }
-            ],
-            "fts": {}
-        },
-        {
-            "fts_id": 3,
-            "fts_db_id": 48,
-            "fts_name": "\u0e01\u0e23\u0e23\u0e13\u0e34\u0e01\u0e32\u0e23\u0e4c",
-            "speed": 20.0,
-            "ids": [
-                1,
-                2
-            ],
-            "end_times": [
-                241.18,
-                585.08
-            ],
-            "start_times": [
-                200.23,
-                200.19
-            ],
-            "demands": [
-                8607.5,
-                60214.259999999995
-            ],
-            "process_times": [
-                38.95,
-                121.5
-            ],
-            "fts_setup_time": 2.0,
-            "crane_setup_times": [],
-            "distances": [
-                0.71,
-                0.0
-            ],
-            "travel_times": [
-                0.04,
-                0.0
-            ],
-            "consumption_rates": [
-                0.5177,
-                0.22410000000000002
-            ],
-            "operation_rates": [
-                232.93,
-                260.69
-            ],
-            "crane_infos": [
-                {
-                    "fts_name": "\u0e01\u0e23\u0e23\u0e13\u0e34\u0e01\u0e32\u0e23\u0e4c",
                     "ship": {},
                     "fts": {},
                     "total_loads": 8607.5,
@@ -1374,8 +864,8 @@
                             "offset_start_times": [],
                             "waiting_start_times": [],
                             "finish_times": [],
-                            "operation_rate": 224.63,
-                            "consumption_rate": 0.4812,
+                            "operation_rate": 199.12,
+                            "consumption_rate": 0.3339,
                             "total_loads": 0,
                             "crane_index": 0
                         },
@@ -1389,7 +879,7 @@
                                 8607.5
                             ],
                             "operation_times": [
-                                36.95
+                                40.58
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
@@ -1399,11 +889,273 @@
                                 0.0
                             ],
                             "finish_times": [
-                                38.95
+                                42.58
+                            ],
+                            "operation_rate": 212.11,
+                            "consumption_rate": 0.3279,
+                            "total_loads": 8607.5,
+                            "crane_index": 1
+                        },
+                        {
+                            "bulks": [],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [],
+                            "operation_times": [],
+                            "setup_time": 2.0,
+                            "offset_start_times": [],
+                            "waiting_start_times": [],
+                            "finish_times": [],
+                            "operation_rate": 194.57,
+                            "consumption_rate": 0.3113,
+                            "total_loads": 0,
+                            "crane_index": 2
+                        }
+                    ],
+                    "avg_consumption_rate": 0.3113,
+                    "avg_operation_rate": 194.57
+                },
+                {
+                    "fts_name": "\u0e1a\u0e38\u0e2b\u0e07\u0e32",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 16776.0,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                3
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                2796.0,
+                                2796.0
+                            ],
+                            "operation_times": [
+                                11.46,
+                                11.46
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                14.22
+                            ],
+                            "waiting_start_times": [
+                                0.7599999999999998,
+                                0.7599999999999998
+                            ],
+                            "finish_times": [
+                                13.46,
+                                27.68
+                            ],
+                            "operation_rate": 244.08,
+                            "consumption_rate": 0.1938,
+                            "total_loads": 5592.0,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                2796.0,
+                                2796.0
+                            ],
+                            "operation_times": [
+                                11.71,
+                                11.71
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                14.22
+                            ],
+                            "waiting_start_times": [
+                                0.5099999999999998,
+                                0.5099999999999998
+                            ],
+                            "finish_times": [
+                                13.71,
+                                27.93
+                            ],
+                            "operation_rate": 238.69,
+                            "consumption_rate": 0.2038,
+                            "total_loads": 5592.0,
+                            "crane_index": 1
+                        },
+                        {
+                            "bulks": [
+                                2,
+                                5
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                2796.0,
+                                2796.0
+                            ],
+                            "operation_times": [
+                                12.22,
+                                12.22
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                14.22
+                            ],
+                            "waiting_start_times": [
+                                0.0,
+                                0.0
+                            ],
+                            "finish_times": [
+                                14.22,
+                                28.44
+                            ],
+                            "operation_rate": 228.88,
+                            "consumption_rate": 0.216,
+                            "total_loads": 5592.0,
+                            "crane_index": 2
+                        }
+                    ],
+                    "avg_consumption_rate": 0.216,
+                    "avg_operation_rate": 228.88
+                }
+            ],
+            "fts": {}
+        },
+        {
+            "fts_id": 3,
+            "fts_db_id": 48,
+            "fts_name": "\u0e01\u0e23\u0e23\u0e13\u0e34\u0e01\u0e32\u0e23\u0e4c",
+            "speed": 20.0,
+            "ids": [
+                11,
+                12,
+                13
+            ],
+            "end_times": [
+                721.89,
+                875.42,
+                914.07
+            ],
+            "start_times": [
+                687.5,
+                721.98,
+                761.5
+            ],
+            "demands": [
+                10000.0,
+                63738.01,
+                63350.0
+            ],
+            "process_times": [
+                32.39,
+                151.44,
+                150.57
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0.89,
+                1.73,
+                1.42
+            ],
+            "travel_times": [
+                0.04,
+                0.09,
+                0.07
+            ],
+            "consumption_rates": [
+                0.5177,
+                0.2671,
+                0.2671
+            ],
+            "operation_rates": [
+                232.93,
+                255.18,
+                255.18
+            ],
+            "crane_infos": [
+                {
+                    "fts_name": "\u0e01\u0e23\u0e23\u0e13\u0e34\u0e01\u0e32\u0e23\u0e4c",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 10000.0,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                2
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                2000.0,
+                                2000.0
+                            ],
+                            "operation_times": [
+                                8.9,
+                                8.9
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                10.9
+                            ],
+                            "waiting_start_times": [
+                                0.0,
+                                0.0
+                            ],
+                            "finish_times": [
+                                10.9,
+                                21.8
+                            ],
+                            "operation_rate": 224.63,
+                            "consumption_rate": 0.4812,
+                            "total_loads": 4000.0,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                3,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                2000.0,
+                                2000.0,
+                                2000.0
+                            ],
+                            "operation_times": [
+                                8.59,
+                                8.59,
+                                8.59
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                10.9,
+                                21.8
+                            ],
+                            "waiting_start_times": [
+                                0.3100000000000005,
+                                0.3100000000000005,
+                                0.0
+                            ],
+                            "finish_times": [
+                                10.59,
+                                21.490000000000002,
+                                32.39
                             ],
                             "operation_rate": 232.93,
                             "consumption_rate": 0.5177,
-                            "total_loads": 8607.5,
+                            "total_loads": 6000.0,
                             "crane_index": 1
                         }
                     ],
@@ -1414,7 +1166,7 @@
                     "fts_name": "\u0e01\u0e23\u0e23\u0e13\u0e34\u0e01\u0e32\u0e23\u0e4c",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 60214.259999999995,
+                    "total_loads": 63738.01,
                     "crane_infos": [
                         {
                             "bulks": [
@@ -1425,59 +1177,20 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                10035.71,
-                                10035.71,
-                                10035.71
+                                9105.43,
+                                9105.43,
+                                9105.43
                             ],
                             "operation_times": [
-                                34.19,
-                                34.19,
-                                34.19
+                                35.92,
+                                35.92,
+                                35.92
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                40.5,
-                                81.0
-                            ],
-                            "waiting_start_times": [
-                                4.310000000000002,
-                                4.310000000000002,
-                                4.310000000000002
-                            ],
-                            "finish_times": [
-                                36.19,
-                                76.69,
-                                117.19
-                            ],
-                            "operation_rate": 293.5,
-                            "consumption_rate": 0.209,
-                            "total_loads": 30107.129999999997,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                3,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                10035.71,
-                                10035.71,
-                                10035.71
-                            ],
-                            "operation_times": [
-                                38.5,
-                                38.5,
-                                38.5
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                40.5,
-                                81.0
+                                37.92,
+                                75.84
                             ],
                             "waiting_start_times": [
                                 0.0,
@@ -1485,18 +1198,157 @@
                                 0.0
                             ],
                             "finish_times": [
-                                40.5,
-                                81.0,
-                                121.5
+                                37.92,
+                                75.84,
+                                113.76
                             ],
-                            "operation_rate": 260.69,
-                            "consumption_rate": 0.2241,
-                            "total_loads": 30107.129999999997,
+                            "operation_rate": 253.49,
+                            "consumption_rate": 0.2735,
+                            "total_loads": 27316.29,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                3,
+                                5,
+                                6
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                9105.43,
+                                9105.43,
+                                9105.43,
+                                9105.43
+                            ],
+                            "operation_times": [
+                                35.68,
+                                35.68,
+                                35.68,
+                                35.68
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                37.92,
+                                75.84,
+                                113.76
+                            ],
+                            "waiting_start_times": [
+                                0.240000000000002,
+                                0.240000000000002,
+                                0.240000000000002,
+                                0.0
+                            ],
+                            "finish_times": [
+                                37.68,
+                                75.6,
+                                113.52000000000001,
+                                151.44
+                            ],
+                            "operation_rate": 255.18,
+                            "consumption_rate": 0.2671,
+                            "total_loads": 36421.72,
                             "crane_index": 1
                         }
                     ],
-                    "avg_consumption_rate": 0.22410000000000002,
-                    "avg_operation_rate": 260.69
+                    "avg_consumption_rate": 0.2671,
+                    "avg_operation_rate": 255.18
+                },
+                {
+                    "fts_name": "\u0e01\u0e23\u0e23\u0e13\u0e34\u0e01\u0e32\u0e23\u0e4c",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 63350.0,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                2,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                9050.0,
+                                9050.0,
+                                9050.0
+                            ],
+                            "operation_times": [
+                                35.7,
+                                35.7,
+                                35.7
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                37.7,
+                                75.4
+                            ],
+                            "waiting_start_times": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "finish_times": [
+                                37.7,
+                                75.4,
+                                113.10000000000001
+                            ],
+                            "operation_rate": 253.49,
+                            "consumption_rate": 0.2735,
+                            "total_loads": 27150.0,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                3,
+                                5,
+                                6
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                9050.0,
+                                9050.0,
+                                9050.0,
+                                9050.0
+                            ],
+                            "operation_times": [
+                                35.47,
+                                35.47,
+                                35.47,
+                                35.47
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                37.7,
+                                75.4,
+                                113.10000000000001
+                            ],
+                            "waiting_start_times": [
+                                0.23000000000000398,
+                                0.23000000000000398,
+                                0.23000000000000398,
+                                0.0
+                            ],
+                            "finish_times": [
+                                37.47,
+                                75.17,
+                                112.87,
+                                150.57
+                            ],
+                            "operation_rate": 255.18,
+                            "consumption_rate": 0.2671,
+                            "total_loads": 36200.0,
+                            "crane_index": 1
+                        }
+                    ],
+                    "avg_consumption_rate": 0.2671,
+                    "avg_operation_rate": 255.18
                 }
             ],
             "fts": {}
@@ -1507,67 +1359,49 @@
             "fts_name": "\u0e25\u0e14\u0e32\u0e27\u0e31\u0e25\u0e22\u0e4c",
             "speed": 20.0,
             "ids": [
-                7,
-                9,
-                11,
-                0
+                2,
+                3
             ],
             "end_times": [
-                581.13,
-                650.73,
-                712.41,
-                686.45
+                171.08,
+                186.37
             ],
             "start_times": [
-                449.5,
-                622.0,
-                687.5,
-                581.21
+                40.5,
+                171.1
             ],
             "demands": [
-                70850.01000000001,
-                10199.98,
-                10000.0,
-                25283.57
+                70249.97,
+                2796.0
             ],
             "process_times": [
-                129.63,
-                26.73,
-                22.91,
-                103.24
+                128.58,
+                13.27
             ],
             "fts_setup_time": 2.0,
             "crane_setup_times": [],
             "distances": [
-                1.05,
-                0.94,
-                0.87,
-                1.67
+                0.92,
+                0.42
             ],
             "travel_times": [
                 0.05,
-                0.05,
-                0.04,
-                0.08
+                0.02
             ],
             "consumption_rates": [
                 0.17549999999999996,
-                0.3657,
-                0.3657,
-                0.1755
+                0.2751
             ],
             "operation_rates": [
                 243.56999999999996,
-                214.52000000000004,
-                214.52,
-                243.57
+                247.48
             ],
             "crane_infos": [
                 {
                     "fts_name": "\u0e25\u0e14\u0e32\u0e27\u0e31\u0e25\u0e22\u0e4c",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 70850.01000000001,
+                    "total_loads": 70249.97,
                     "crane_infos": [
                         {
                             "bulks": [
@@ -1578,34 +1412,34 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                10121.43,
-                                10121.43,
-                                10121.43
+                                10035.71,
+                                10035.71,
+                                10035.71
                             ],
                             "operation_times": [
-                                40.53,
-                                40.53,
-                                40.53
+                                40.18,
+                                40.18,
+                                40.18
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                43.55,
-                                87.1
+                                43.2,
+                                86.4
                             ],
                             "waiting_start_times": [
-                                1.019999999999996,
-                                1.019999999999996,
+                                1.0200000000000031,
+                                1.0200000000000031,
                                 0.0
                             ],
                             "finish_times": [
-                                42.53,
-                                86.08,
-                                129.63
+                                42.18,
+                                85.38,
+                                128.58
                             ],
                             "operation_rate": 249.74,
                             "consumption_rate": 0.166,
-                            "total_loads": 30364.29,
+                            "total_loads": 30107.129999999997,
                             "crane_index": 0
                         },
                         {
@@ -1616,29 +1450,29 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                10121.43,
-                                10121.43
+                                10035.71,
+                                10035.71
                             ],
                             "operation_times": [
-                                41.02,
-                                41.02
+                                40.68,
+                                40.68
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                43.55
+                                43.2
                             ],
                             "waiting_start_times": [
-                                0.529999999999994,
-                                0.529999999999994
+                                0.5200000000000031,
+                                0.5200000000000031
                             ],
                             "finish_times": [
-                                43.02,
-                                86.57
+                                42.68,
+                                85.88
                             ],
                             "operation_rate": 246.72,
                             "consumption_rate": 0.1609,
-                            "total_loads": 20242.86,
+                            "total_loads": 20071.42,
                             "crane_index": 1
                         },
                         {
@@ -1649,29 +1483,29 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                10121.43,
-                                10121.43
+                                10035.71,
+                                10035.71
                             ],
                             "operation_times": [
-                                41.55,
-                                41.55
+                                41.2,
+                                41.2
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                43.55
+                                43.2
                             ],
                             "waiting_start_times": [
                                 0.0,
                                 0.0
                             ],
                             "finish_times": [
-                                43.55,
-                                87.1
+                                43.2,
+                                86.4
                             ],
                             "operation_rate": 243.57,
                             "consumption_rate": 0.1755,
-                            "total_loads": 20242.86,
+                            "total_loads": 20071.42,
                             "crane_index": 2
                         }
                     ],
@@ -1682,39 +1516,292 @@
                     "fts_name": "\u0e25\u0e14\u0e32\u0e27\u0e31\u0e25\u0e22\u0e4c",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 10199.98,
+                    "total_loads": 2796.0,
+                    "crane_infos": [
+                        {
+                            "bulks": [],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [],
+                            "operation_times": [],
+                            "setup_time": 2.0,
+                            "offset_start_times": [],
+                            "waiting_start_times": [],
+                            "finish_times": [],
+                            "operation_rate": 239.44,
+                            "consumption_rate": 0.2941,
+                            "total_loads": 0,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                6
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                2796.0
+                            ],
+                            "operation_times": [
+                                11.27
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0
+                            ],
+                            "waiting_start_times": [
+                                0.0
+                            ],
+                            "finish_times": [
+                                13.27
+                            ],
+                            "operation_rate": 248.06,
+                            "consumption_rate": 0.2714,
+                            "total_loads": 2796.0,
+                            "crane_index": 1
+                        },
+                        {
+                            "bulks": [],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [],
+                            "operation_times": [],
+                            "setup_time": 2.0,
+                            "offset_start_times": [],
+                            "waiting_start_times": [],
+                            "finish_times": [],
+                            "operation_rate": 247.48,
+                            "consumption_rate": 0.2751,
+                            "total_loads": 0,
+                            "crane_index": 2
+                        }
+                    ],
+                    "avg_consumption_rate": 0.2751,
+                    "avg_operation_rate": 247.48
+                }
+            ],
+            "fts": {}
+        },
+        {
+            "fts_id": 5,
+            "fts_db_id": 50,
+            "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
+            "speed": 20.0,
+            "ids": [
+                8,
+                9,
+                15,
+                7
+            ],
+            "end_times": [
+                676.77,
+                705.82,
+                1241.85,
+                720.4
+            ],
+            "start_times": [
+                622.0,
+                676.8,
+                1187.5,
+                676.78
+            ],
+            "demands": [
+                22697.99,
+                10199.980000000001,
+                26999.98,
+                10121.43
+            ],
+            "process_times": [
+                52.77,
+                27.02,
+                52.35,
+                41.62
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                1.21,
+                0.68,
+                6.04,
+                0.26
+            ],
+            "travel_times": [
+                0.06,
+                0.03,
+                0.3,
+                0.01
+            ],
+            "consumption_rates": [
+                0.3657,
+                0.3657,
+                0.1997,
+                0.20259999999999997
+            ],
+            "operation_rates": [
+                215.04,
+                215.04,
+                261.82,
+                244.64
+            ],
+            "crane_infos": [
+                {
+                    "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 22697.99,
                     "crane_infos": [
                         {
                             "bulks": [
                                 0,
-                                3
+                                3,
+                                6
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                3242.57,
+                                3242.57,
+                                3242.57
+                            ],
+                            "operation_times": [
+                                14.99,
+                                14.99,
+                                14.99
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                17.89,
+                                35.78
+                            ],
+                            "waiting_start_times": [
+                                0.9000000000000004,
+                                0.9000000000000004,
+                                0.0
+                            ],
+                            "finish_times": [
+                                16.990000000000002,
+                                34.88,
+                                52.77
+                            ],
+                            "operation_rate": 216.35,
+                            "consumption_rate": 0.382,
+                            "total_loads": 9727.710000000001,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                3242.57,
+                                3242.57
+                            ],
+                            "operation_times": [
+                                15.89,
+                                15.89
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                17.89
+                            ],
+                            "waiting_start_times": [
+                                0.0,
+                                0.0
+                            ],
+                            "finish_times": [
+                                17.89,
+                                35.78
+                            ],
+                            "operation_rate": 204.01,
+                            "consumption_rate": 0.3798,
+                            "total_loads": 6485.14,
+                            "crane_index": 1
+                        },
+                        {
+                            "bulks": [
+                                2,
+                                5
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                3242.57,
+                                3242.57
+                            ],
+                            "operation_times": [
+                                15.08,
+                                15.08
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                17.89
+                            ],
+                            "waiting_start_times": [
+                                0.8100000000000005,
+                                0.8100000000000005
+                            ],
+                            "finish_times": [
+                                17.08,
+                                34.97
+                            ],
+                            "operation_rate": 215.04,
+                            "consumption_rate": 0.3657,
+                            "total_loads": 6485.14,
+                            "crane_index": 2
+                        }
+                    ],
+                    "avg_consumption_rate": 0.3657,
+                    "avg_operation_rate": 215.04
+                },
+                {
+                    "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 10199.980000000001,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                3,
+                                6
                             ],
                             "ship": {},
                             "fts": {},
                             "loads": [
                                 1457.14,
+                                1457.14,
                                 1457.14
                             ],
                             "operation_times": [
-                                6.8,
-                                6.8
+                                6.74,
+                                6.74,
+                                6.74
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                8.969999999999999
+                                9.14,
+                                18.28
                             ],
                             "waiting_start_times": [
-                                0.16999999999999993,
-                                0.16999999999999993
+                                0.39999999999999947,
+                                0.39999999999999947,
+                                0.0
                             ],
                             "finish_times": [
-                                8.8,
-                                17.77
+                                8.74,
+                                17.880000000000003,
+                                27.020000000000003
                             ],
-                            "operation_rate": 214.15,
-                            "consumption_rate": 0.369,
-                            "total_loads": 2914.28,
+                            "operation_rate": 216.35,
+                            "consumption_rate": 0.382,
+                            "total_loads": 4371.42,
                             "crane_index": 0
                         },
                         {
@@ -1729,25 +1816,134 @@
                                 1457.14
                             ],
                             "operation_times": [
-                                6.97,
-                                6.97
+                                7.14,
+                                7.14
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                8.969999999999999
+                                9.14
                             ],
                             "waiting_start_times": [
                                 0.0,
                                 0.0
                             ],
                             "finish_times": [
-                                8.969999999999999,
-                                17.939999999999998
+                                9.14,
+                                18.28
                             ],
-                            "operation_rate": 208.96,
-                            "consumption_rate": 0.4075,
+                            "operation_rate": 204.01,
+                            "consumption_rate": 0.3798,
                             "total_loads": 2914.28,
+                            "crane_index": 1
+                        },
+                        {
+                            "bulks": [
+                                2,
+                                5
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                1457.14,
+                                1457.14
+                            ],
+                            "operation_times": [
+                                6.78,
+                                6.78
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                9.14
+                            ],
+                            "waiting_start_times": [
+                                0.35999999999999943,
+                                0.35999999999999943
+                            ],
+                            "finish_times": [
+                                8.780000000000001,
+                                17.92
+                            ],
+                            "operation_rate": 215.04,
+                            "consumption_rate": 0.3657,
+                            "total_loads": 2914.28,
+                            "crane_index": 2
+                        }
+                    ],
+                    "avg_consumption_rate": 0.3657,
+                    "avg_operation_rate": 215.04
+                },
+                {
+                    "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 26999.98,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                3
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                3857.14,
+                                3857.14
+                            ],
+                            "operation_times": [
+                                15.21,
+                                15.21
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                17.810000000000002
+                            ],
+                            "waiting_start_times": [
+                                0.5999999999999996,
+                                0.5999999999999996
+                            ],
+                            "finish_times": [
+                                17.21,
+                                35.02
+                            ],
+                            "operation_rate": 253.54,
+                            "consumption_rate": 0.1959,
+                            "total_loads": 7714.28,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                3857.14,
+                                3857.14
+                            ],
+                            "operation_times": [
+                                15.81,
+                                15.81
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                17.810000000000002
+                            ],
+                            "waiting_start_times": [
+                                0.0,
+                                0.0
+                            ],
+                            "finish_times": [
+                                17.810000000000002,
+                                35.620000000000005
+                            ],
+                            "operation_rate": 243.95,
+                            "consumption_rate": 0.21,
+                            "total_loads": 7714.28,
                             "crane_index": 1
                         },
                         {
@@ -1759,45 +1955,177 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                1457.14,
-                                1457.14,
-                                1457.14
+                                3857.14,
+                                3857.14,
+                                3857.14
                             ],
                             "operation_times": [
-                                6.79,
-                                6.79,
-                                6.79
+                                14.73,
+                                14.73,
+                                14.73
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                8.969999999999999,
-                                17.939999999999998
+                                17.810000000000002,
+                                35.620000000000005
                             ],
                             "waiting_start_times": [
-                                0.17999999999999972,
-                                0.17999999999999972,
+                                1.08,
+                                1.08,
                                 0.0
                             ],
                             "finish_times": [
-                                8.79,
-                                17.759999999999998,
-                                26.729999999999997
+                                16.73,
+                                34.540000000000006,
+                                52.35000000000001
                             ],
-                            "operation_rate": 214.52,
-                            "consumption_rate": 0.3657,
-                            "total_loads": 4371.42,
+                            "operation_rate": 261.82,
+                            "consumption_rate": 0.1997,
+                            "total_loads": 11571.42,
                             "crane_index": 2
                         }
                     ],
-                    "avg_consumption_rate": 0.3657,
-                    "avg_operation_rate": 214.52000000000004
+                    "avg_consumption_rate": 0.1997,
+                    "avg_operation_rate": 261.82
                 },
                 {
-                    "fts_name": "\u0e25\u0e14\u0e32\u0e27\u0e31\u0e25\u0e22\u0e4c",
+                    "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 10000.0,
+                    "total_loads": 10121.43,
+                    "crane_infos": [
+                        {
+                            "bulks": [],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [],
+                            "operation_times": [],
+                            "setup_time": 2.0,
+                            "offset_start_times": [],
+                            "waiting_start_times": [],
+                            "finish_times": [],
+                            "operation_rate": 250.02,
+                            "consumption_rate": 0.2099,
+                            "total_loads": 0,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                6
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                10121.43
+                            ],
+                            "operation_times": [
+                                39.62
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0
+                            ],
+                            "waiting_start_times": [
+                                0.0
+                            ],
+                            "finish_times": [
+                                41.62
+                            ],
+                            "operation_rate": 255.46,
+                            "consumption_rate": 0.1959,
+                            "total_loads": 10121.43,
+                            "crane_index": 1
+                        },
+                        {
+                            "bulks": [],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [],
+                            "operation_times": [],
+                            "setup_time": 2.0,
+                            "offset_start_times": [],
+                            "waiting_start_times": [],
+                            "finish_times": [],
+                            "operation_rate": 244.64,
+                            "consumption_rate": 0.2026,
+                            "total_loads": 0,
+                            "crane_index": 2
+                        }
+                    ],
+                    "avg_consumption_rate": 0.20259999999999997,
+                    "avg_operation_rate": 244.64
+                }
+            ],
+            "fts": {}
+        },
+        {
+            "fts_id": 6,
+            "fts_db_id": 51,
+            "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
+            "speed": 20.0,
+            "ids": [
+                5,
+                10,
+                14,
+                0
+            ],
+            "end_times": [
+                476.39,
+                717.58,
+                981.14,
+                597.88
+            ],
+            "start_times": [
+                382.5,
+                671.5,
+                849.5,
+                313.75
+            ],
+            "demands": [
+                39802.98,
+                20000.0,
+                71572.97,
+                126417.85
+            ],
+            "process_times": [
+                91.89,
+                44.08,
+                129.64,
+                207.1
+            ],
+            "fts_setup_time": 2.0,
+            "crane_setup_times": [],
+            "distances": [
+                0.54,
+                1.23,
+                2.68,
+                0.0
+            ],
+            "travel_times": [
+                0.03,
+                0.06,
+                0.13,
+                0.0
+            ],
+            "consumption_rates": [
+                0.3665999999999999,
+                0.3666,
+                0.19529999999999997,
+                0.19529999999999997
+            ],
+            "operation_rates": [
+                202.71,
+                202.71,
+                245.93999999999997,
+                245.93999999999997
+            ],
+            "crane_infos": [
+                {
+                    "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 39802.98,
                     "crane_infos": [
                         {
                             "bulks": [
@@ -1807,29 +2135,144 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                2000.0,
-                                2000.0
+                                5686.14,
+                                5686.14
                             ],
                             "operation_times": [
-                                9.34,
-                                9.34
+                                28.06,
+                                28.06
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                11.57
+                                30.92
                             ],
                             "waiting_start_times": [
-                                0.23000000000000043,
+                                0.860000000000003,
+                                0.860000000000003
+                            ],
+                            "finish_times": [
+                                30.06,
+                                60.980000000000004
+                            ],
+                            "operation_rate": 202.63,
+                            "consumption_rate": 0.356,
+                            "total_loads": 11372.28,
+                            "crane_index": 0
+                        },
+                        {
+                            "bulks": [
+                                1,
+                                4
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                5686.14,
+                                5686.14
+                            ],
+                            "operation_times": [
+                                28.92,
+                                28.92
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                30.92
+                            ],
+                            "waiting_start_times": [
+                                0.0,
                                 0.0
                             ],
                             "finish_times": [
-                                11.34,
-                                22.91
+                                30.92,
+                                61.84
                             ],
-                            "operation_rate": 214.15,
-                            "consumption_rate": 0.369,
-                            "total_loads": 4000.0,
+                            "operation_rate": 196.63,
+                            "consumption_rate": 0.4056,
+                            "total_loads": 11372.28,
+                            "crane_index": 1
+                        },
+                        {
+                            "bulks": [
+                                2,
+                                5,
+                                6
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                5686.14,
+                                5686.14,
+                                5686.14
+                            ],
+                            "operation_times": [
+                                28.05,
+                                28.05,
+                                28.05
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                30.92,
+                                61.84
+                            ],
+                            "waiting_start_times": [
+                                0.870000000000001,
+                                0.870000000000001,
+                                0.0
+                            ],
+                            "finish_times": [
+                                30.05,
+                                60.97,
+                                91.89
+                            ],
+                            "operation_rate": 202.71,
+                            "consumption_rate": 0.3666,
+                            "total_loads": 17058.420000000002,
+                            "crane_index": 2
+                        }
+                    ],
+                    "avg_consumption_rate": 0.3665999999999999,
+                    "avg_operation_rate": 202.71
+                },
+                {
+                    "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
+                    "ship": {},
+                    "fts": {},
+                    "total_loads": 20000.0,
+                    "crane_infos": [
+                        {
+                            "bulks": [
+                                0,
+                                3
+                            ],
+                            "ship": {},
+                            "fts": {},
+                            "loads": [
+                                4000.0,
+                                4000.0
+                            ],
+                            "operation_times": [
+                                19.74,
+                                19.74
+                            ],
+                            "setup_time": 2.0,
+                            "offset_start_times": [
+                                0,
+                                22.34
+                            ],
+                            "waiting_start_times": [
+                                0.6000000000000014,
+                                0.0
+                            ],
+                            "finish_times": [
+                                21.74,
+                                44.08
+                            ],
+                            "operation_rate": 202.63,
+                            "consumption_rate": 0.356,
+                            "total_loads": 8000.0,
                             "crane_index": 0
                         },
                         {
@@ -1839,10 +2282,10 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                2000.0
+                                4000.0
                             ],
                             "operation_times": [
-                                9.57
+                                20.34
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
@@ -1852,430 +2295,55 @@
                                 0.0
                             ],
                             "finish_times": [
-                                11.57
+                                22.34
                             ],
-                            "operation_rate": 208.96,
-                            "consumption_rate": 0.4075,
-                            "total_loads": 2000.0,
-                            "crane_index": 1
-                        },
-                        {
-                            "bulks": [
-                                2,
-                                4
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                2000.0,
-                                2000.0
-                            ],
-                            "operation_times": [
-                                9.32,
-                                9.32
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                11.57
-                            ],
-                            "waiting_start_times": [
-                                0.25,
-                                0.019999999999999574
-                            ],
-                            "finish_times": [
-                                11.32,
-                                22.89
-                            ],
-                            "operation_rate": 214.52,
-                            "consumption_rate": 0.3657,
+                            "operation_rate": 196.63,
+                            "consumption_rate": 0.4056,
                             "total_loads": 4000.0,
-                            "crane_index": 2
-                        }
-                    ],
-                    "avg_consumption_rate": 0.3657,
-                    "avg_operation_rate": 214.52
-                },
-                {
-                    "fts_name": "\u0e25\u0e14\u0e32\u0e27\u0e31\u0e25\u0e22\u0e4c",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 25283.57,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                25283.57
-                            ],
-                            "operation_times": [
-                                101.24
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0
-                            ],
-                            "waiting_start_times": [
-                                0.0
-                            ],
-                            "finish_times": [
-                                103.24
-                            ],
-                            "operation_rate": 249.74,
-                            "consumption_rate": 0.166,
-                            "total_loads": 25283.57,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [],
-                            "operation_times": [],
-                            "setup_time": 2.0,
-                            "offset_start_times": [],
-                            "waiting_start_times": [],
-                            "finish_times": [],
-                            "operation_rate": 246.72,
-                            "consumption_rate": 0.1609,
-                            "total_loads": 0,
-                            "crane_index": 1
-                        },
-                        {
-                            "bulks": [],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [],
-                            "operation_times": [],
-                            "setup_time": 2.0,
-                            "offset_start_times": [],
-                            "waiting_start_times": [],
-                            "finish_times": [],
-                            "operation_rate": 243.57,
-                            "consumption_rate": 0.1755,
-                            "total_loads": 0,
-                            "crane_index": 2
-                        }
-                    ],
-                    "avg_consumption_rate": 0.1755,
-                    "avg_operation_rate": 243.57
-                }
-            ],
-            "fts": {}
-        },
-        {
-            "fts_id": 5,
-            "fts_db_id": 50,
-            "fts_name": "\u0e01\u0e32\u0e23\u0e30\u0e40\u0e01\u0e14",
-            "speed": 20.0,
-            "ids": [],
-            "end_times": [],
-            "start_times": [],
-            "demands": [],
-            "process_times": [],
-            "fts_setup_time": 2.0,
-            "crane_setup_times": [],
-            "distances": [],
-            "travel_times": [],
-            "consumption_rates": [],
-            "operation_rates": [],
-            "crane_infos": [],
-            "fts": {}
-        },
-        {
-            "fts_id": 6,
-            "fts_db_id": 51,
-            "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
-            "speed": 20.0,
-            "ids": [
-                3,
-                18,
-                17,
-                1
-            ],
-            "end_times": [
-                157.92,
-                1290.7,
-                1369.13,
-                248.01
-            ],
-            "start_times": [
-                111.99,
-                471.5,
-                1296.0,
-                111.96
-            ],
-            "demands": [
-                19572.0,
-                600000.0,
-                37699.97,
-                25822.5
-            ],
-            "process_times": [
-                43.93,
-                817.2,
-                71.13,
-                45.78
-            ],
-            "fts_setup_time": 2.0,
-            "crane_setup_times": [],
-            "distances": [
-                0.62,
-                4.37,
-                0.0,
-                0.0
-            ],
-            "travel_times": [
-                0.03,
-                0.22,
-                0.0,
-                0.0
-            ],
-            "consumption_rates": [
-                0.2543,
-                0.1953,
-                0.1953,
-                0.3665999999999999
-            ],
-            "operation_rates": [
-                214.84000000000003,
-                245.94,
-                245.94,
-                202.70999999999998
-            ],
-            "crane_infos": [
-                {
-                    "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 19572.0,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                3
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                2796.0,
-                                2796.0
-                            ],
-                            "operation_times": [
-                                12.39,
-                                12.39
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                15.01
-                            ],
-                            "waiting_start_times": [
-                                0.6199999999999992,
-                                0.6199999999999992
-                            ],
-                            "finish_times": [
-                                14.39,
-                                29.4
-                            ],
-                            "operation_rate": 225.68,
-                            "consumption_rate": 0.2685,
-                            "total_loads": 5592.0,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
-                                4,
-                                6
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                2796.0,
-                                2796.0,
-                                2796.0
-                            ],
-                            "operation_times": [
-                                11.91,
-                                11.91,
-                                11.91
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                15.01,
-                                30.02
-                            ],
-                            "waiting_start_times": [
-                                1.0999999999999996,
-                                1.0999999999999996,
-                                0.0
-                            ],
-                            "finish_times": [
-                                13.91,
-                                28.92,
-                                43.93
-                            ],
-                            "operation_rate": 234.83,
-                            "consumption_rate": 0.2664,
-                            "total_loads": 8388.0,
                             "crane_index": 1
                         },
                         {
                             "bulks": [
                                 2,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                2796.0,
-                                2796.0
-                            ],
-                            "operation_times": [
-                                13.01,
-                                13.01
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                15.01
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                15.01,
-                                30.02
-                            ],
-                            "operation_rate": 214.84,
-                            "consumption_rate": 0.2543,
-                            "total_loads": 5592.0,
-                            "crane_index": 2
-                        }
-                    ],
-                    "avg_consumption_rate": 0.2543,
-                    "avg_operation_rate": 214.84000000000003
-                },
-                {
-                    "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
-                    "ship": {},
-                    "fts": {},
-                    "total_loads": 600000.0,
-                    "crane_infos": [
-                        {
-                            "bulks": [
-                                0,
-                                3
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                100000.0,
-                                100000.0
-                            ],
-                            "operation_times": [
-                                396.12,
-                                396.12
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                408.6
-                            ],
-                            "waiting_start_times": [
-                                10.480000000000018,
-                                10.480000000000018
-                            ],
-                            "finish_times": [
-                                398.12,
-                                806.72
-                            ],
-                            "operation_rate": 252.45,
-                            "consumption_rate": 0.1845,
-                            "total_loads": 200000.0,
-                            "crane_index": 0
-                        },
-                        {
-                            "bulks": [
-                                1,
                                 4
                             ],
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                100000.0,
-                                100000.0
+                                4000.0,
+                                4000.0
                             ],
                             "operation_times": [
-                                396.7,
-                                396.7
+                                19.73,
+                                19.73
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                408.6
+                                22.34
                             ],
                             "waiting_start_times": [
-                                9.900000000000034,
-                                9.900000000000034
+                                0.6099999999999994,
+                                0.00999999999999801
                             ],
                             "finish_times": [
-                                398.7,
-                                807.3
+                                21.73,
+                                44.07
                             ],
-                            "operation_rate": 252.08,
-                            "consumption_rate": 0.195,
-                            "total_loads": 200000.0,
-                            "crane_index": 1
-                        },
-                        {
-                            "bulks": [
-                                2,
-                                5
-                            ],
-                            "ship": {},
-                            "fts": {},
-                            "loads": [
-                                100000.0,
-                                100000.0
-                            ],
-                            "operation_times": [
-                                406.6,
-                                406.6
-                            ],
-                            "setup_time": 2.0,
-                            "offset_start_times": [
-                                0,
-                                408.6
-                            ],
-                            "waiting_start_times": [
-                                0.0,
-                                0.0
-                            ],
-                            "finish_times": [
-                                408.6,
-                                817.2
-                            ],
-                            "operation_rate": 245.94,
-                            "consumption_rate": 0.1953,
-                            "total_loads": 200000.0,
+                            "operation_rate": 202.71,
+                            "consumption_rate": 0.3666,
+                            "total_loads": 8000.0,
                             "crane_index": 2
                         }
                     ],
-                    "avg_consumption_rate": 0.1953,
-                    "avg_operation_rate": 245.94
+                    "avg_consumption_rate": 0.3666,
+                    "avg_operation_rate": 202.71
                 },
                 {
                     "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 37699.97,
+                    "total_loads": 71572.97,
                     "crane_infos": [
                         {
                             "bulks": [
@@ -2286,34 +2354,34 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                5385.71,
-                                5385.71,
-                                5385.71
+                                10224.71,
+                                10224.71,
+                                10224.71
                             ],
                             "operation_times": [
-                                21.33,
-                                21.33,
-                                21.33
+                                40.5,
+                                40.5,
+                                40.5
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                23.9,
-                                47.8
+                                43.57,
+                                87.14
                             ],
                             "waiting_start_times": [
-                                0.5700000000000003,
-                                0.5700000000000003,
+                                1.0700000000000003,
+                                1.0700000000000003,
                                 0.0
                             ],
                             "finish_times": [
-                                23.33,
-                                47.23,
-                                71.13
+                                42.5,
+                                86.07,
+                                129.64
                             ],
                             "operation_rate": 252.45,
                             "consumption_rate": 0.1845,
-                            "total_loads": 16157.130000000001,
+                            "total_loads": 30674.129999999997,
                             "crane_index": 0
                         },
                         {
@@ -2324,29 +2392,29 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                5385.71,
-                                5385.71
+                                10224.71,
+                                10224.71
                             ],
                             "operation_times": [
-                                21.37,
-                                21.37
+                                40.56,
+                                40.56
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                23.9
+                                43.57
                             ],
                             "waiting_start_times": [
-                                0.5299999999999976,
-                                0.5299999999999976
+                                1.009999999999998,
+                                1.009999999999998
                             ],
                             "finish_times": [
-                                23.37,
-                                47.269999999999996
+                                42.56,
+                                86.13
                             ],
                             "operation_rate": 252.08,
                             "consumption_rate": 0.195,
-                            "total_loads": 10771.42,
+                            "total_loads": 20449.42,
                             "crane_index": 1
                         },
                         {
@@ -2357,93 +2425,105 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                5385.71,
-                                5385.71
+                                10224.71,
+                                10224.71
                             ],
                             "operation_times": [
-                                21.9,
-                                21.9
+                                41.57,
+                                41.57
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0,
-                                23.9
+                                43.57
                             ],
                             "waiting_start_times": [
                                 0.0,
                                 0.0
                             ],
                             "finish_times": [
-                                23.9,
-                                47.8
+                                43.57,
+                                87.14
                             ],
                             "operation_rate": 245.94,
                             "consumption_rate": 0.1953,
-                            "total_loads": 10771.42,
+                            "total_loads": 20449.42,
                             "crane_index": 2
                         }
                     ],
-                    "avg_consumption_rate": 0.1953,
-                    "avg_operation_rate": 245.94
+                    "avg_consumption_rate": 0.19529999999999997,
+                    "avg_operation_rate": 245.93999999999997
                 },
                 {
                     "fts_name": "\u0e17\u0e2d\u0e07\u0e2d\u0e23\u0e38\u0e13",
                     "ship": {},
                     "fts": {},
-                    "total_loads": 25822.5,
+                    "total_loads": 126417.85,
                     "crane_infos": [
                         {
                             "bulks": [
-                                0
+                                0,
+                                3
                             ],
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                8607.5
+                                25283.57,
+                                25283.57
                             ],
                             "operation_times": [
-                                42.48
+                                100.15,
+                                100.15
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
-                                0
+                                0,
+                                104.8
                             ],
                             "waiting_start_times": [
-                                1.3000000000000043
+                                2.6499999999999915,
+                                0.14999999999999147
                             ],
                             "finish_times": [
-                                44.48
+                                102.15,
+                                206.95
                             ],
-                            "operation_rate": 202.63,
-                            "consumption_rate": 0.356,
-                            "total_loads": 8607.5,
+                            "operation_rate": 252.45,
+                            "consumption_rate": 0.1845,
+                            "total_loads": 50567.14,
                             "crane_index": 0
                         },
                         {
                             "bulks": [
-                                1
+                                1,
+                                4
                             ],
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                8607.5
+                                25283.57,
+                                25283.57
                             ],
                             "operation_times": [
-                                43.78
+                                100.3,
+                                100.3
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
-                                0
+                                0,
+                                104.8
                             ],
                             "waiting_start_times": [
+                                2.5,
                                 0.0
                             ],
                             "finish_times": [
-                                45.78
+                                102.3,
+                                207.1
                             ],
-                            "operation_rate": 196.63,
-                            "consumption_rate": 0.4056,
-                            "total_loads": 8607.5,
+                            "operation_rate": 252.08,
+                            "consumption_rate": 0.195,
+                            "total_loads": 50567.14,
                             "crane_index": 1
                         },
                         {
@@ -2453,29 +2533,29 @@
                             "ship": {},
                             "fts": {},
                             "loads": [
-                                8607.5
+                                25283.57
                             ],
                             "operation_times": [
-                                42.46
+                                102.8
                             ],
                             "setup_time": 2.0,
                             "offset_start_times": [
                                 0
                             ],
                             "waiting_start_times": [
-                                1.3200000000000003
+                                0.0
                             ],
                             "finish_times": [
-                                44.46
+                                104.8
                             ],
-                            "operation_rate": 202.71,
-                            "consumption_rate": 0.3666,
-                            "total_loads": 8607.5,
+                            "operation_rate": 245.94,
+                            "consumption_rate": 0.1953,
+                            "total_loads": 25283.57,
                             "crane_index": 2
                         }
                     ],
-                    "avg_consumption_rate": 0.3665999999999999,
-                    "avg_operation_rate": 202.70999999999998
+                    "avg_consumption_rate": 0.19529999999999997,
+                    "avg_operation_rate": 245.93999999999997
                 }
             ],
             "fts": {}
@@ -2496,26 +2576,26 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                2,
-                4
+                6,
+                0
             ],
             "fts_crane_demands": [
-                53353,
-                25146
+                50934,
+                26040
             ],
             "fts_crane_enter_times": [
-                277.97,
-                581.21
+                313.75,
+                388.78
             ],
             "fts_crane_exit_times": [
-                769.09,
-                686.45
+                597.88,
+                459.52
             ],
             "fts_crane_operation_times": [
-                185.88,
-                103.24
+                207.1,
+                68.74
             ],
-            "delta_time": -697.59
+            "delta_time": -526.38
         },
         {
             "ship_id": 1,
@@ -2531,26 +2611,26 @@
             "categroy_name": "export",
             "maxFTS": 2.0,
             "fts_crane_ids": [
-                6,
-                3
+                1,
+                2
             ],
             "fts_crane_demands": [
-                9280,
-                9073
+                18097,
+                8285
             ],
             "fts_crane_enter_times": [
-                111.96,
-                200.23
+                93.62,
+                131.43
             ],
             "fts_crane_exit_times": [
-                248.01,
-                241.18
+                203.47,
+                176.01
             ],
             "fts_crane_operation_times": [
-                45.78,
-                38.95
+                70.04,
+                42.58
             ],
-            "delta_time": -142.51
+            "delta_time": -97.97
         },
         {
             "ship_id": 2,
@@ -2566,26 +2646,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                3,
-                1
+                4
             ],
             "fts_crane_demands": [
-                31674,
-                10520
+                31318
             ],
             "fts_crane_enter_times": [
-                200.19,
-                461.58
+                40.5
             ],
             "fts_crane_exit_times": [
-                585.08,
-                498.66
+                171.08
             ],
             "fts_crane_operation_times": [
-                121.5,
-                35.08
+                128.58
             ],
-            "delta_time": -425.58000000000004
+            "delta_time": -11.580000000000013
         },
         {
             "ship_id": 3,
@@ -2601,21 +2676,26 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                6
+                2,
+                4
             ],
             "fts_crane_demands": [
-                9438
+                6509,
+                3284
             ],
             "fts_crane_enter_times": [
-                111.99
+                131.4,
+                171.1
             ],
             "fts_crane_exit_times": [
-                157.92
+                201.54,
+                186.37
             ],
             "fts_crane_operation_times": [
-                43.93
+                28.44,
+                13.27
             ],
-            "delta_time": -22.419999999999987
+            "delta_time": -66.03999999999999
         },
         {
             "ship_id": 4,
@@ -2661,21 +2741,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                0
+                6
             ],
             "fts_crane_demands": [
-                25643
+                18627
             ],
             "fts_crane_enter_times": [
-                388.79
+                382.5
             ],
             "fts_crane_exit_times": [
-                482.06
+                476.39
             ],
             "fts_crane_operation_times": [
-                91.27
+                91.89
             ],
-            "delta_time": -20.560000000000002
+            "delta_time": -14.889999999999986
         },
         {
             "ship_id": 6,
@@ -2721,21 +2801,26 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                4
+                1,
+                5
             ],
             "fts_crane_demands": [
-                31574
+                32164,
+                10182
             ],
             "fts_crane_enter_times": [
-                449.5
+                449.5,
+                676.78
             ],
             "fts_crane_exit_times": [
-                581.13
+                786.03,
+                720.4
             ],
             "fts_crane_operation_times": [
-                129.63
+                107.25,
+                41.62
             ],
-            "delta_time": -38.629999999999995
+            "delta_time": -243.52999999999997
         },
         {
             "ship_id": 8,
@@ -2751,21 +2836,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                2
+                5
             ],
             "fts_crane_demands": [
-                10629
+                11348
             ],
             "fts_crane_enter_times": [
                 622.0
             ],
             "fts_crane_exit_times": [
-                678.63
+                676.77
             ],
             "fts_crane_operation_times": [
-                54.63
+                52.77
             ],
-            "delta_time": 2.8700000000000045
+            "delta_time": 4.730000000000018
         },
         {
             "ship_id": 9,
@@ -2781,21 +2866,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                4
+                5
             ],
             "fts_crane_demands": [
-                5734
+                5810
             ],
             "fts_crane_enter_times": [
-                622.0
+                676.8
             ],
             "fts_crane_exit_times": [
-                650.73
+                705.82
             ],
             "fts_crane_operation_times": [
-                26.73
+                27.02
             ],
-            "delta_time": 30.769999999999982
+            "delta_time": -24.32000000000005
         },
         {
             "ship_id": 10,
@@ -2811,21 +2896,21 @@
             "categroy_name": "export",
             "maxFTS": 2.0,
             "fts_crane_ids": [
-                0
+                6
             ],
             "fts_crane_demands": [
-                13992
+                8935
             ],
             "fts_crane_enter_times": [
                 671.5
             ],
             "fts_crane_exit_times": [
-                723.3
+                717.58
             ],
             "fts_crane_operation_times": [
-                49.8
+                44.08
             ],
-            "delta_time": -22.633333333333326
+            "delta_time": -16.913333333333412
         },
         {
             "ship_id": 11,
@@ -2841,21 +2926,21 @@
             "categroy_name": "export",
             "maxFTS": 2.0,
             "fts_crane_ids": [
-                4
+                3
             ],
             "fts_crane_demands": [
-                4915
+                7545
             ],
             "fts_crane_enter_times": [
                 687.5
             ],
             "fts_crane_exit_times": [
-                712.41
+                721.89
             ],
             "fts_crane_operation_times": [
-                22.91
+                32.39
             ],
-            "delta_time": 1.0900000000000318
+            "delta_time": -8.389999999999986
         },
         {
             "ship_id": 12,
@@ -2871,21 +2956,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                0
+                3
             ],
             "fts_crane_demands": [
-                38654
+                38644
             ],
             "fts_crane_enter_times": [
-                712.5
+                721.98
             ],
             "fts_crane_exit_times": [
-                846.5
+                875.42
             ],
             "fts_crane_operation_times": [
-                132.0
+                151.44
             ],
-            "delta_time": -61.0
+            "delta_time": -89.91999999999996
         },
         {
             "ship_id": 13,
@@ -2901,21 +2986,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                0
+                3
             ],
             "fts_crane_demands": [
-                38440
+                38422
             ],
             "fts_crane_enter_times": [
                 761.5
             ],
             "fts_crane_exit_times": [
-                894.77
+                914.07
             ],
             "fts_crane_operation_times": [
-                131.27
+                150.57
             ],
-            "delta_time": -59.26999999999998
+            "delta_time": -78.57000000000005
         },
         {
             "ship_id": 14,
@@ -2931,21 +3016,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                0
+                6
             ],
             "fts_crane_demands": [
-                43901
+                31884
             ],
             "fts_crane_enter_times": [
                 849.5
             ],
             "fts_crane_exit_times": [
-                967.39
+                981.14
             ],
             "fts_crane_operation_times": [
-                115.89
+                129.64
             ],
-            "delta_time": -45.889999999999986
+            "delta_time": -59.639999999999986
         },
         {
             "ship_id": 15,
@@ -2961,21 +3046,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                2
+                5
             ],
             "fts_crane_demands": [
-                12703
+                13706
             ],
             "fts_crane_enter_times": [
                 1187.5
             ],
             "fts_crane_exit_times": [
-                1245.0
+                1241.85
             ],
             "fts_crane_operation_times": [
-                55.5
+                52.35
             ],
-            "delta_time": -18.0
+            "delta_time": -14.849999999999909
         },
         {
             "ship_id": 16,
@@ -2991,21 +3076,21 @@
             "categroy_name": "export",
             "maxFTS": 2.0,
             "fts_crane_ids": [
-                1
+                0
             ],
             "fts_crane_demands": [
-                20409
+                21266
             ],
             "fts_crane_enter_times": [
                 1296.0
             ],
             "fts_crane_exit_times": [
-                1376.99
+                1373.69
             ],
             "fts_crane_operation_times": [
-                78.99
+                75.69
             ],
-            "delta_time": 0.5099999999999909
+            "delta_time": 3.8099999999999454
         },
         {
             "ship_id": 17,
@@ -3021,21 +3106,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                6
+                1
             ],
             "fts_crane_demands": [
-                17494
+                23881
             ],
             "fts_crane_enter_times": [
                 1296.0
             ],
             "fts_crane_exit_times": [
-                1369.13
+                1377.63
             ],
             "fts_crane_operation_times": [
-                71.13
+                79.63
             ],
-            "delta_time": 8.36999999999989
+            "delta_time": -0.13000000000010914
         },
         {
             "ship_id": 18,
@@ -3051,21 +3136,21 @@
             "categroy_name": "export",
             "maxFTS": 4.0,
             "fts_crane_ids": [
-                6
+                0
             ],
             "fts_crane_demands": [
-                200982
+                302276
             ],
             "fts_crane_enter_times": [
                 471.5
             ],
             "fts_crane_exit_times": [
-                1290.7
+                1271.44
             ],
             "fts_crane_operation_times": [
-                817.2
+                797.94
             ],
-            "delta_time": -723.2
+            "delta_time": -703.94
         }
     ]
 }
