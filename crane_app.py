@@ -32,6 +32,7 @@ sys.path.insert(0, "./decoder")
 from insert_db_api import DBInsert
 from crane_utility import *
 from decoder_v2 import *
+from decoder_v3 import *
 from insert_db_api import *
 from output_converter import *
 from route_algorithm import *
@@ -70,7 +71,7 @@ def route():
     #current_time = datas['currenttime']
     
     data_lookup = create_data_lookup()
-    decoder = DecoderV2(data_lookup)
+    decoder = DecoderV3(data_lookup)
     converter = OutputConverter(data_lookup)
     
     

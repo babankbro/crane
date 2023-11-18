@@ -123,18 +123,16 @@ if __name__ == "__main__":
 
     problem = CraneProblem(decoder)
     termination = get_termination("time", "00:00:10")
-
-    resGA = minimize(problem,
-                algorithm,
-                termination,
-                    seed=1,
-                    #display=MyDisplay(),
-                    verbose=True)
+    """
+    resGA = minimize(problem,algorithm,termination,seed=1,verbose=True)
 
     print("Best solution found: \nX = %s\nF = %s" % (resGA.X, resGA.F))
     print("Solution", resGA.opt.get("pheno")[0])
     print()
-    fts_crane_infos, ship_infos =  decoder.decode(resGA.X, True)
+    xs = resGA.X
+    """
+    xs = np.random.random(decoder.D)
+    fts_crane_infos, ship_infos =  decoder.decode(xs, True)
 
     #for ci in fts_crane_infos:
         #print(ci)
@@ -173,7 +171,7 @@ if __name__ == "__main__":
     db_insert.insert_carrier_solution_jsons(result_json)
     
     result = {}
-    problem._evaluate(resGA.X,result)
+    problem._evaluate(xs,result)
     print(result)
     
   

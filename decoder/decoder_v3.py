@@ -93,16 +93,16 @@ class DecoderV3:
                 fts_info = fts_infos[finx]
                 fts = self.ftses[finx]
                 distance, t_time, a_time, s_time = self.get_result_info(finx,  ship_id, fts_infos)
-                if a_time > ship.closed_time:
-                    isOverArrive = True
-                    break
+                #if a_time > ship.closed_time:
+                    #isOverArrive = True
+                    #break
                 fts_input.append(fts)
                 fts_start_times.append(s_time)
                 arrival_times.append(a_time)
                 distances.append(distance)
                 travel_times.append(t_time)
             if isOverArrive:
-                
+                #print("isOverArrive", isOverArrive)
                 continue
             
             
@@ -142,7 +142,7 @@ class DecoderV3:
                 
             isFalse = False
             for temp_fts in temp_cranes:
-                if temp_fts['process_time'] < 0:
+                if temp_fts['process_time'] < 0 or temp_fts['start_time'] > temp_fts['end_time']:
                     isFalse = True
                     break
             if isFalse:
@@ -235,10 +235,12 @@ class DecoderV3:
                 fts_delta_infos = self.assign_fts_ship(isLast, fts_code, ship_id,  
                                                        ship_infos, fts_infos, isDebug)
                 
-                #print(fts_delta_infos)
-                if i <= self.NSHIP - 1 and k == 0:
+                
+                if i <= self.NSHIP - 1 and k == 1:
+                    #print(fts_delta_infos)
                     for delta in fts_delta_infos:
                         continue
+                        print("EEEEEEEE -------------------------------------")
                         print(delta)
                         
                 if len(fts_delta_infos) > 0:
