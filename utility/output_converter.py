@@ -59,7 +59,6 @@ temp_ship_solution_json = {
 
 }
 
-
 temp_crane_solution_json = {
                                "solution_id": 2, "FTS_id": 0, 
                                "crane_id": 0,
@@ -72,8 +71,6 @@ temp_crane_solution_json = {
                                "total_preparation_crane_time":0, 
                                'date':'2023-01-01'
 }
-
-
 
 temp_solution_schedule_json = { 
                                "solution_id": 2, "FTS_id": 0, "carrier_id": 0, 
@@ -94,12 +91,10 @@ temp_solution_crane_schedule_json = {
                                "crane_id": 0, 
                                "bulk":0, 'load_cargo':0, 'cargo_id': 0}
 
-
 class OutputConverter:
     def __init__(self, data_lookup) -> None:
         self.data_lookup= data_lookup
     
-
     def create_json_ship_info(self, sid, ship_info):
         temp = dict(temp_ship_solution_json)
         temp['s_id'] = sid
@@ -192,9 +187,16 @@ class OutputConverter:
     
     def create_ship_solution_schedule(self, sid, ship_infos):
         result_json = []
+        lookup_order_id = {}
         for i in range(len(ship_infos)):
             #print(ship_infos[i])
             ship_jsons = self.create_json_ship_info(sid, ship_infos[i])
+            if ship_jsons['order_id'] in lookup_order_id:
+                ship_jsons_a = lookup_order_id[ship_jsons['order_id']]
+                ship_jsons_a['penalty_cost'] = max(ship_jsons_a['penalty_cost'], ship_jsons['penalty_cost'])
+                ship_jsons_a['reward'] = min(ship_jsons_a['reward'], ship_jsons['reward'])
+                continue 
+            lookup_order_id[ship_jsons['order_id']] = ship_jsons
             result_json.append(ship_jsons)
         return result_json
 

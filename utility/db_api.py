@@ -68,13 +68,23 @@ def get_all_rates():
     rows = mycursor.fetchall()
     return rows
 
-def get_all_orders():
+def get_all_orders(isAll=False, isApproved=False):
     global mydb, mycursor
     mydb, mycursor = try_connect_db()
-    mycursor.execute("""select * from cargo_order
+    ig = ""
+    if not isApproved:
+        ig = "!"
+    where_command = f'where carrier_order.status_order {ig}= "Approved"'
+    if isAll:
+        where_command = ''
+        if isApproved:
+            return []
+        
+    mycursor.execute(f"""select * from cargo_order
                         join cargo on cargo_order.cargo_id=cargo.cargo_id
                         join carrier_order on cargo_order.order_id=carrier_order.or_id
                         join carrier on carrier_order.cr_id=carrier.cr_id
+                        {where_command}
                         order by cargo_order.order_id;""")
     rows = mycursor.fetchall()
     return rows

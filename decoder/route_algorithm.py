@@ -120,7 +120,6 @@ if __name__ == "__main__":
         jitter=False
         )
 
-
     problem = CraneProblem(decoder)
     termination = get_termination("time", "00:00:10")
     
@@ -168,6 +167,9 @@ if __name__ == "__main__":
     result_json = converter.create_crane_solution(1, fts_crane_infos, ship_infos) 
     db_insert.insert_crane_solution_jsons(result_json)
     result_json = converter.create_ship_solution_schedule(1, ship_infos) 
+    
+    for js in ship_infos:
+        print(js)
     db_insert.insert_carrier_solution_jsons(result_json)
     
     print("----------------------------   SHIPS --------------------------------------------")

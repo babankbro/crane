@@ -48,12 +48,17 @@ def create_fts_data(filter_type  = 'FTS_name', filter_fts=[]):
         "SPEED": fts_df['speed'].to_numpy().astype(np.float),
             }
 
-def create_order_data(filter_type = "carrier_name", filter_carriers=[]):
-    order_json = get_all_orders()
+def create_order_data(isAll=False, isApproved=False, filter_type = "carrier_name", filter_carriers=[]):
+    order_json = get_all_orders(isAll, isApproved)
     order_df = pd.DataFrame(order_json)
     
     if len(filter_carriers) != 0:
         order_df = order_df[order_df[filter_type].isin(filter_carriers)]
+    
+    if isAll and isApproved:
+        return {}
+    #order_df = order_df[order_df['status_order'] != "Approved"]
+    
     
     arrival_times = order_df['arrival_time'].to_numpy()
     dutedate_times = order_df['deadline_time'].to_numpy()
@@ -75,6 +80,8 @@ def create_order_data(filter_type = "carrier_name", filter_carriers=[]):
         MIN_DATE_TIME = MIN_DATE_TIME.replace("T", " ")
         MIN_DATE_TIME += ":00"
         print("T", MIN_DATE_TIME)
+    
+    print(order_df['status_order'])
     
     
     return {

@@ -53,10 +53,11 @@ def load_data_lookup(fname):
         "CARGO":data["CARGO"]
     }
 
-def create_data_lookup():
+def create_data_lookup(isAll=False):
     fts_datalookup = create_fts_data()
     crane_rate_datalookup = create_crane_rate_data()
-    order_data = create_order_data()
+    order_data = create_order_data(isAll, isApproved=False)
+    approved_order_data = create_order_data(isAll, isApproved=True)
     DM = Distance_Lookup(fts_datalookup, order_data)
     cargo_data = get_all_cargo()
     
@@ -64,6 +65,7 @@ def create_data_lookup():
         "FTS_DATA":fts_datalookup,
         "CRANE_RATE": crane_rate_datalookup,
         "ORDER_DATA": order_data,
+        "APPROVED_ORDER_DATA":approved_order_data, 
         "DISTANCE_MATRIX": DM,
         "CARGO": cargo_data,
     }
