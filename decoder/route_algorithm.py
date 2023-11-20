@@ -97,7 +97,7 @@ class CraneProblem(ElementwiseProblem):
 if __name__ == "__main__":
     
     #data_lookup = load_data_lookup('./dataset/data2.json')
-    data_lookup = create_data_lookup()
+    data_lookup = create_data_lookup(isAll=True)
     decoder = DecoderV3(data_lookup)
     converter = OutputConverter(data_lookup)
     db_insert = DBInsert(mycursor, mydb)
