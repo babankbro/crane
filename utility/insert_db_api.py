@@ -37,7 +37,7 @@ class DBInsert:
     def insert_jsons(self, json_data):
         colum_names = """solution_id,	 FTS_id,	 carrier_id,	 latlng	,
             arrivaltime,	exittime,	operation_time,	Setup_time,	travel_Distance,
-            travel_time, operation_rate,	consumption_rate"""
+            travel_time, operation_rate,	consumption_rate, cargo_id"""
         for d in json_data:
             #print(d)
             d["arrivaltime"] = f"'{d['arrivaltime']}'"

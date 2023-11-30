@@ -70,7 +70,7 @@ def route():
     compute_time = int(datas['computetime'])
     #current_time = datas['currenttime']
     
-    data_lookup = create_data_lookup()
+    data_lookup = create_data_lookup(isAll=True)
     decoder = DecoderV3(data_lookup)
     converter = OutputConverter(data_lookup)
     

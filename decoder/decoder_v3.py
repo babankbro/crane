@@ -191,14 +191,14 @@ class DecoderV3:
             if ship_info['order_id'] == 19:
                 
                 #print(fts_info)
-                #pass
-                print("not completed! --------------------------------------------------------------")
-                print(fts_infos[fts_ids[-1]]['fts_db_id'], len(fts_ids), is_interset, fts_infos[fts_ids[-1]]['ids'])  
-                for temp_fts in temp_cranes:
+                pass
+                #print("not completed! --------------------------------------------------------------")
+                #print(fts_infos[fts_ids[-1]]['fts_db_id'], len(fts_ids), is_interset, fts_infos[fts_ids[-1]]['ids'])  
+                #for temp_fts in temp_cranes:
                     #if temp_fts['fts_id'] == 5:
                     #fts_info = fts_infos[temp_fts['fts_id']]
-                    print("temp_fts", temp_fts)
-                    print(is_interset, fts_info["start_times"], fts_info["end_times"], fts_info['speed'])
+                    #print("temp_fts", temp_fts)
+                    #print(is_interset, fts_info["start_times"], fts_info["end_times"], fts_info['speed'])
                     
             
             if isFalse:
@@ -212,8 +212,8 @@ class DecoderV3:
             
              
             
-            if ship_info['order_id'] == 19:
-                print("best_due_time", best_due_time, due_time)
+            #if ship_info['order_id'] == 19:
+                #print("best_due_time", best_due_time, due_time)
             if best_due_time > due_time:
                 best_due_time = due_time
                 best_fts = temp_cranes
@@ -288,10 +288,10 @@ class DecoderV3:
         fts_codes = self.get_ship_codes(xs[:])
         fts_infos = self.init_fts_infos()
         ship_infos = self.init_ship_infos()
-        print("ship_order_ids", len(ship_order_ids), ship_order_ids, 
-              len(self.data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR']), self.data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR'])
-        for fts_code in fts_codes:
-            print(fts_code)
+        #print("ship_order_ids", len(ship_order_ids), ship_order_ids, 
+              #len(self.data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR']), self.data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR'])
+        #for fts_code in fts_codes:
+            #print(fts_code)
         
         for i in range(self.NSHIP):
             #print("============================================================================")
@@ -303,8 +303,8 @@ class DecoderV3:
                 
                 if (len(ship_info['fts_crane_ids'])> 0 and 
                        (ship_info['due_time'] - max(ship_info["fts_crane_exit_times"])) * ship_info["penalty_rate"] >= 0 ) :
-                    print(" Done =====================================================",
-                          ship_id, ship_info['due_time'] , max(ship_info["fts_crane_exit_times"]))
+                    #print(" Done =====================================================",
+                          #ship_id, ship_info['due_time'] , max(ship_info["fts_crane_exit_times"]))
                     continue
                     
                 if len(ship_info['fts_crane_ids']) >= ship_info['maxFTS']: #:
@@ -347,7 +347,7 @@ class DecoderV3:
                     cid = fts_delta_info["fts_id"]
                     fts_info = fts_infos[cid]
                     converted_fts_infos = convert_result(fts_delta_info['crane_infos'])
-                    
+                    #print(fts_delta_info['process_rate'], fts_delta_info['process_time'])
                     crane_demand = round(fts_delta_info['process_time']*fts_delta_info['process_rate'])
                     total_loads = converted_fts_infos['total_loads']
                     fts_info['ids'].append(ship_id)
@@ -380,7 +380,7 @@ class DecoderV3:
             ship_id = ship_order_ids[v]
             if len(ship_infos[ship_id]["fts_crane_exit_times"]) == 0:
                 continue
-            print(ship_infos[ship_id])
+            #print(ship_infos[ship_id])
             exit_time = max(ship_infos[ship_id]["fts_crane_exit_times"])
             due_time = ship_infos[ship_id]["due_time"]
             ship_infos[ship_id]["delta_time"] = due_time-exit_time

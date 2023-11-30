@@ -78,7 +78,7 @@ temp_solution_schedule_json = {
                                "exittime": '2023-01-01 00:00:00', 
                                "operation_time":1440, "Setup_time": 150, 
                                "travel_Distance": 0, "travel_time": 0, 
-                               "operation_rate": 700, "consumption_rate":0 }
+                               "operation_rate": 700, "consumption_rate":0, "cargo_id":0 }
 
 temp_solution_crane_schedule_json = { 
                                "solution_id": 2, "carrier_id": 0, 
@@ -161,7 +161,7 @@ class OutputConverter:
             temp['consumption_rate'] = fts_crane_info["consumption_rates"][inx]
             start_hours_to_add = timedelta(hours=fts_crane_info["start_times"][inx])
             end_hours_to_add = timedelta(hours=fts_crane_info["end_times"][inx])
-            
+            temp['cargo_id'] = ORDER_DATA['CARGO_ID'][cid]
             enter_time = MIN_DATE_TIME + start_hours_to_add
             exit_time = MIN_DATE_TIME + end_hours_to_add
             temp['arrivaltime'] =enter_time.strftime('%Y-%m-%d %H:%M:%S')
