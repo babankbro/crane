@@ -68,8 +68,9 @@ def route():
     datas = request.get_json( )
     #data_date = datas['date']
     compute_time = int(datas['computetime'])
+    group = int(datas['Group'])
     #current_time = datas['currenttime']
-    
+    print(group)
     data_lookup = create_data_lookup(isAll=True)
     decoder = DecoderV3(data_lookup)
     converter = OutputConverter(data_lookup)
@@ -79,7 +80,7 @@ def route():
     compute_time = compute_time*60
     m = compute_time//60
     ss = compute_time % 60
-    print("compute_time",compute_time, m, ss)
+    print("compute_time",compute_time, m, ss, group)
     problem = CraneProblem(decoder)
     
 
