@@ -1,12 +1,5 @@
 import sys
 
-
-
-
-
-
-
-
 sys.path.insert(0, "./utility")
 sys.path.insert(0, "./decoder")
 from route_algorithm import CraneProblem

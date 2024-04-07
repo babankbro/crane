@@ -30,6 +30,7 @@ sys.path.insert(0, "./utility")
 sys.path.insert(0, "./decoder")
 
 from insert_db_api import DBInsert
+from db_api import *
 from crane_utility import *
 from decoder_v2 import *
 from decoder_v3 import *
@@ -68,11 +69,17 @@ def route():
     datas = request.get_json( )
     #data_date = datas['date']
     compute_time = int(datas['computetime'])
-    group = int(datas['Group'])
+    user_group = int(datas['Group'])
+    if "solution_id" not in datas:
+        solution_id = user_group
+    else:
+        solution_id = int(datas['solution_id'])
     #current_time = datas['currenttime']
-    print(group)
-    data_lookup = create_data_lookup(isAll=True)
-    decoder = DecoderV3(data_lookup)
+    print(user_group,  solution_id)
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
+    data_lookup = create_data_lookup(isAll=True, group=user_group)
+    decoder = DecoderV2(data_lookup)
     converter = OutputConverter(data_lookup)
     
     
@@ -80,10 +87,8 @@ def route():
     compute_time = compute_time*60
     m = compute_time//60
     ss = compute_time % 60
-    print("compute_time",compute_time, m, ss, group)
+    print("compute_time",compute_time, m, ss, solution_id)
     problem = CraneProblem(decoder)
-    
-
 
     algorithm = BRKGA(
         n_elites=40,
@@ -94,10 +99,10 @@ def route():
     )
     
     algorithm = DE(
-        pop_size=5,
+        pop_size=10,
         sampling=LHS(),
         variant="DE/rand/1/bin",
-        CR=0.3,
+        CR=0.5,
         dither="vector",
         jitter=False
     )
@@ -141,16 +146,23 @@ def route():
         if fts_crane_info['fts_name'] == "แก่นตะวัน":
             print(fts_crane_info)
 
+    #global mydb, mycursor
+    mydb, mycursor = try_connect_db()
     db_insert = DBInsert(mycursor, mydb)
-    db_insert.clear_solution(1)
+    db_insert.clear_solution(solution_id)
     
-    result_json = converter.create_solution_schedule(1, fts_crane_infos) 
+    result_json = converter.create_solution_schedule(solution_id, fts_crane_infos) 
     db_insert.insert_jsons(result_json)
-    result_json = converter.create_crane_solution_schedule(1, fts_crane_infos) 
+    result_json = converter.create_crane_solution_schedule(solution_id, fts_crane_infos) 
+    df_crane_solution = pd.DataFrame(result_json)
+    #print(result_json)
+    print(df_crane_solution)
     db_insert.insert_crane_solution_schedule_jsons(result_json)
-    result_json = converter.create_crane_solution(1, fts_crane_infos, ship_infos) 
+    result_json = converter.create_crane_solution(solution_id, fts_crane_infos, ship_infos) 
     db_insert.insert_crane_solution_jsons(result_json)
-    result_json = converter.create_ship_solution_schedule(1, ship_infos) 
+    
+    
+    result_json = converter.create_ship_solution_schedule(solution_id, ship_infos, df_crane_solution, data_lookup) 
     db_insert.insert_carrier_solution_jsons(result_json)
 
     np.save("./dataset/bestX.npy", np.array(res.X))

@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from json import JSONEncoder
+from lookup_data import *
+from db_api import *
 
 class FTS_CRANE_RATE(dict):
     def __init__(self, fts_id, fts_name, df_fts) -> None:
@@ -111,8 +113,8 @@ class CRANE_CARGO_RATE(dict):
         return f"{self.crane_name}  {ctype}: crate: {crates} orate: {orates}"
 
 
-class RATE_LOOKUP(dict):
-    def __init__(self, crane_rate_df):
+class FTS_INFO_LOOKUP(dict):
+    def __init__(self, crane_rate_df, maintain_fts_df, maintain_crane_df):
         self.crane_id_lookup = {}
         self.crane_name_lookup = {}
         self.crane_index_id_lookup = {}
@@ -235,8 +237,13 @@ class RATE_LOOKUP(dict):
         self.lookup_fts_ids = {}
         for fts_id in fts_ids:
             df_fts = self.crane_rate_df.loc[ self.crane_rate_df["FTS_id"] == fts_id ]
+            single_maintain_df = maintain_fts_df.loc[ maintain_fts_df["mt_FTS_id"] == fts_id ]
+            print(df_fts)
+            print(single_maintain_df)
+            print( "", np.unique(df_fts["crane_id"]))
+            
             fts_name = np.unique(df_fts['FTS_name'])[0] 
-            #print(fts_id, fts_name)      
+            print("FTS_ID", fts_id, fts_name)      
             #print(results)         
             fts_rate = FTS_CRANE_RATE(fts_id, fts_name, df_fts)
             self.lookup_fts_ids[fts_id] = fts_rate
@@ -286,3 +293,26 @@ class RATE_LOOKUP(dict):
         return self.get_consumption_rate_by_fts_id(fts_id, category_id, cargo_id)
         
         
+if __name__ == "__main__":
+    crane_rate_json = get_all_rates()
+    maintain_fts_df = pd.DataFrame(get_all_maintain_fts())
+    maintain_crane_df = pd.DataFrame(get_all_maintain_crane())
+    
+    finish_maintain_times = maintain_fts_df['start_time_FTS'].to_numpy()
+    start_maintain_times = maintain_fts_df['downtime_FTS'].to_numpy()
+    #print("arrival_times", arrival_times)
+    maintain_fts_df['start_maintain_times'] = convert_to_hours(start_maintain_times)
+    maintain_fts_df['finish_maintain_times'] = convert_to_hours(finish_maintain_times)
+    
+    finish_maintain_times = maintain_crane_df['start_time'].to_numpy()
+    start_maintain_times = maintain_crane_df['downtime'].to_numpy()
+    #print("arrival_times", arrival_times)
+    maintain_crane_df['start_maintain_times'] = convert_to_hours(start_maintain_times)
+    maintain_crane_df['finish_maintain_times'] = convert_to_hours(finish_maintain_times)
+    
+   #print("Maintain_df")
+    print(maintain_crane_df)
+    print(maintain_fts_df)
+    
+    crane_rate_df = pd.DataFrame(crane_rate_json)
+    rate_lookup = FTS_INFO_LOOKUP(crane_rate_df, maintain_fts_df, maintain_crane_df)

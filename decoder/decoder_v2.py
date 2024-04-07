@@ -8,46 +8,11 @@ from crane_utility import *
 from output_converter import *
 import numpy as np
 import pandas as pd
+from base_decoder import BaseDecoder
 
-class DecoderV2:
+class DecoderV2(BaseDecoder):
     def __init__(self, data_lookup):
-        self.data_lookup = data_lookup
-        self.WSHIP = 0.5
-        self.WFTS = 0.5
-        self.NSHIP = len(data_lookup['ORDER_DATA']["LAT"])
-        self.NFTS = len(data_lookup['FTS_DATA']["LAT"])
-        
-        self.arrival_hours = np.array(data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR'])
-        self.due_hours = np.array(data_lookup['ORDER_DATA']['DUE_TIME_HOUR'])
-        due_hours = self.due_hours
-        arrival_hours = self.arrival_hours
-        
-        self.MIN_TIME = min(self.arrival_hours)
-        self.MAX_TIME = max(self.due_hours)
-        
-        
-        df = pd.DataFrame(data_lookup['ORDER_DATA'])
-        fts_rate_lookups = data_lookup['CRANE_RATE'].lookup_fts_ids
-        self.NFTS = len(fts_rate_lookups)
-        print("MIN-MAX", self.MIN_TIME, self.MAX_TIME, self.NFTS)
-        self.D = self.NSHIP*self.NFTS + self.NSHIP
-        self.WEIGHT_CRANE_SHIPs = []
-        self.SHIP_WEIGHTs = (due_hours-self.MIN_TIME)/(np.max(due_hours)-self.MIN_TIME) 
-        for i in range(self.NSHIP):
-            self.WEIGHT_CRANE_SHIPs.append(0.5)
-            
-        self.ships = []
-        for i in range(len(df)):
-            ship = Ship(df.iloc[i])
-            self.ships.append(ship)
-            #print(ship)
-        
-        self.ftses = []
-        for key in fts_rate_lookups:
-            fts_rate = fts_rate_lookups[key]
-            #fts_rate.set_display_rate('ถ่านหิน', 'import')
-            self.ftses.append(fts_rate)
-        self.DM_lookup = self.data_lookup["DISTANCE_MATRIX"]
+        super().__init__(data_lookup)
     
     
     def get_result_info(self, findex,  ship_index, fts_crane_infos):
@@ -258,56 +223,6 @@ class DecoderV2:
             codes.append(cs)
         return codes
 
-    def init_fts_infos(self):
-        SETUP_TIMEs = self.data_lookup['FTS_DATA']["SETUP_TIME"] 
-        IDs = self.data_lookup['FTS_DATA']["FTS_ID"] 
-        NAMEs = self.data_lookup['FTS_DATA']["NAME"] 
-        SPEEDs = self.data_lookup['FTS_DATA']["SPEED"] 
-        NCRANE = self.NFTS
-        fts_infos = []
-        for i in range(self.NFTS):
-            setup_time = SETUP_TIMEs[i]
-            fts_info = {  "fts_id": i, 
-                          "fts_db_id": IDs[i],
-                           "fts_name": NAMEs[i]  ,
-                           'speed': SPEEDs[i], 
-                          "ids":[], "end_times":[], "start_times":[], "demands":[], "process_times":[],
-                          "fts_setup_time":setup_time/60,
-                          "crane_setup_times": [],
-                         "distances":[], 
-                         "travel_times":[], 
-                         "consumption_rates":[],
-                         "operation_rates":[],
-                         "crane_infos": [],
-                         'fts':self.ftses[i]}
-            fts_infos.append(fts_info)
-        return fts_infos
-
-    def init_ship_infos(self):
-        NSHIP = self.NSHIP 
-        ship_infos = []
-        ORDER_DATA = self.data_lookup['ORDER_DATA']
-        for ship_id in range(NSHIP):
-            ship_info = {"ship_id": ship_id, 
-                         "order_id": ORDER_DATA['ORDER_ID'][ship_id],
-                         "ship_db_id": ORDER_DATA['CARRIER_ID'][ship_id],
-                         "ship_name": ORDER_DATA['CARRIER'][ship_id],
-                         "open_time": ORDER_DATA['ARRIVAL_TIME_HOUR'][ship_id], 
-                         "due_time": ORDER_DATA['DUE_TIME_HOUR'][ship_id], 
-                         "cargo_type":ORDER_DATA['CARGO'][ship_id], 
-                         "penalty_rate":ORDER_DATA['PENALTY_RATE'][ship_id],
-                         "reward_rate":ORDER_DATA['REWARD_RATE'][ship_id],
-                        "demand":    ORDER_DATA['DEMAND'][ship_id], 
-                        "categroy_name": 'export' if  ORDER_DATA['CATEGORY'][ship_id] else 'import', 
-                        "fts_crane_ids":[], 
-                        "fts_crane_demands":[], 
-                        "fts_crane_enter_times":[],
-                        "fts_crane_exit_times":[],  
-                        "fts_crane_operation_times":[]}
-            #print(ship_info)
-            ship_infos.append(ship_info)
-        return ship_infos
-    
     def decode(self, xs, isDebug=False):
         #ARRIVAL_TIME_HOUR
         
@@ -315,7 +230,7 @@ class DecoderV2:
         ship_order_ids = np.argsort(self.data_lookup['ORDER_DATA']['DUE_TIME_HOUR'])
         fts_codes = self.get_ship_codes(xs[:])
         
-        fts_crane_infos = self.init_fts_infos()
+        fts_infos = self.init_fts_infos()
         #print(ship_order_ids)
         #print(crane_infos)
         #print("fts_crane_infos", len(fts_crane_infos), len(fts_codes), len(fts_codes[0]))
@@ -325,7 +240,7 @@ class DecoderV2:
             #print(ship)
         if isDebug:
             i = 0
-            for fts in fts_crane_infos:
+            for fts in fts_infos:
                 continue
                 #print(fts)
                 #print(self.ftses[i])
@@ -340,6 +255,8 @@ class DecoderV2:
                 ship_id = ship_order_ids[i]
                 ship_info = ship_infos[ship_id]
                 fts_code = fts_codes[ship_id]
+                
+                order_id = ship_info["order_id"]
                 #print(ship_id, fts_code)
             #print("------------------------------")
         
@@ -348,59 +265,93 @@ class DecoderV2:
             ship_id = ship_order_ids[i]
             ship_info = ship_infos[ship_id]
             fts_code = fts_codes[ship_id]
+            order_id = ship_info["order_id"]
             #print(ship_id, fts_code)
 
-            fts_delta_infos = self.assign_fts_ship(ship_id, fts_code, fts_crane_infos, isDebug)
+            fts_delta_infos = self.assign_fts_ship(ship_id, fts_code, fts_infos, isDebug)
             #cargo_type = SHIP_TYPEs[ship_id]
             #print("--------------------------")
             #print(i+1, ship_id, crane_codes, len(crane_delta_infos), ship_info)
             #continue
+            isFound = False
             if len(fts_delta_infos) == 0:
                 #print("XXXXXXXXXXXXX")
                 continue
             
-            #print(crane_delta_infos[0]['crane_infos'])
+            if len(fts_delta_infos) > 0:
+                for fts_id in ship_info["fts_crane_ids"]:
+                    fts_info = fts_infos[fts_id]
+                    index = fts_info['order_ids'].index(order_id)
+                    fts_info['ids'].pop(index)
+                    fts_info['order_ids'].pop(index)
+                    fts_info['start_times'].pop(index)
+                    fts_info['process_times'].pop(index)
+                    fts_info['end_times'].pop(index)
+                    fts_info['demands'].pop(index)
+                    fts_info['distances'].pop(index)
+                    fts_info['travel_times'].pop(index)
+                    fts_info['operation_rates'].pop(index)
+                    fts_info['consumption_rates'].pop(index)
+                    fts_info['crane_infos'].pop(index)
+                
+                ship_info["fts_crane_ids"].clear()
+                ship_info["fts_crane_demands"].clear()
+                ship_info["fts_crane_enter_times"].clear()
+                ship_info["fts_crane_exit_times"].clear()
+                ship_info["fts_crane_operation_times"].clear()
             
             for fts_delta_info in fts_delta_infos:
                 cid = fts_delta_info["fts_id"]
-                fts_crane_info = fts_crane_infos[cid]
-                
+                fts_info = fts_infos[cid]
                 converted_fts_infos = convert_result(fts_delta_info['crane_infos'])
-                
+                #print(fts_delta_info['process_rate'], fts_delta_info['process_time'])
                 crane_demand = round(fts_delta_info['process_time']*fts_delta_info['process_rate'])
-                fts_crane_info['ids'].append(ship_id)
-                fts_crane_info['start_times'].append(fts_delta_info['start_time'])
-                fts_crane_info['process_times'].append(fts_delta_info['process_time'])
-                fts_crane_info['end_times'].append(fts_delta_info['end_time'])
-                fts_crane_info['demands'].append(converted_fts_infos['total_loads'])
-                fts_crane_info['distances'].append(fts_delta_info['distance'])
-                fts_crane_info['travel_times'].append(fts_delta_info['travel_time'])
-                fts_crane_info['consumption_rates'].append(converted_fts_infos['avg_consumption_rate'])
-                fts_crane_info['operation_rates'].append(converted_fts_infos['avg_operation_rate'])
-                fts_crane_info['crane_infos'].append(converted_fts_infos)
-                #print(crane_info)
-
+                total_loads = converted_fts_infos['total_loads']
+                fts_info['ids'].append(ship_id)
+                fts_info['order_ids'].append(order_id)
+                fts_info['start_times'].append(fts_delta_info['start_time'])
+                fts_info['process_times'].append(fts_delta_info['process_time'])
+                fts_info['end_times'].append(fts_delta_info['end_time'])
+                fts_info['demands'].append(total_loads)
+                fts_info['distances'].append(fts_delta_info['distance'])
+                fts_info['travel_times'].append(fts_delta_info['travel_time'])
+                fts_info['consumption_rates'].append(converted_fts_infos['avg_consumption_rate'])
+                fts_info['operation_rates'].append(converted_fts_infos['avg_operation_rate'])
+                fts_info['crane_infos'].append(converted_fts_infos)
+                
+                if len(fts_info['demands']) != len(fts_info['consumption_rates']):
+                    print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+                    print(fts_info['demands'], fts_info['consumption_rates'])
+                
                 ship_info["fts_crane_ids"].append(cid)
                 ship_info["fts_crane_demands"].append(crane_demand)
                 ship_info["fts_crane_enter_times"].append(fts_delta_info['start_time'])
                 ship_info["fts_crane_exit_times"].append(fts_delta_info['end_time'])
                 ship_info["fts_crane_operation_times"].append(fts_delta_info['process_time'])
                 
-        for i in range(self.NSHIP):
-            ship_id = ship_order_ids[i]
-            #if len(ship_infos[ship_id]["fts_crane_exit_times"]) == 0:
-                #continue
+            
+            #break
+        #break
+            if isFound:
+                break
+        for v in range(self.NSHIP):
+            ship_id = ship_order_ids[v]
+            if len(ship_infos[ship_id]["fts_crane_exit_times"]) == 0:
+                continue
+            #print(ship_infos[ship_id])
             exit_time = max(ship_infos[ship_id]["fts_crane_exit_times"])
             due_time = ship_infos[ship_id]["due_time"]
             ship_infos[ship_id]["delta_time"] = due_time-exit_time
- 
-        return fts_crane_infos, ship_infos
+        return fts_infos, ship_infos
          
 
 
 if __name__ == "__main__":
     
-    data_lookup = create_data_lookup()
+    user_group = 3
+    solution_id = 56
+    mydb, mycursor = try_connect_db()
+    data_lookup = create_data_lookup(isAll=True, group=user_group)
     #data_lookup = load_data_lookup('./dataset/data2.json')
     decoder = DecoderV2(data_lookup)
     DM_lookup = data_lookup["DISTANCE_MATRIX"]
@@ -436,6 +387,6 @@ if __name__ == "__main__":
     print(df)
     
     print(DM_lookup.DM.shape)
-    print(DM_lookup.get_carrier_distance(10, 12))
+   # print(DM_lookup.get_carrier_distance(10, 12))
     
     print("Test utility")
