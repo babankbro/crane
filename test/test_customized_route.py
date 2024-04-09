@@ -63,8 +63,12 @@ if __name__ == "__main__":
     result_json = converter.create_ship_solution_schedule(solution_id, ship_infos, df_crane_solution, data_lookup) 
     db_insert.insert_carrier_solution_jsons(result_json)
 
+    total_demand = 0
     for ship_info in ship_infos:
         #continue
         print(ship_info['ship_id'], ship_info['maxFTS'], ship_info['demand'],  ship_info['open_time'], ship_info['due_time'], ship_info['fts_crane_ids'],
               ship_info['fts_crane_enter_times'], ship_info['fts_crane_exit_times'])
+        total_demand 
+        
+        
     
