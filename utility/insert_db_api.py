@@ -35,7 +35,7 @@ class DBInsert:
         
         
     def insert_jsons(self, json_data):
-        colum_names = """solution_id,	 FTS_id,	 carrier_id,	 latlng	,
+        colum_names = """solution_id,	 FTS_id,	order_id,  carrier_id,	 lat, lng	,
             arrivaltime,	exittime,	operation_time,	Setup_time,	travel_Distance,
             travel_time, operation_rate,	consumption_rate, cargo_id"""
         for d in json_data:
@@ -57,7 +57,8 @@ class DBInsert:
             self.db.commit()
             
     def insert_crane_solution_schedule_jsons(self, json_data):
-        colum_names = """solution_id,	
+        colum_names = """solution_id,
+                    order_id,	
                     carrier_id,	
                     start_time,	due_time,	operation_time,	Setup_time,	
                     travel_Distance,	
@@ -126,6 +127,9 @@ class DBInsert:
                          start_time,
                         finish_time,
                         penalty_cost, 
+                        total_cost,
+                        total_consumption_cost,
+                        total_wage_cost,
                         reward"""
         for d in json_data:
             d["start_time"] = f"'{d['start_time']}'"

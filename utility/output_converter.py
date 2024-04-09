@@ -18,7 +18,7 @@ from decoder import *
 """
 
 """solution_schedule
-    solution_id	 FTS_id	 carrier_id	 latlng	
+    solution_id	 FTS_id	 order_id, carrier_id	 lat lng	
     arrivaltime	exittime	operation_time	Setup_time	travel_Distance	travel_time	
     operation_rate	consumption_rate	
 """
@@ -55,7 +55,8 @@ temp_ship_solution_json = {
    "s_id": 0,  "order_id":0,
    "start_time":'2023-01-01 00:00:00',
    "finish_time":'2023-01-01 00:00:00',
-   "penalty_cost":0, "reward":0
+   "penalty_cost":0, "reward":0,
+   "total_cost":0, "total_consumption_cost":0, "total_wage_cost":0,
 
 }
 
@@ -78,11 +79,13 @@ temp_solution_schedule_json = {
                                "exittime": '2023-01-01 00:00:00', 
                                "operation_time":1440, "Setup_time": 150, 
                                "travel_Distance": 0, "travel_time": 0, 
+
                                "operation_rate": 700, "consumption_rate":0,
                                "cargo_id":0}
 
+
 temp_solution_crane_schedule_json = { 
-                               "solution_id": 2, "carrier_id": 0, 
+                               "solution_id": 2,  "order_id": 0,  "carrier_id": 0, 
                                 "start_time": '2023-01-01 00:00:00',
                                "due_time": '2023-01-01 00:00:00', 
                                "operation_time":0, "Setup_time": 0, 
@@ -96,7 +99,9 @@ class OutputConverter:
     def __init__(self, data_lookup) -> None:
         self.data_lookup= data_lookup
     
-    def create_json_ship_info(self, sid, ship_info):
+    def create_json_ship_info(self, sid, ship_info, df):
+        
+
         temp = dict(temp_ship_solution_json)
         temp['s_id'] = sid
         temp['order_id'] = ship_info['order_id']
@@ -104,6 +109,10 @@ class OutputConverter:
             temp['penalty_cost'] =  abs(ship_info['delta_time']) * ship_info['penalty_rate']
         else:
             temp['reward'] =  ship_info['delta_time'] * ship_info['reward_rate']
+        #temp['reward']  = np.max(ship_info["fts_crane_operation_times"])
+        temp['total_consumption_cost'] = sum(df['consumption_liter'])*35
+        temp['total_wage_cost'] = sum(df['premium_wage'])
+        temp['total_cost'] = temp['total_consumption_cost'] + temp['penalty_cost'] + temp['total_wage_cost']
         return temp
 
     def create_json_fts_info(self, sid, fts_crane_info):
@@ -117,6 +126,7 @@ class OutputConverter:
         temp = dict(temp_solution_schedule_json)
         temp['solution_id'] = sid
         temp['FTS_id'] = fts_crane_info['fts_db_id'] 
+        temp['order_id'] = 0
         temp['carrier_id'] = 0
         temp['lat'] = FTS_DATA['LAT'][fts_index]
         temp['lng'] = FTS_DATA['LNG'][fts_index]
@@ -153,6 +163,7 @@ class OutputConverter:
             temp['FTS_id'] = fts_crane_info['fts_db_id'] 
             #print("cr_id", cr_id)
             temp['carrier_id'] = int(cr_id)
+            temp['order_id'] = fts_crane_info["order_ids"][inx]
             temp['lat'] = ORDER_DATA['LAT'][idx_cr]
             temp['lng'] = ORDER_DATA['LNG'][idx_cr]
             temp['operation_time'] = fts_crane_info["process_times"][inx]
@@ -163,7 +174,7 @@ class OutputConverter:
             temp['consumption_rate'] = fts_crane_info["consumption_rates"][inx]
             start_hours_to_add = timedelta(hours=fts_crane_info["start_times"][inx])
             end_hours_to_add = timedelta(hours=fts_crane_info["end_times"][inx])
-            
+            temp['cargo_id'] = ORDER_DATA['CARGO_ID'][cid]
             enter_time = MIN_DATE_TIME + start_hours_to_add
             exit_time = MIN_DATE_TIME + end_hours_to_add
             temp['arrivaltime'] =enter_time.strftime('%Y-%m-%d %H:%M:%S')
@@ -189,12 +200,20 @@ class OutputConverter:
         #print(fc_info)
         return result_json
     
-    def create_ship_solution_schedule(self, sid, ship_infos):
+    def create_ship_solution_schedule(self, sid, ship_infos, df_crane_info, data_lookup):
         result_json = []
         lookup_order_id = {}
+        cargo_df = pd.DataFrame(data_lookup['CARGO']).dropna()
+        df_crane_info = pd.merge(df_crane_info, cargo_df, on='cargo_id', how='left')
+        df_crane_info['consumption_liter'] = df_crane_info["load_cargo"] * df_crane_info['consumption_rate']
+        df_crane_info['premium_wage'] = df_crane_info["load_cargo"] * df_crane_info['premium_rate']
+        
         for i in range(len(ship_infos)):
-            #print(ship_infos[i])
-            ship_jsons = self.create_json_ship_info(sid, ship_infos[i])
+            df = df_crane_info[df_crane_info['carrier_id'] == ship_infos[i]['ship_db_id']]
+            if i == 0:
+                print(ship_infos[i])
+                print(df)
+            ship_jsons = self.create_json_ship_info(sid, ship_infos[i], df)
             if ship_jsons['order_id'] in lookup_order_id:
                 ship_jsons_a = lookup_order_id[ship_jsons['order_id']]
                 ship_jsons_a['penalty_cost'] = max(ship_jsons_a['penalty_cost'], ship_jsons['penalty_cost'])
@@ -227,7 +246,7 @@ class OutputConverter:
             fts_setup_time = fts_info['fts_setup_time']
             
             crane_bulks = crane_ship_info['crane_infos']
-            
+            order_id = fts_info['order_ids'][si]
            
             
             for cindx, cbulk in enumerate(crane_bulks):
@@ -236,6 +255,7 @@ class OutputConverter:
                 consumption_rate = cbulk["consumption_rate"]
                 crane_index = cbulk['crane_index']
                 ship = cbulk['ship']
+                #order_id = cbulk['order_id']
                 #print(cbulk["operation_times"])
                 for ibluck, bulk in enumerate(cbulk['bulks']):
                     temp = dict(temp_solution_crane_schedule_json)
@@ -243,6 +263,7 @@ class OutputConverter:
                     
                     """
                     solution_id	
+                    order_id 
                     carrier_id	
                     start_time	due_time	operation_time	Setup_time	
                     travel_Distance	
@@ -264,6 +285,7 @@ class OutputConverter:
                     enter_time = MIN_DATE_TIME + start_hours_to_add
                     exit_time = MIN_DATE_TIME + end_hours_to_add
                     temp['solution_id'] = sid
+                    temp['order_id']  = order_id
                     temp['carrier_id'] = cbulk['ship'].id
                     temp['start_time'] =enter_time.strftime('%Y-%m-%d %H:%M:%S')
                     temp['due_time'] = exit_time.strftime('%Y-%m-%d %H:%M:%S')

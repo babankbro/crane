@@ -48,7 +48,7 @@ def create_fts_data(filter_type  = 'FTS_name', filter_fts=[]):
         "SPEED": fts_df['speed'].to_numpy().astype(np.float),
             }
 
-def create_order_data(isAll=False, isApproved=False, filter_type = "carrier_name", filter_carriers=[]):
+def create_order_data(isAll=False, group=1 , isApproved=False, filter_type = "carrier_name", filter_carriers=[]):
     order_json = get_all_orders(isAll, isApproved)
     order_df = pd.DataFrame(order_json)
     
@@ -57,8 +57,10 @@ def create_order_data(isAll=False, isApproved=False, filter_type = "carrier_name
     
     if isAll and isApproved:
         return {}
-    #order_df = order_df[order_df['status_order'] != "Approved"]
-    
+    print(group)
+    print(order_df)
+    order_df = order_df[order_df['group'] == group]
+    print(order_df)
     
     arrival_times = order_df['arrival_time'].to_numpy()
     dutedate_times = order_df['deadline_time'].to_numpy()
@@ -70,7 +72,7 @@ def create_order_data(isAll=False, isApproved=False, filter_type = "carrier_name
     arrival_hour_times= arrival_hour_times - mhour
     dutedate_hour_times= dutedate_hour_times - mhour
     print("create_order_data", 'min time', order_df.iloc[index_min]['arrival_time'])
-    print(order_df)
+    
     MIN_DATE_TIME = order_df.iloc[index_min]['arrival_time']
     if 'T' in MIN_DATE_TIME and 'Z' in MIN_DATE_TIME:
         MIN_DATE_TIME = MIN_DATE_TIME.replace("T", " ")
@@ -108,15 +110,64 @@ def create_order_data(isAll=False, isApproved=False, filter_type = "carrier_name
 
 def create_crane_rate_data():
     crane_rate_json = get_all_rates()
+    maintain_fts_df = pd.DataFrame(get_all_maintain_fts())
+    maintain_crane_df = pd.DataFrame(get_all_maintain_crane())
+    
+    finish_maintain_times = maintain_fts_df['start_time_FTS'].to_numpy()
+    start_maintain_times = maintain_fts_df['downtime_FTS'].to_numpy()
+    #print("arrival_times", arrival_times)
+    maintain_fts_df['start_maintain_times'] = convert_to_hours(start_maintain_times)
+    maintain_fts_df['finish_maintain_times'] = convert_to_hours(finish_maintain_times)
+    
+    finish_maintain_times = maintain_crane_df['start_time'].to_numpy()
+    start_maintain_times = maintain_crane_df['downtime'].to_numpy()
+    #print("arrival_times", arrival_times)
+    maintain_crane_df['start_maintain_times'] = convert_to_hours(start_maintain_times)
+    maintain_crane_df['finish_maintain_times'] = convert_to_hours(finish_maintain_times)
+    
+   #print("Maintain_df")
+    print(maintain_crane_df)
+    print(maintain_fts_df)
+    
     crane_rate_df = pd.DataFrame(crane_rate_json)
-    rate_lookup = RATE_LOOKUP(crane_rate_df)
+    rate_lookup = FTS_INFO_LOOKUP(crane_rate_df, maintain_fts_df, maintain_crane_df)
     return rate_lookup
 
 def print_json(fts_lookup):
     for key in fts_lookup:
         print(key, fts_lookup[key])
     #print(fts_lookup)
-    
+
+def get_schedule(solution_id):
+    results = get_schedule_solution(solution_id)
+    orders = []
+    keys = set([])
+    for item in results:
+        order_id = item['order_id']
+        carrier_id = item['carrier_id']
+        if order_id + carrier_id == 0:
+            #print("Skip order_id = 0")
+            continue
+        if item['order_id'] not in keys:
+            keys.add(order_id)
+            order_info = {'order_id':order_id, 'carrier_name':item['carrier_name'] ,  "FTS": []}
+            orders.append(order_info)
+        else:
+            order_info =  next((entry for entry in orders if entry['order_id'] == order_id), None)
+            if not order_info:
+                raise ValueError("Shoud found order_info.") 
+        ftses = order_info['FTS']
+        fts_id = item["FTS_id"]
+        fts_info =  next((entry for entry in ftses if entry['fts_id'] == fts_id), None)
+        #print("FTS", fts_id,  fts_info)
+        if fts_info:
+            raise ValueError("Should not found fts_info.")
+        str_datetime = item['arrivaltime'].strftime( '%Y-%m-%d %H:%M:%S')
+        ftses.append({'fts_id':fts_id, "fts_name":item["FTS_name"], "start_date": str_datetime  })
+
+    return orders
+        
+
         
 def print_order():
     order_json = get_all_orders()
@@ -125,16 +176,28 @@ def print_order():
         print(row)
     print(order_json)
 
+
 if __name__ == "__main__":
-    #print_order()
+    #print_order(
     #create_order_data()
     #print_json(create_order_data())
-    print_json(create_order_data())
-    rate_lookup = create_crane_rate_data()
+    #print_json(create_order_data())
+    print("Hello")
+    results = get_schedule(56)
+    print(results)
+    for item in results:
+        print(item)
+
+
+    #rate_lookup = create_crane_rate_data()
+    #for key in rate_lookup.lookup_fts_ids:
+        #print(rate_lookup.lookup_fts_ids[key])
+        #print(key)
+        #break
     #print(rate_lookup.get_consumption_rate_by_id(1, 0, 21))
     #print(rate_lookup.get_operation_rate_by_id(1, 0, 21))
-    order_data = create_order_data()
-    print(order_data['ARRIVAL_TIME_HOUR'])
+    #order_data = create_order_data()
+    #print(order_data['ARRIVAL_TIME_HOUR'])
     
     #rates = get_all_ra Ptes()
     #for rate in rates:

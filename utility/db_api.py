@@ -32,14 +32,43 @@ def try_connect_db():
     try:
         mydb = mysql.connector.connect(
             host="127.0.0.1",
-            user="sugarotpzlab_crane",
-            password="P@ssw0rd;Crane"
+            user="root",
+            password=""
+            #user="sugarotpzlab_crane",
+            #password="P@ssw0rd;Crane"
         )
         mycursor = mydb.cursor(dictionary=True)
         mycursor.execute('USE sugarotpzlab_crane')
     except:
         print("No connect database")
     return mydb, mycursor
+
+def query_table(name):
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
+    mycursor.execute(f"select * from {name}")
+    rows = mycursor.fetchall()
+    return rows
+
+def query_table_where(name, condition):
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
+    mycursor.execute(f"select * from {name} where {condition}")
+    rows = mycursor.fetchall()
+    return rows
+
+def query_table_join_where(tables, join_condition, condition):
+    global mydb, mycursor
+    mydb, mycursor = try_connect_db()
+    sql_str =  f"select * from {tables[0]} "
+    for i in range(1, len(tables)):
+         sql_str += f"left join {tables[i]} on {join_condition[i-1]} "
+    sql_str += f"where {condition}"
+    print(sql_str)
+    mycursor.execute(sql_str)
+    rows = mycursor.fetchall()
+    return rows
+
 
 def get_all_FTS():
     global mydb, mycursor
@@ -126,6 +155,21 @@ def get_all_cargo_crane():
     rows = mycursor.fetchall()
     return rows
 
+def get_all_maintain_fts():
+    return query_table('maintain_fts')
+
+def get_all_maintain_crane():
+    return query_table('maintain_crane')
+
+def get_schedule_solution(solution_id):
+    condition = f"solution_schedule.solution_id = {solution_id}"
+    return query_table_join_where(["solution_schedule", "carrier", 'fts'], 
+                                  [ "solution_schedule.carrier_id = carrier.cr_id",
+                                    "solution_schedule.FTS_id = fts.id"], condition)
+
+
+
+global mydb, mycursor
 mydb = None
 mydb, mycursor = try_connect_db()
 
@@ -134,6 +178,11 @@ if __name__ == "__main__":
     rows = mycursor.fetchall()
     [print(row) for row in rows]
     
-    order_data = get_all_orders()
-    for d in order_data:
+    #maintain = get_all_maintain_fts()
+    #maintain = get_all_maintain_crane()
+    schedule = get_schedule_solution(56)
+    for d in schedule:
         print(d)
+    #order_data = get_all_orders()
+    #for d in order_data:
+        #print(d)
