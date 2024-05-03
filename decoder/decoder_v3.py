@@ -179,11 +179,13 @@ class DecoderV3(BaseDecoder):
             
             #if ship_info['order_id'] == 19:
                 #print("best_due_time", best_due_time, due_time)
+
             cost_2obj = due_time/1000 +  tcost/3000
             #print(due_time, tcost)
             #cost_2obj = due_time
             if best_cost > cost_2obj:
                 best_cost = cost_2obj
+
                 best_due_time = due_time
                 best_fts = temp_cranes
 
@@ -212,10 +214,6 @@ class DecoderV3(BaseDecoder):
               #len(self.data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR']), self.data_lookup['ORDER_DATA']['ARRIVAL_TIME_HOUR'])
         #for fts_code in fts_codes:
             #print(fts_code)
-        #print(fts_codes)
-
-
-
         for i in range(self.NSHIP):
             #print("============================================================================")
             for k in range(self.MAX_FTS):

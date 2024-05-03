@@ -14,6 +14,31 @@ class DecoderV2(BaseDecoder):
     def __init__(self, data_lookup):
         super().__init__(data_lookup)
     
+    def get_result_info2(self, findex,  ship_index, fts_crane_infos):
+        ship = self.ships[ship_index]
+        fts_crane_info = fts_crane_infos[findex]
+        if len(fts_crane_info['ids']) == 0:
+            last_point_time = -100
+            distance = self.DM_lookup.get_fts_distance(findex, ship_index)
+        else:
+            last_point_time = -100
+            distance = self.DM_lookup.get_fts_distance(findex, ship_index)
+            for k in range(len(fts_crane_info['ids'])):
+                if ship_index == fts_crane_info['ids'][-(1+k)]:
+                    continue
+                last_ship_id = fts_crane_info['ids'][-(1+k)]
+                last_point_time = fts_crane_info["end_times"][-(1+k)]
+                distance = self.DM_lookup.get_carrier_distance(last_ship_id, ship_index) 
+                break
+                if last_point_time < ship.open_time:
+                    break
+                #else:
+                    #print("Here")
+            
+        t_time =  distance/fts_crane_info['speed']
+        a_time = last_point_time + t_time
+        s_time = a_time if a_time > ship.open_time else ship.open_time
+        return distance, t_time, a_time, s_time
     
     def get_result_info(self, findex,  ship_index, fts_crane_infos):
         ship = self.ships[ship_index]
@@ -47,7 +72,9 @@ class DecoderV2(BaseDecoder):
             i+=1
             findex = fts_codes[ii]
             fts = self.ftses[findex]
-            distance, t_time, a_time, s_time = self.get_result_info(findex,  ship_index, fts_crane_infos)
+            if fts.id not in self.data_lookup["FTS_ID_IS_ACTIVE"]:
+                continue
+            distance, t_time, a_time, s_time = self.get_result_info_base(findex,  ship_index, fts_crane_infos, -1000)
             
             if a_time > ship.closed_time:
                 tta += 1
@@ -120,12 +147,16 @@ class DecoderV2(BaseDecoder):
                     continue
                 
                 findex2 = fts_codes[k]
-                distance2, t_time2, a_time2, s_time2 = self.get_result_info(findex2,  ship_index, fts_crane_infos)
+                distance2, t_time2, a_time2, s_time2 = self.get_result_info_base(findex2,  ship_index, fts_crane_infos, -1000)
                 
                 if ship.id in test:
                     print(i, k, findex, findex2)
                 
                 fts2 = self.ftses[findex2]
+                
+                if fts2.id not in self.data_lookup["FTS_ID_IS_ACTIVE"]:
+                    continue
+                
                 fts_input = [fts, fts2]
                 start_times = [s_time, s_time2]
                 distances = [distance, distance2]
@@ -160,7 +191,7 @@ class DecoderV2(BaseDecoder):
                     
                     fts_setup_time = fts_crane_infos[fts_indexs[v]]['fts_setup_time']
                     process_time = max_due_date
-                    due_time = max_due_date + s_time + fts_setup_time
+                    due_time = max_due_date + start_times[v] + fts_setup_time
                     delta = ship.closed_time - due_time
                     
                     if process_time < 0:

@@ -119,20 +119,24 @@ class OutputConverter:
 
 
 if __name__ == "__main__":
-    PROBLEM_INDEX = 2
+    PROBLEM_INDEX = 5
     LOAD_SHIP_PROBLEMS = [(132950.00	,76985.41	,4430.12	,70250.00	,19572.10	),
                           (146245.0, 69286.9, 30987.1, 77275.0, 17614.9),
                           (190118.5, 48500.8, 21691.0, 100457.5, 22899.4),
                           (95059.25	,24250.40	,10845.49	,50228.75	,34349.04),
-                          (161600.73	,7275.12	,18437.33	,15068.63	,58393.36),]
-    MAX_FTS_PROBLEMS = [(4,4,2,4,4), (2,2,2,4,2), (4,2,2,2,2), (2,4,2,2,2), (2,2,4,2,2)]
+                          (161600.73	,7275.12	,18437.33	,15068.63	,58393.36),
+                          (65500.00	, 39802.94	, 9100.00	,  70850.00	),
+                          (22698.00, 10200.00, 20000.00, 10000.00, 63738.44),
+                          (63350.00	,71573.15	,27000.00	,37725.37	,37700.00)]
+    MAX_FTS_PROBLEMS = [(4,4,2,4,4), (2,2,2,4,2), (4,2,2,2,2), (2,4,2,2,2), (2,2,4,2,2),
+                        (4, 4, 2, 4), (4,4,2,2,4), (4,4,4,2,4)]
     
     order_datas = [
     Order(1, "M.V.MARVELLOUS", MAX_FTS_PROBLEMS[PROBLEM_INDEX][0], LOAD_SHIP_PROBLEMS[PROBLEM_INDEX][0]),
     Order(2, "M.V.CL PEKING", MAX_FTS_PROBLEMS[PROBLEM_INDEX][1], LOAD_SHIP_PROBLEMS[PROBLEM_INDEX][1]),
     Order(3, "M.V.MCQUEEN", MAX_FTS_PROBLEMS[PROBLEM_INDEX][2], LOAD_SHIP_PROBLEMS[PROBLEM_INDEX][2]),
     Order(4, "M.V.IKAN BELIAK", MAX_FTS_PROBLEMS[PROBLEM_INDEX][3], LOAD_SHIP_PROBLEMS[PROBLEM_INDEX][3]),
-    Order(5, "M.V.EPIC HARMONY", MAX_FTS_PROBLEMS[PROBLEM_INDEX][4], LOAD_SHIP_PROBLEMS[PROBLEM_INDEX][4]),
+    #Order(5, "M.V.EPIC HARMONY", MAX_FTS_PROBLEMS[PROBLEM_INDEX][4], LOAD_SHIP_PROBLEMS[PROBLEM_INDEX][4]),
     ]
     
     avg_operations = np.array([[0.22	,	0.22	,	0.22	,	0.22	,	0.22],
@@ -143,15 +147,45 @@ if __name__ == "__main__":
                 [0.245	,	0.245	,	0.245	,	0.245	,	0.245],
                 [0.192	,	0.192	,	0.192	,	0.192	,	0.192]])
     
+    avg_operations2 = np.array([[0.22	,	0.22	,	0.22	,	0.22	,	0.22],
+                [0.24	,	0.24	,	0.24	,	0.24	,	0.24],
+                [0.19	,	0.19	,	0.19	,	0.19	,	0.19],
+                [0.26	,	0.26	,	0.26	,	0.26	,	0.26],
+                [0.25	,	0.25	,	0.25	,	0.25	,	0.25],
+                [0.25	,	0.25	,	0.25	,	0.25	,	0.25],
+                [0.19	,	0.19	,	0.19	,	0.19	,	0.19]])
+    
     travel_times = np.array(
         [[0	,	0.49	,	0.41	,	1.1	,	1.08],
         [0.49	,	0	,	0.47	,	0.74	,	0.92],
         [0.41	,	0.47	,	0	,	0.77	,	0.67],
         [1.1	,	0.74	,	0.77	,	0	,	0.46],
         [1.08	,	0.92	,	0.67	,	0.46	,	0]]
-
     )
 
+    travel_times = np.array(
+        [[0	,	1.33	,	1.38	,	1.23	],
+        [1.33	,	0	,	1.8	,	2.34	],
+        [1.38	,	1.8		,	0	,	1.09	],
+        [1.23	,	2.34	,	1.09	,	0	],
+        ]
+    )
+    
+    travel_times2 = np.array(
+        [[0	,	0.73	,	0.89	,	0.74	,	2.39],
+        [0.73	,	0	,	0.35	,	0.96	,	1.91],
+        [0.89	,	0.35	,	0	,	0.83	,	1.58],
+        [1.1	,	0.74	,	0.83	,	0	,	1.87],
+        [2.39	,	1.91	,	0.58	,	1.87	,	0]]
+    )
+
+    travel_times2 = np.array(
+        [[0	,	2.49	,	8.35	,	6.74	,	6.16],
+        [2.49	,	0	,	9.69	,	7.35	,	6.93],
+        [8.35	,	9.69	,	0	,	3.26	,	3.19],
+        [6.74	,	7.35	,	3.26	,	0	,	0.68],
+        [6.16	,	6.93	,	3.19	,	0.68	,	0]]
+    )
     
     
     lookup_data = {
@@ -190,9 +224,9 @@ if __name__ == "__main__":
     
 #callback = MyCallback()
     m = 0
-    ss = 10
+    ss = 59
     termination = get_termination("time", f"00:{m:02d}:{ss:02d}")
-    termination = get_termination("n_eval", 400)
+    termination = get_termination("n_eval", 10000)
     res = minimize(problem, algorithm, termination, seed=1, verbose=True)
     print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
     fts_info, ship_info = decoder.decode(res.X)

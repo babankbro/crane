@@ -24,9 +24,12 @@ class Ship(dict):
         #print(self.cargo)
         self.number_bulk= lookup['BULK']
         self.number_bulks = [self.number_bulk] 
-        self.load_bulks = []
-        for i in range(self.number_bulk):
-            self.load_bulks.append( round(self.total_demand/self.number_bulk, 2))
+
+        bulks = get_cargo_loads_order(self.order_id )
+        self.load_bulks = list(bulks)
+        self.number_bulk = len(self.load_bulks)
+        print("SHIP", self.order_id , self.load_bulks )
+        
             
     def __str__(self):
         return f""" {self.id} {self.order_id} {self.name}  open-closed: {round(self.open_time, 2)} - {round(self.closed_time, 2)}  {self.load_bulks} """
@@ -160,13 +163,14 @@ def compute_process_times(case, fts, ship, bulks):
     crane_key = f"C{ncrane}"
     nbulk = len(bulks)
     steps = []
+    #print(ship, nbulk, step_nbulk)
     for i in range(0, nbulk, step_nbulk):
         sbulks = bulks[i:i+ step_nbulk]
         if len(sbulks) == 0:
             continue
         
         if len(sbulks) == step_nbulk:
-            
+            #print(ncrane, case, bulks)
             otime, result = compute_step_process_time(case, fts, ship, sbulks)
             #print(case, otime, sbulks)
             steps.append([otime, result])

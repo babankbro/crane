@@ -53,13 +53,23 @@ def load_data_lookup(fname):
         "CARGO":data["CARGO"]
     }
 
-def create_data_lookup(isAll=False, group=1):
-    fts_datalookup = create_fts_data()
-    crane_rate_datalookup = create_crane_rate_data()
-    order_data = create_order_data(isAll, group, isApproved=False)
+def create_data_lookup(isAll=False, group=1, ftses=None, duration_date_time = None):
+    if None:
+        fts_datalookup = create_fts_data(filter_type  = 'id', filter_fts=ftses)
+        crane_rate_datalookup = create_crane_rate_data(filter_type  = 'id', filter_fts=ftses)
+    else:
+        fts_datalookup = create_fts_data()
+        crane_rate_datalookup = create_crane_rate_data()
+        
+    
+    order_data = create_order_data(isAll, group, isApproved=False, duration_date_time = duration_date_time )
     approved_order_data = create_order_data(isAll, group, isApproved=True)
     DM = Distance_Lookup(fts_datalookup, order_data)
     cargo_data = get_all_cargo()
+    
+    if ftses is None:
+        ftses = []
+    
     
     return {
         "FTS_DATA":fts_datalookup,
@@ -68,6 +78,7 @@ def create_data_lookup(isAll=False, group=1):
         "APPROVED_ORDER_DATA":approved_order_data, 
         "DISTANCE_MATRIX": DM,
         "CARGO": cargo_data,
+        "FTS_ID_IS_ACTIVE": ftses
     }
        
 def print_fts():

@@ -214,6 +214,7 @@ class CraneProblem(ElementwiseProblem):
 
 
 if __name__ == "__main__":
+
     [6, 7, 10, 11, 19, 20, 21, 23, 24, 31, 32, 1, 2, 3, 4,  12, 13, 14, 15, 16, 17, 18, 5]
     for group in [ 8]:
         print(f"########################## {group}")
@@ -243,6 +244,7 @@ if __name__ == "__main__":
             dither="vector",
             jitter=False
             )
+
 
         problem = CraneProblem(decoder)
         termination = get_termination("time", "00:0:29")

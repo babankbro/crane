@@ -69,16 +69,17 @@ def route():
     datas = request.get_json( )
     #data_date = datas['date']
     compute_time = int(datas['computetime'])
+    #compute_time = 0
     user_group = int(datas['Group'])
-    if "solution_id" not in datas:
-        solution_id = user_group
-    else:
-        solution_id = int(datas['solution_id'])
-    #current_time = datas['currenttime']
+    FTS = [fts['fts_id'] for fts in datas['fts']] if len(datas['fts']) > 0 else None
+    solution_id = user_group if "solution_id" not in datas else int(datas['solution_id'])
+    
     print(user_group,  solution_id)
     global mydb, mycursor
     mydb, mycursor = try_connect_db()
-    data_lookup = create_data_lookup(isAll=True, group=user_group)
+    data_lookup = create_data_lookup(isAll=True, group=user_group, 
+                                     duration_date_time =[datas["started"], datas["ended"]],
+                                     ftses = FTS)
     decoder = DecoderV2(data_lookup)
     converter = OutputConverter(data_lookup)
     
@@ -107,9 +108,10 @@ def route():
         jitter=False
     )
 
-    
-#callback = MyCallback()
+
+    #callback = MyCallback()
     termination = get_termination("time", f"00:{m:02d}:{ss:02d}")
+    #termination = get_termination("time", f"00:00:10")
     res = minimize(problem,
                 algorithm,
                 termination,
@@ -173,12 +175,96 @@ def route():
               ship_info['fts_crane_enter_times'], ship_info['fts_crane_exit_times'])
     
     
+    for key in datas:
+        
+        print(key, datas[key])
+    
     return {'status':"success",
             #"data_date":data_date, 
                 "compute_time":compute_time,
               #  "start_date":current_time
                 }
     
+@app.route("/update", methods = ["POST", "GET"])
+@cross_origin()
+def update_plan():
+    datas = request.get_json( )
+    for key in datas:
+        print(key, datas[key])
+    
+    old_solution_id = int(datas['old_solution_id'])
+    #old_solution_id = 114
+    old_solution_info = get_solution_info(old_solution_id)
+
+    datas["started"] = old_solution_info['started_at'].strftime("%Y-%m-%d %H:%M:%S")
+    datas["ended"] = old_solution_info['ended_at'].strftime("%Y-%m-%d %H:%M:%S")
+    
+    for key in datas:
+        print(key, datas[key])
+
+
+    #datas["ended"] = datas["ended"].split(" ")[0] + " 23:59:59"
+    
+    user_group = datas["user_group"]
+    print("user_group", user_group, "START", datas["started"], datas["ended"])
+
+    mydb, mycursor = try_connect_db()
+    data_lookup = create_data_lookup(isAll=True, group=user_group,
+                                     duration_date_time =[datas["started"], datas["ended"]])
+    
+    decoder = DecoderV2(data_lookup)
+    converter = OutputConverter(data_lookup)
+
+    solution_id = int(datas['solution_id'])
+    #solution_id = 70
+    primitive_ship_infos = datas['plan']
+
+    create_order_start_date_hour(primitive_ship_infos,
+                                 np.min(data_lookup["ORDER_DATA"]["MIN_TIME_HOUR"]))
+    print(len(primitive_ship_infos), print(len(data_lookup["ORDER_DATA"])))
+    print("user_group", user_group, "START", datas["started"], datas["ended"])
+    
+    fts_crane_infos, ship_infos =  decoder.manual_assign(primitive_ship_infos)
+
+    mydb, mycursor = try_connect_db()
+    db_insert = DBInsert(mycursor, mydb)
+    db_insert.clear_solution(solution_id)
+    
+    result_json = converter.create_solution_schedule(solution_id, fts_crane_infos) 
+    db_insert.insert_jsons(result_json)    
+    result_json = converter.create_crane_solution_schedule(solution_id, fts_crane_infos) 
+    df_crane_solution = pd.DataFrame(result_json)
+    #print(result_json)
+    #print(df_crane_solution)
+    print("++++++++++++++++++++++++++++++++++++++++++++++++")
+    print("++++++++++++++++++++++++++++++++++++++++++++++++")
+    db_insert.insert_crane_solution_schedule_jsons(result_json)
+    result_json = converter.create_crane_solution(solution_id, fts_crane_infos, ship_infos) 
+    db_insert.insert_crane_solution_jsons(result_json)
+    
+    
+    result_json = converter.create_ship_solution_schedule(solution_id, ship_infos, df_crane_solution, data_lookup) 
+    db_insert.insert_carrier_solution_jsons(result_json)
+
+    total_demand = 0
+    print(f"Insert Solution:{solution_id}")
+    
+    for ship_info in ship_infos:
+        #continue
+        print(ship_info['ship_id'], ship_info['ship_name'], ship_info['maxFTS'], ship_info['demand'],  ship_info['open_time'], 
+              ship_info['due_time'], ship_info['fts_crane_ids'],
+              ship_info['fts_crane_enter_times'], ship_info['fts_crane_exit_times']) 
+        total_demand += ship_info['demand']
+        if len(ship_info['fts_crane_enter_times']) > 0 and np.sum(np.array(ship_info['fts_crane_exit_times'][:1])
+            - np.array(ship_info['fts_crane_enter_times'][:1])) < 0:
+            print(ship_info)
+
+    print(total_demand)
+    print(np.sum(data_lookup["ORDER_DATA"]['DEMAND']))
+
+
+    return {'status':'sucess'}
+
 if __name__ == "__main__":
     app.run( debug=True, host="0.0.0.0", port = 5012)
     #socketio.run(app=app, debug=True, host="0.0.0.0", port = 5011, ssl_context=("cert.pem", "key.pem"))
