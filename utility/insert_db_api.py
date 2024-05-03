@@ -50,7 +50,7 @@ class DBInsert:
             #print(colum_names)
             #print(values)
             values = values.replace('None', 'NULL')
-            print(values )
+            #print(values )
             insert_query = f"INSERT INTO solution_schedule({colum_names}) VALUES ({values})"
             #print(insert_query)
             self.cursor.execute(insert_query)

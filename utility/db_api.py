@@ -32,10 +32,10 @@ def try_connect_db():
     try:
         mydb = mysql.connector.connect(
             host="127.0.0.1",
-            user="root",
-            password=""
-            #user="sugarotpzlab_crane",
-            #password="P@ssw0rd;Crane"
+            #user="root",
+            #password=""
+            user="sugarotpzlab_crane",
+            password="P@ssw0rd;Crane"
         )
         mycursor = mydb.cursor(dictionary=True)
         mycursor.execute('USE sugarotpzlab_crane')
@@ -64,7 +64,7 @@ def query_table_join_where(tables, join_condition, condition):
     for i in range(1, len(tables)):
          sql_str += f"left join {tables[i]} on {join_condition[i-1]} "
     sql_str += f"where {condition}"
-    print(sql_str)
+    #print(sql_str)
     mycursor.execute(sql_str)
     rows = mycursor.fetchall()
     return rows
@@ -167,7 +167,24 @@ def get_schedule_solution(solution_id):
                                   [ "solution_schedule.carrier_id = carrier.cr_id",
                                     "solution_schedule.FTS_id = fts.id"], condition)
 
+def get_cargo_loads_order(order_id):
+    condition = f"bulks.cargo_orderOrder_id = {order_id}"
+    bulks = query_table_where('bulks', condition)
+    return [float(bluk["load_bulk"]) for bluk in bulks]
 
+def get_solution_info(solution_id):
+    condition = f"solutions.id = {solution_id}"
+    infos = query_table_where('solutions', condition)
+    if len(infos) == 1:
+        start_date = infos[0]['started_at']
+        end_date = infos[0]['ended_at']
+        new_start_date = start_date.replace(hour=0, minute=0, second=0)
+        new_end_date = end_date.replace(hour=23, minute=59, second=59)
+        infos[0]['started_at'] = new_start_date
+        infos[0]['ended_at'] = new_end_date
+        return infos[0]
+    else:
+        raise ValueError("Query solution unexpected id ") 
 
 global mydb, mycursor
 mydb = None
@@ -180,9 +197,16 @@ if __name__ == "__main__":
     
     #maintain = get_all_maintain_fts()
     #maintain = get_all_maintain_crane()
-    schedule = get_schedule_solution(56)
-    for d in schedule:
-        print(d)
+    #schedule = get_schedule_solution(56)
+    #for d in schedule:
+        #print(d)
     #order_data = get_all_orders()
     #for d in order_data:
         #print(d)
+    #bulks = get_cargo_loads_order(7306)
+    #[print(bluk) for bluk in bulks]
+    #print(sum(bulks))
+    info = get_solution_info(114)
+    print(info['started_at'])
+    print(info['ended_at'])
+    print(info)

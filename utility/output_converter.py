@@ -189,12 +189,12 @@ class OutputConverter:
     def create_solution_schedule(self, sid, fts_crane_infos):
         result_json = []
         for fc_info  in fts_crane_infos:
-            if fc_info['fts_id']==1:
-                print(fc_info['fts_name'])
-                print("##############################")
+            #if fc_info['fts_id']==1:
+            #    print(fc_info['fts_name'])
+            #    print("##############################")
             fts_jsons = self.create_json_fts_info(sid, fc_info)
-            if fc_info['fts_id']==1:
-                print("##############################")
+            #if fc_info['fts_id']==1:
+            #    print("##############################")
             #print(fc_info)
             result_json.extend(fts_jsons)
         #print(fc_info)
@@ -210,9 +210,9 @@ class OutputConverter:
         
         for i in range(len(ship_infos)):
             df = df_crane_info[df_crane_info['carrier_id'] == ship_infos[i]['ship_db_id']]
-            if i == 0:
-                print(ship_infos[i])
-                print(df)
+            #if i == 0:
+            #    print(ship_infos[i])
+            #    print(df)
             ship_jsons = self.create_json_ship_info(sid, ship_infos[i], df)
             if ship_jsons['order_id'] in lookup_order_id:
                 ship_jsons_a = lookup_order_id[ship_jsons['order_id']]
@@ -327,8 +327,8 @@ class OutputConverter:
         return result_json
     
     def create_json_crane_cost(self, sid, fts_info, ship_infos):
-        print("---------------------------------")
-        print(fts_info['fts'].name)
+        #print("---------------------------------")
+        #print(fts_info['fts'].name)
         #print(fts_info)
         fts = fts_info['fts']
         fts_id = fts_info["fts_id"]

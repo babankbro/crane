@@ -51,6 +51,33 @@ class BaseDecoder:
         
         self.MAX_FTS = int(np.max(self.data_lookup["ORDER_DATA"]["MAX_FTS"]))
     
+    def get_result_info_base(self, findex,  ship_index, fts_crane_infos, start_time_input):
+        ship = self.ships[ship_index]
+        fts_crane_info = fts_crane_infos[findex]
+        if len(fts_crane_info['ids']) == 0:
+            last_point_time = -100
+            distance = self.DM_lookup.get_fts_distance(findex, ship_index)
+        else:
+            last_point_time = -100
+            distance = self.DM_lookup.get_fts_distance(findex, ship_index)
+            for k in range(len(fts_crane_info['ids'])):
+                if ship_index == fts_crane_info['ids'][-(1+k)]:
+                    continue
+                last_ship_id = fts_crane_info['ids'][-(1+k)]
+                last_point_time = fts_crane_info["end_times"][-(1+k)]
+                distance = self.DM_lookup.get_carrier_distance(last_ship_id, ship_index) 
+                break
+                if last_point_time < ship.open_time:
+                    break
+                #else:
+                    #print("Here")
+            
+        t_time =  distance/fts_crane_info['speed']
+        a_time = last_point_time + t_time
+        a_time = max(start_time_input, a_time)
+        s_time = a_time if a_time > ship.open_time else ship.open_time
+        return distance, t_time, a_time, s_time
+
     def init_fts_infos(self):
         SETUP_TIMEs = self.data_lookup['FTS_DATA']["SETUP_TIME"] 
         IDs = self.data_lookup['FTS_DATA']["FTS_ID"] 
@@ -107,14 +134,30 @@ class BaseDecoder:
         fts_infos = self.init_fts_infos()
         ship_infos = self.init_ship_infos()
 
+        time_fts_mins = []
+        for i in range(len(primitive_ship_infos)):
+            p_ship_info = primitive_ship_infos[i]
+            max_time = -1000000
+            for j in range(len(p_ship_info["FTS"])):
+                if max_time  <= p_ship_info["FTS"][j]["start_date_hour"]:
+                    max_time = p_ship_info["FTS"][j]["start_date_hour"]
+            time_fts_mins.append(max_time)
+
+        ship_order_ids = np.argsort(time_fts_mins)
+
         if self.NSHIP != len(primitive_ship_infos):
+            print(self.NSHIP, len(primitive_ship_infos))
             raise ValueError("Number ship order not equal database.") 
 
 
         for i in range(len(primitive_ship_infos)):
-            p_ship_info = primitive_ship_infos[i]
+            p_ship_info = primitive_ship_infos[ ship_order_ids[i]]
+            #print("+++++++++")
+            #print( i, ship_order_ids[i],  p_ship_info )
+            #print( i, ship_order_ids[i],  primitive_ship_infos[ship_order_ids[i]] )
             order_id = p_ship_info['order_id']
-
+            ship_index = next((index for index in range(self.NSHIP) if ship_infos[index]['order_id'] == order_id), -1)
+            ship_info = ship_infos[ship_index]
             to_assign_ftes = p_ship_info["FTS"]
 
             ship_index =  next((index for index in range(self.NSHIP) if ship_infos[index]['order_id'] == order_id), -1)
@@ -126,10 +169,13 @@ class BaseDecoder:
 
             ship = self.ships[ship_index]
             fts_ids = []
+            fts_start_times_v2 = []
             for to_fts in to_assign_ftes:
+                #print(to_fts)
                 fts_id = to_fts["fts_id"]
                 fts_index =  next((index for index in range(self.NFTS) if fts_infos[index]['fts_db_id'] == fts_id), None)
                 fts_ids.append(fts_index)
+                fts_start_times_v2.append(to_fts["start_date_hour"])
 
     
             arrival_times = []
@@ -138,22 +184,26 @@ class BaseDecoder:
             isOverArrive = False
             fts_start_times = []
             fts_input = []
-            for finx in fts_ids:
+            for idx, finx in enumerate(fts_ids):
                 fts_info = fts_infos[finx]
                 fts = self.ftses[finx]
-                distance, t_time, a_time, s_time = self.get_result_info(finx,  ship_index, fts_infos)
+                distance, t_time, a_time, s_time = self.get_result_info_base(finx,  ship_index, fts_infos, 
+                                                                             fts_start_times_v2[idx])
                 fts_input.append(fts)
                 fts_start_times.append(s_time)
                 arrival_times.append(a_time)
                 distances.append(distance)
                 travel_times.append(t_time)
 
-            print(s_time)
+            #print(s_time)
             temp_cranes = []
+            #print(ship_index, f"a_time: {arrival_times}, start_times: {fts_start_times_v2}")
+            fts_start_times = fts_start_times_v2
             due_time, fts_results = groups_assign(fts_input, fts_start_times, ship ) 
             tcost = 0  
             for v in range(len(fts_results)): 
-                
+                #if ship_index==4:
+                    #print(fts_results[v])
                 process_time = fts_results[v]['operation_time']
                 conveted_fts_results = convert_result(fts_results[v])
                 max_due_date = 0
@@ -166,10 +216,10 @@ class BaseDecoder:
                 
                 fts_setup_time = fts_infos[fts_ids[v]]['fts_setup_time']
                 process_time = max_due_date
-                due_time = max_due_date + s_time + fts_setup_time
+                due_time = max_due_date + fts_start_times[v] + fts_setup_time
                 delta = ship.closed_time - due_time
                 tcost = consumption_rate_fts*conveted_fts_results["total_loads"] 
-                
+                #print("\t",s_time, max_due_date)
                 if process_time < 0:
                     print("ERRRRRRRRRRRRRRRRRRRRRRRRR")
                 
@@ -240,6 +290,9 @@ class BaseDecoder:
             #break
                 if isFound:
                     break
+            #print(ship_order_ids[i], self.data_lookup['ORDER_DATA']['DUE_TIME_HOUR'][ship_order_ids[i]] ,ship_info)
+            #print(p_ship_info)
+            
         for v in range(self.NSHIP):
             ship_id = v
             if len(ship_infos[ship_id]["fts_crane_exit_times"]) == 0:

@@ -17,15 +17,15 @@ def convert_to_hours(array_times):
     time_hours = []
     for i in range(len(array_times)):
         npdate_time = array_times[i]
-        print(npdate_time)
+        #print(npdate_time)
         if 'T' in npdate_time and 'Z' in npdate_time:
             npdate_time = npdate_time.replace("T", " ")
             npdate_time = npdate_time.replace(".000Z", "")
-            print("T or Z in")
+            #print("T or Z in")
         if 'T' in npdate_time and len(npdate_time.split(":")) == 2:
             npdate_time = npdate_time.replace("T", " ")
             npdate_time += ":00"
-            print("T", npdate_time)
+            #print("T", npdate_time)
             
         
         npdate_time = datetime.strptime(npdate_time, '%Y-%m-%d %H:%M:%S')
@@ -38,7 +38,7 @@ def create_fts_data(filter_type  = 'FTS_name', filter_fts=[]):
     fts_df = pd.DataFrame(fts_json)
     if len(filter_fts) != 0:
         fts_df = fts_df[fts_df[filter_type].isin(filter_fts)]
-    
+    #print(fts_df)
     return {
         "NAME": fts_df['FTS_name'].to_numpy(),
         "FTS_ID":fts_df['id'].to_numpy(),
@@ -48,7 +48,8 @@ def create_fts_data(filter_type  = 'FTS_name', filter_fts=[]):
         "SPEED": fts_df['speed'].to_numpy().astype(np.float),
             }
 
-def create_order_data(isAll=False, group=1 , isApproved=False, filter_type = "carrier_name", filter_carriers=[]):
+def create_order_data(isAll=False, group=1 , isApproved=False, 
+                      filter_type = "carrier_name", filter_carriers=[], duration_date_time =None):
     order_json = get_all_orders(isAll, isApproved)
     order_df = pd.DataFrame(order_json)
     
@@ -57,21 +58,51 @@ def create_order_data(isAll=False, group=1 , isApproved=False, filter_type = "ca
     
     if isAll and isApproved:
         return {}
-    print(group)
-    print(order_df)
+    #print(group)
+    #print(order_df)
     order_df = order_df[order_df['group'] == group]
-    print(order_df)
+    #print(order_df)
+    
+    
     
     arrival_times = order_df['arrival_time'].to_numpy()
     dutedate_times = order_df['deadline_time'].to_numpy()
+    
     #print("arrival_times", arrival_times)
     arrival_hour_times = convert_to_hours(arrival_times)
     dutedate_hour_times = convert_to_hours(dutedate_times)
+
+    order_df["arrival_time_hour"] = arrival_hour_times
+    order_df["deadline_time_hour"] = dutedate_hour_times
+
+
+    if duration_date_time:
+        print(duration_date_time[0])
+        start_filter_date_time = convert_to_hours([duration_date_time[0]])[0]
+        end_filter_date_time = convert_to_hours([duration_date_time[1]])[0]
+
+    order_df = order_df[(order_df['arrival_time_hour'] >= start_filter_date_time) &
+                        (order_df['arrival_time_hour'] <= end_filter_date_time)]
+
     mhour = np.min(arrival_hour_times)
+    
+        
+    if start_filter_date_time > mhour:
+        mhour = start_filter_date_time
+
+    #reco
+    arrival_times = order_df['arrival_time'].to_numpy()
+    dutedate_times = order_df['deadline_time'].to_numpy()
+    
+    #print("arrival_times", arrival_times)
+    arrival_hour_times = convert_to_hours(arrival_times)
+    dutedate_hour_times = convert_to_hours(dutedate_times)
+
     index_min = np.argmin(arrival_hour_times)
     arrival_hour_times= arrival_hour_times - mhour
     dutedate_hour_times= dutedate_hour_times - mhour
-    print("create_order_data", 'min time', order_df.iloc[index_min]['arrival_time'])
+    #print("create_order_data", 'min time', order_df.iloc[index_min]['arrival_time'])
+    
     
     MIN_DATE_TIME = order_df.iloc[index_min]['arrival_time']
     if 'T' in MIN_DATE_TIME and 'Z' in MIN_DATE_TIME:
@@ -84,6 +115,13 @@ def create_order_data(isAll=False, group=1 , isApproved=False, filter_type = "ca
         print("T", MIN_DATE_TIME)
     
     print(order_df['status_order'])
+    order_bulks = {}
+    for idx, order_id in enumerate(order_df['order_id'].to_numpy()):
+        bulks = get_cargo_loads_order(order_id)
+        order_bulks[order_id] = bulks
+        #print(order_df['load'].to_numpy()[idx], sum(bulks) ,order_df['load'].to_numpy()[idx] - sum(bulks) , bulks)
+    
+    #print("Filter time", start_filter_date_time, end_filter_date_time)
     
     
     return {
@@ -105,10 +143,12 @@ def create_order_data(isAll=False, group=1 , isApproved=False, filter_type = "ca
         "PENALTY_RATE": order_df['penalty_rate'].to_numpy(),
         "REWARD_RATE":order_df['reward_rate'].to_numpy(),
         "ORDER_ID":order_df['order_id'].to_numpy(),
+        #"ORDER_BULK_LOAD": order_bulks,
+        "MIN_TIME_HOUR":mhour
         #"DF" : order_df,
             }
 
-def create_crane_rate_data():
+def create_crane_rate_data(filter_type  = 'FTS_name', filter_fts=[]):
     crane_rate_json = get_all_rates()
     maintain_fts_df = pd.DataFrame(get_all_maintain_fts())
     maintain_crane_df = pd.DataFrame(get_all_maintain_crane())
@@ -130,6 +170,10 @@ def create_crane_rate_data():
     print(maintain_fts_df)
     
     crane_rate_df = pd.DataFrame(crane_rate_json)
+    
+    if len(filter_fts) != 0:
+        crane_rate_df = crane_rate_df[crane_rate_df[filter_type].isin(filter_fts)]
+    
     rate_lookup = FTS_INFO_LOOKUP(crane_rate_df, maintain_fts_df, maintain_crane_df)
     return rate_lookup
 
@@ -138,7 +182,7 @@ def print_json(fts_lookup):
         print(key, fts_lookup[key])
     #print(fts_lookup)
 
-def get_schedule(solution_id):
+def get_schedule(solution_id, min_time = 0):
     results = get_schedule_solution(solution_id)
     orders = []
     keys = set([])
@@ -163,12 +207,29 @@ def get_schedule(solution_id):
         if fts_info:
             raise ValueError("Should not found fts_info.")
         str_datetime = item['arrivaltime'].strftime( '%Y-%m-%d %H:%M:%S')
-        ftses.append({'fts_id':fts_id, "fts_name":item["FTS_name"], "start_date": str_datetime  })
+        npdate_time = datetime.strptime(str_datetime, '%Y-%m-%d %H:%M:%S')
+        t = convert_to_hour_from_new_year(npdate_time)
+        #t = convert_to_hour_from_new_year(npdate_time)
+        start_date_hour =   t - min_time 
+        ftses.append({'fts_id':fts_id, "fts_name":item["FTS_name"], "start_date": str_datetime,
+                      'start_date_hour': start_date_hour  })
 
     return orders
-        
 
+def create_order_start_date_hour(primitive_ship_infos, min_time = 0):
+    for item in primitive_ship_infos:
+        print(item['order_id'])
+        for fts in item['FTS']:
+            str_datetime = fts['start_date']
+            npdate_time = datetime.strptime(str_datetime, '%Y-%m-%d %H:%M:%S')
+            t = convert_to_hour_from_new_year(npdate_time)
+            start_date_hour =   t - min_time
+            fts['start_date_hour']=start_date_hour
+            print(fts)
         
+    
+    
+
 def print_order():
     order_json = get_all_orders()
     for row in order_json:
