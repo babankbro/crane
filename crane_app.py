@@ -180,5 +180,9 @@ def route():
                 }
     
 if __name__ == "__main__":
-    socketio.run(app=app, debug=True, host="0.0.0.0", port = 5011)
-    
+    app.run( debug=True, host="0.0.0.0", port = 5012)
+    #socketio.run(app=app, debug=True, host="0.0.0.0", port = 5011, ssl_context=("cert.pem", "key.pem"))
+    #app.run( debug=True, host="0.0.0.0", port = 5012, ssl_context=("/etc/ssl/certs/certificate.pem", 
+    #"/etc/ssl/private.key"))
+    #app.run(ssl_context=("cert.pem", "key.pem"))
+  

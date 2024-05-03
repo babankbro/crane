@@ -32,8 +32,10 @@ def try_connect_db():
     try:
         mydb = mysql.connector.connect(
             host="127.0.0.1",
-            user="sugarotpzlab_crane",
-            password="P@ssw0rd;Crane"
+            #user="sugarotpzlab_crane",
+            #password="P@ssw0rd;Crane"
+            user="root",
+            password="PVWtLvJGNUBPlmj71R6bAao="
         )
         mycursor = mydb.cursor(dictionary=True)
         mycursor.execute('USE sugarotpzlab_crane')
