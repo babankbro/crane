@@ -68,12 +68,13 @@ def hello_world():
 def route():
     datas = request.get_json( )
     #data_date = datas['date']
+    for key in datas:
+        print(key, datas[key])
     compute_time = int(datas['computetime'])
     #compute_time = 0
     user_group = int(datas['Group'])
-    FTS = [fts['fts_id'] for fts in datas['fts']] if len(datas['fts']) > 0 else None
+    FTS = [fts for fts in datas['fts']] if len(datas['fts']) > 0 else None
     solution_id = user_group if "solution_id" not in datas else int(datas['solution_id'])
-    
     print(user_group,  solution_id)
     global mydb, mycursor
     mydb, mycursor = try_connect_db()
@@ -83,14 +84,18 @@ def route():
     decoder = DecoderV2(data_lookup)
     converter = OutputConverter(data_lookup)
     
+    #for key in data_lookup:
+        #print(key, len(data_lookup[key]))
     
+    #return {"sucess":True}
     
     compute_time = compute_time*60
     m = compute_time//60
     ss = compute_time % 60
     print("compute_time",compute_time, m, ss, solution_id)
     problem = CraneProblem(decoder)
-
+    for key in datas:
+        print(key, datas[key])
     algorithm = BRKGA(
         n_elites=40,
         n_offsprings=80,
@@ -176,7 +181,6 @@ def route():
     
     
     for key in datas:
-        
         print(key, datas[key])
     
     return {'status':"success",

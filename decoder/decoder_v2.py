@@ -72,7 +72,7 @@ class DecoderV2(BaseDecoder):
             i+=1
             findex = fts_codes[ii]
             fts = self.ftses[findex]
-            if fts.id not in self.data_lookup["FTS_ID_IS_ACTIVE"]:
+            if len(self.data_lookup["FTS_ID_IS_ACTIVE"]) != 0 and fts.id not in self.data_lookup["FTS_ID_IS_ACTIVE"]:
                 continue
             distance, t_time, a_time, s_time = self.get_result_info_base(findex,  ship_index, fts_crane_infos, -1000)
             
@@ -154,7 +154,7 @@ class DecoderV2(BaseDecoder):
                 
                 fts2 = self.ftses[findex2]
                 
-                if fts2.id not in self.data_lookup["FTS_ID_IS_ACTIVE"]:
+                if len(self.data_lookup["FTS_ID_IS_ACTIVE"]) != 0 and  fts2.id not in self.data_lookup["FTS_ID_IS_ACTIVE"]:
                     continue
                 
                 fts_input = [fts, fts2]
@@ -375,7 +375,6 @@ class DecoderV2(BaseDecoder):
             ship_infos[ship_id]["delta_time"] = due_time-exit_time
         return fts_infos, ship_infos
          
-
 
 if __name__ == "__main__":
     
