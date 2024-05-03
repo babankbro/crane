@@ -54,6 +54,8 @@ def load_data_lookup(fname):
     }
 
 def create_data_lookup(isAll=False, group=1, ftses=None, duration_date_time = None):
+    
+    
     if None:
         fts_datalookup = create_fts_data(filter_type  = 'id', filter_fts=ftses)
         crane_rate_datalookup = create_crane_rate_data(filter_type  = 'id', filter_fts=ftses)
@@ -69,6 +71,7 @@ def create_data_lookup(isAll=False, group=1, ftses=None, duration_date_time = No
     
     if ftses is None:
         ftses = []
+    
     
     
     return {

@@ -172,8 +172,13 @@ def create_crane_rate_data(filter_type  = 'FTS_name', filter_fts=[]):
     crane_rate_df = pd.DataFrame(crane_rate_json)
     
     if len(filter_fts) != 0:
+        print(filter_fts)
         crane_rate_df = crane_rate_df[crane_rate_df[filter_type].isin(filter_fts)]
-    
+    print("++++++++++++++++++++++++++++++++++++++++++")
+    print("++++++++++++++++++++++++++++++++++++++++++")
+    print("++++++++++++++++++++++++++++++++++++++++++")
+    print("++++++++++++++++++++++++++++++++++++++++++")
+    print(crane_rate_df)
     rate_lookup = FTS_INFO_LOOKUP(crane_rate_df, maintain_fts_df, maintain_crane_df)
     return rate_lookup
 
