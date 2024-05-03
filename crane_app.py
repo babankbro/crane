@@ -73,7 +73,11 @@ def route():
     compute_time = int(datas['computetime'])
     #compute_time = 0
     user_group = int(datas['Group'])
+<<<<<<< HEAD
     FTS = [fts for fts in datas] if len(datas['fts']) > 0 else None
+=======
+    FTS = [fts for fts in datas['fts']] if len(datas['fts']) > 0 else None
+>>>>>>> main
     solution_id = user_group if "solution_id" not in datas else int(datas['solution_id'])
     print(user_group,  solution_id)
     global mydb, mycursor
