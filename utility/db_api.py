@@ -32,10 +32,10 @@ def try_connect_db():
     try:
         mydb = mysql.connector.connect(
             host="127.0.0.1",
-            user="sugarotpzlab_crane",
-            password="P@ssw0rd;Crane"
-            #user="root",
-            #password="PVWtLvJGNUBPlmj71R6bAao="
+            #user="sugarotpzlab_crane",
+            #password="P@ssw0rd;Crane"
+            user="root",
+            password="PVWtLvJGNUBPlmj71R6bAao="
 
         )
         mycursor = mydb.cursor(dictionary=True)
@@ -179,6 +179,8 @@ def get_solution_info(solution_id):
     if len(infos) == 1:
         start_date = infos[0]['started_at']
         end_date = infos[0]['ended_at']
+        print(start_date)
+        print(infos)
         new_start_date = start_date.replace(hour=0, minute=0, second=0)
         new_end_date = end_date.replace(hour=23, minute=59, second=59)
         infos[0]['started_at'] = new_start_date

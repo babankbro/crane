@@ -156,6 +156,7 @@ def create_crane_rate_data(filter_type  = 'FTS_name', filter_fts=[]):
     finish_maintain_times = maintain_fts_df['start_time_FTS'].to_numpy()
     start_maintain_times = maintain_fts_df['downtime_FTS'].to_numpy()
     #print("arrival_times", arrival_times)
+    print(start_maintain_times)
     maintain_fts_df['start_maintain_times'] = convert_to_hours(start_maintain_times)
     maintain_fts_df['finish_maintain_times'] = convert_to_hours(finish_maintain_times)
     
@@ -230,10 +231,7 @@ def create_order_start_date_hour(primitive_ship_infos, min_time = 0):
             t = convert_to_hour_from_new_year(npdate_time)
             start_date_hour =   t - min_time
             fts['start_date_hour']=start_date_hour
-            print(fts)
-        
-    
-    
+            print(fts)          
 
 def print_order():
     order_json = get_all_orders()

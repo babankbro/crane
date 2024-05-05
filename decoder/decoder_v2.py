@@ -104,10 +104,6 @@ class DecoderV2(BaseDecoder):
             consumption_rate_fts = -1
             process_rate_fts = -1
             
-            #if process_time > 0:
-                #print("Errror", due_time, s_time)
-            
-            
             temp_best_cranes = [{"fts_id":findex , "arrive_time": round(a_time, 2), 
                                 "start_time":round(s_time,2), "travel_time":round(t_time,2), 
                                 "consumption_rate":round(consumption_rate_fts,2), 
@@ -115,7 +111,6 @@ class DecoderV2(BaseDecoder):
                                 "process_time":round(process_time,4), "end_time":round(due_time,2),
                                 "crane_infos": fts_results[0],
                                 } ]
-            #print("\ttemp_best_cranes", len(temp_best_cranes), findex)
             
             if delta > 0  :
                 #print("\tbreak")

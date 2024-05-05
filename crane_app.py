@@ -64,16 +64,17 @@ def hello_world():
 
 #@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 @app.route("/route", methods = ["POST", "GET"])
-@cross_origin()
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def route():
     datas = request.get_json( )
     #data_date = datas['date']
     for key in datas:
         print(key, datas[key])
+    
     compute_time = int(datas['computetime'])
     #compute_time = 0
     user_group = int(datas['Group'])
-    FTS = [fts for fts in datas] if len(datas['fts']) > 0 else None
+    FTS = [fts for fts in datas['fts']] if len(datas['fts']) > 0 else None
     solution_id = user_group if "solution_id" not in datas else int(datas['solution_id'])
     print(user_group,  solution_id)
     global mydb, mycursor
@@ -94,6 +95,7 @@ def route():
     ss = compute_time % 60
     print("compute_time",compute_time, m, ss, solution_id)
     problem = CraneProblem(decoder)
+    print('FTS', FTS)
     for key in datas:
         print(key, datas[key])
     algorithm = BRKGA(
@@ -190,12 +192,13 @@ def route():
                 }
     
 @app.route("/update", methods = ["POST", "GET"])
-@cross_origin()
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def update_plan():
     datas = request.get_json( )
     for key in datas:
         print(key, datas[key])
-    
+    #print("connect ==================")
+    #return {"status":"test"}
     old_solution_id = int(datas['old_solution_id'])
     #old_solution_id = 114
     old_solution_info = get_solution_info(old_solution_id)

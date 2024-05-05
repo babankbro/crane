@@ -239,7 +239,7 @@ class FTS_INFO_LOOKUP(dict):
             df_fts = self.crane_rate_df.loc[ self.crane_rate_df["FTS_id"] == fts_id ]
             single_maintain_df = maintain_fts_df.loc[ maintain_fts_df["mt_FTS_id"] == fts_id ]
             #print(df_fts)
-            #print(single_maintain_df)
+            print(single_maintain_df)
             #print( "", np.unique(df_fts["crane_id"]))
             
             fts_name = np.unique(df_fts['FTS_name'])[0] 
